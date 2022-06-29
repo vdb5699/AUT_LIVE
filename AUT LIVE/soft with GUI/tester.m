@@ -16,3 +16,6 @@ saveas(fig, "x-axis syrup",'fig');
 % image = camera.manualImageAcq();
 % imshow(image)
 % 
+%%
+converter = convert_coord();
+converter.convertBrown(1104, 621)
