@@ -7,11 +7,12 @@
 
 %%
 camera = photo_acquisition('4416x1242', 1);
-% fig = figure;
-% camera = camera.setVars("4416x1242", 0, 0, 8, 8);
-% imshow(camera.manualImageAcq());
-fig2 = figure;
-camera = camera.setVars("4416x1242", 0, 8, 8, 8);
+fig = figure;
+camera = camera.setVars("4416x1242", 4,4,4,4);
+imshow(camera.manualImageAcq());
+saveas(fig, "x-axis syrup",'fig');
+% fig2 = figure;
 % camera = camera.setVars("4416x1242", 8, 8, 8, 8);
-image = camera.manualImageAcq();
-
+% image = camera.manualImageAcq();
+% imshow(image)
+% 
