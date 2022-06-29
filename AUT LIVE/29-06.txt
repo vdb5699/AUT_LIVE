@@ -161,24 +161,6 @@ MODULE MainModule
         moveToHome;
     ENDPROC
     
-    PROC tcpip()
-        SocketCreate server;
-        SocketBind server,"192.168.0.20", 1025;
-        SocketListen server;
-        SocketAccept server,client;
-        !Sending text to Vision Program
-        SocketSend client,\Str :="Executing Computer Vision program";
-        !Receiving number of detected object
-        SocketReceive client,\Str :=num_objects;
-        objects:=StrToVal(num_objects,num_objs);
-        !Receiving number of syrup bottles
-        SocketReceive client,\Str :=num_syrup;
-        syrup:=StrToVal(num_syrup,n_syrup);
-        !Receiving number of coke bottles
-        SocketReceive client,\Str :=num_coke;
-        coke:=StrToVal(num_coke,n_coke);
-        
-    ENDPROC
     PROC receiveData()
         SocketReceive client,\Str :=colour;
         SocketReceive client,\Str :=x_coordinate;
@@ -199,7 +181,6 @@ MODULE MainModule
         ENDIF 
        
     ENDPROC
-    
 
     PROC stackBox()
         MoveL BoxEdgeAbove,v300,fine,tool0\WObj:=wobj0;
@@ -297,6 +278,8 @@ MODULE MainModule
         ENDIF
             
     ENDPROC
+    
+    
     PROC open_gripper()        
         SetDO D_652_10_OUT0, 0;
         Waittime 2;
@@ -305,29 +288,6 @@ MODULE MainModule
         
      ENDPROC
      
-!     PROC receiveSignal()
-!        !!Use if socket connection is lost
-!        SocketCreate server;
-!        SocketBind server,"192.168.0.20", 1025;
-!        SocketListen server;
-!        SocketAccept server,client;
-
-!        SocketReceive client,\Str :=signal;
-!        IF signal = "1" THEN
-!            !MoveJ...
-!            moveToHome;
-!        ELSEIF signal = "2" THEN
-            
-!        ELSEIF signal = "3" THEN
-            
-!        ELSEIF signal = "4" THEN
-            
-!        ELSEIF signal = "5" THEN
-            
-!        ELSEIF signal = "6" THEN
-            
-!        ENDIF
-!    ENDPROC
 
     PROC close_gripper()       
         SetDO D_652_10_OUT0, 1;
