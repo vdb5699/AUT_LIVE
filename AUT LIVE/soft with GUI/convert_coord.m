@@ -9,6 +9,15 @@ classdef convert_coord
             return
         end
 
+        function newCoord = convertRed(obj, x, y)
+            newX = 0.0368*x - 40.511;
+            newY = -0.0368*y + 22.257;
+
+            newCoord = obj.convertDirection(newX, newY, ((3*pi)/4));
+            newCoord = [newCoord(1)*10, newCoord(2)*10];
+            return
+        end
+
         function newCoord = convertDirection(obj, x, y, angle)
             newCoord = [cos(angle), sin(angle); -1*sin(angle), cos(angle)]*[x;y];
             return
