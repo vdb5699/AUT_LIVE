@@ -6,10 +6,12 @@
 % disp(b)
 
 %%
-img = imread("normal.png");
-img  = img(:,width(img)/2:width(img),:);
-% gray = rgb2gray(img);
-imshow(img)
-
+camera = photo_acquisition('4416x1242', 1);
 % fig = figure;
-% imsohw(img)
+% camera = camera.setVars("4416x1242", 0, 0, 8, 8);
+% imshow(camera.manualImageAcq());
+fig2 = figure;
+camera = camera.setVars("4416x1242", 0, 8, 8, 8);
+% camera = camera.setVars("4416x1242", 8, 8, 8, 8);
+image = camera.manualImageAcq();
+

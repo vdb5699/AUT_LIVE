@@ -35,9 +35,9 @@ classdef colour_detection
             obj.BboundR = defBoundBR;
             obj.defBR = defBoundBR;
         end
-        
+        %%basic colour detection function
         function capList = detectColour(image, caps)
-            for index = 1:hright(caps)
+            for index = 1:height(caps)
                xPos = obj.caps(index,1);
                yPos = obj.caps(index,2);
                
@@ -74,7 +74,83 @@ classdef colour_detection
             end
             return
         end
+        
+        %%advanced one
+        function capList = detectColourAdv(obj, brightImage, darkImage, caps)
+            %%%%%%%%%FIND A WAY TO REDUCE CAPS WHEN DETECTED AS A BROWN, SO
+            %%%%%%%%%THERE IS NO DULICATE.
+            brownList = obj.detectBrown(brightImage, caps);
+            redList = obj.detectRed(darkImage, caps);
+
+            capList = [brownList; redList];
+
+        end
          
+        function brownList = detectBrown(obj, brightImage, caps)
+            brownCount = 0;
+            for index = 1:height(caps)
+                xPos = obj.caps(index,1);
+                yPos = obj.caps(index,2);
+               
+                xS = xPos-2;
+                xE = xPos+2;
+               
+                yS = yPos-2;
+                yE = yPos+2;
+               
+                brown = 0;
+                notBrown = 0;
+               
+                for y = yS:yE
+                    for x = xS:xE
+                         [r, g, b] = obj.getColour(brightImage, x, y);
+                         if (r >= obj.RboundB(1) && r <= obj.RboundB(2)) && (g >= obj.GboundB(1) && g <= obj.GboundB(2)) && (b >= obj.BboundB(1) && b <= obj.BboundB(2))
+                             brown = brown + 1;
+                         else
+                             notBrown = notBrown+1;
+                         end
+                    end
+                end
+                if brown > notBrown
+                    brownCount = brownCount + 1;
+                    brownList(brownCount) = cap([caps(index, 1), caps(index,2)], "Brown");
+                end
+            end
+            return
+        end
+
+        function redList = detectRed(obj, darkImage, caps)
+            redCount = 0;
+            for index = 1:height(caps)
+                xPos = obj.caps(index,1);
+                yPos = obj.caps(index,2);
+               
+                xS = xPos-2;
+                xE = xPos+2;
+               
+                yS = yPos-2;
+                yE = yPos+2;
+               
+                red = 0;
+                notRed = 0;
+               
+                for y = yS:yE
+                    for x = xS:xE
+                         [r, g, b] = obj.getColour(darkImage, x, y);
+                         if (r >= obj.RboundR(1) && r <= obj.RboundR(2)) && (g >= obj.GboundR(1) && g <= obj.GboundR(2)) && (b >= obj.BboundR(1) && b <= obj.BboundR(2))
+                             red = red + 1;
+                         else
+                             notRed = notRed+1;
+                         end
+                    end
+                end
+                if red > notRed
+                    redCount = redCount + 1;
+                    redList(redCount) = cap([caps(index, 1), caps(index,2)], "Red");
+                end
+            end
+            return
+        end
         function [R, G, B] = getColour(obj, image,x, y)
             R = image(y, x, 1);
             G = image(y, x, 2);
