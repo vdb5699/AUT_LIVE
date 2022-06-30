@@ -17,17 +17,27 @@ imshow(camera.manualImageAcq());
 % imshow(image)
 % 
 %%
-caps = [];
-coord;
+% caps = [];
+% coord;
 converter = convert_coord();
-for h = 1:height(caps)
-    if caps(h).colour == "Brown"
-        coord(h) = converter.convertBrown(caps(h).centreCoord(1), caps(h).centreCoord(2))
-    else
-        coord(h) = converter.convertRed(caps(h).centreCoord(1), caps(h).centreCoord(2))
-    end
-end
+coord = converter.convertDirection(100.3+185,160.625,3*pi/4);
+coord2 = converter.convertDirection(-100.3,-160.625,3*pi/4);
+% coord2 = coord2 + converter.convertDirection(185, 0,3*pi/4)
 
-coord
+x = coord(1) + 556.4;
+y = coord(2) + -557.2;
+
+x2 = coord2(1) + 369.6
+y2 = coord2(2) + -766.5
+% for h = 1:height(caps)
+%     if caps(h).colour == "Brown"
+%         coord(h) = converter.convertBrown(caps(h).centreCoord(1), caps(h).centreCoord(2))
+%     else
+%         coord(h) = converter.convertRed(caps(h).centreCoord(1), caps(h).centreCoord(2))
+%     end
+% end
+% 
+% coord
+%%
 
 
