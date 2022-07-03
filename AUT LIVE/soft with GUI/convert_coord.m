@@ -14,11 +14,13 @@ classdef convert_coord
         end
 
         function [newX, newY] = convertRed(obj, x, y)
-            newX = 0.0368*x - 40.511;
-            newY = -0.0368*y + 22.257;
-
+%             newX = 0.0368*x - 40.511;
+%             newY = -0.0368*y + 22.257;
+            newX = (2e-9*(x^3)) - (6e-6*(x^2)) + 0.042*x - 41.574;
+            newY = -1*(2e-9*(y^3)) + (3e-6*(y^2)) - 0.0373*x +19.889; 
+            newX = newX*10;
+            newY = newY*10;
             newCoord = obj.convertDirection(newX, newY, ((3*pi)/4));
-            newCoord = [newCoord(1)*10, newCoord(2)*10];
             newX = newCoord(1);
             newY = newCoord(2);
             return
