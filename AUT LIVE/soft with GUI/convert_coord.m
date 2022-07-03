@@ -16,8 +16,8 @@ classdef convert_coord
         function [newX, newY] = convertRed(obj, x, y)
 %             newX = 0.0368*x - 40.511;
 %             newY = -0.0368*y + 22.257;
-            newX = (2e-9*(x^3)) - (6e-6*(x^2)) + 0.042*x - 41.574;
-            newY = -1*(2e-9*(y^3)) + (3e-6*(y^2)) - 0.0373*y +19.889; 
+            newX = (4e-9*(x^3)) - (1e-6*(x^2)) + 0.0379*x - 40.481;
+            newY = -1*(4e-9*(y^3)) + (8e-6*(y^2)) - 0.0412*y +21.453; 
             newX = newX*10;
             newY = newY*10;
             newCoord = obj.convertDirection(newX, newY, ((3*pi)/4));
