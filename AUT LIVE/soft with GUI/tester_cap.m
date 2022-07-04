@@ -10,9 +10,9 @@ greyD = rgb2gray(imageD);
 greyB = rgb2gray(imageB);
 greyN = rgb2gray(imageN);
 
-bwD = imfill(imbinarize(greyD), "holes");
-bwB = imfill(imbinarize(greyB), "holes");
-bwN = imfill(imbinarize(greyN), "holes");
+bwD = imfill(imbinarize(greyD,"adaptive"), "holes");
+bwB = imfill(imbinarize(greyB,"adaptive"), "holes");
+bwN = imfill(imbinarize(greyN,"adaptive"), "holes");
 
 subplot(2,3,1);
 imshow(greyD);

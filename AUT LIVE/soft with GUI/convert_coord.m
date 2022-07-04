@@ -20,8 +20,8 @@ classdef convert_coord
 %             newY = -1*(4e-9*(y^3)) + (8e-6*(y^2)) - 0.0412*y +21.453; 
             newX = (1e-9*(x^3)) - (4e-6*(x^2)) + 0.0354*x - 35.343;
             newY = -1*(1e-9*(y^3)) + (3e-6*(y^2)) -0.0325*y + 17.602;
-            newX = newX*10*1.225;
-            newY = newY*10*1.225;
+            newX = newX*10*1.0672;
+            newY = newY*10*1.0672;
             newCoord = obj.convertDirection(newX, newY, ((3*pi)/4));
             newX = newCoord(1);
             newY = newCoord(2);
