@@ -24,8 +24,8 @@ classdef convert_coord
             newY = newY*10*1.0672;
             %new bit, delete if necessary
             if flag == 2
-                newX = newX - (((5/400)*newX)+2.5);
-                newY = newY + 2.5;
+                newX = newX - ((1e-05*(newX^2)) - (0.01*newX) +2);
+                newY = newY + 5 ;
             end
             newCoord = obj.convertDirection(newX, newY, ((3*pi)/4));
             newX = newCoord(1);
