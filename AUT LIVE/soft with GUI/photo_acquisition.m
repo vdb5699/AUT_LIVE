@@ -53,6 +53,7 @@ classdef photo_acquisition
             camera.Contrast = obj.contrast;
             camera.Saturation = obj.saturation;
             camera.Sharpness = obj.sharpness;
+            camera.Gamma = obj.gamma;
         end
         
         function image = manualImageAcq(obj)
