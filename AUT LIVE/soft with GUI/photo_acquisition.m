@@ -58,7 +58,6 @@ classdef photo_acquisition
             camera.Contrast = obj.contrast;
             camera.Saturation = obj.saturation;
             camera.Sharpness = obj.sharpness;
-            camera.Gamma = 1;
             
             
             [height, width, channels] = size(snapshot(camera));
@@ -67,7 +66,8 @@ classdef photo_acquisition
 %             prompt = "Press enter key to take photo";
 % 
 %             input(prompt);
-
+            dummy = snapshot(camera);
+            pause(1);
             image = snapshot(camera);
             image = image(:,(width/2):width,:);
             return
@@ -80,7 +80,7 @@ classdef photo_acquisition
             camera.Contrast = cont;
             camera.Saturation = sat;
             camera.Sharpness = shar;
-            camera.Gamma = 1;
+            camera.Gamma = 5;
             
             
             [height, width, channels] = size(snapshot(camera));
