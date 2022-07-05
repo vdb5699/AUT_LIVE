@@ -96,6 +96,8 @@ classdef photo_acquisition
 %             input(prompt);
             %dummy image
             im = snapshot(camera);
+            camera
+
             image = snapshot(camera);
             image = image(:,(width/2):width,:);
 
