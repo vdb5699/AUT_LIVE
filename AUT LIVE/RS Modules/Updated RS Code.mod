@@ -104,6 +104,7 @@ MODULE MainModule
     VAR num found2;
     
     PROC main()
+		AccSet 20,30;
 !        syrup_counter:=0;
 !        coke_counter:=0;
 !        moveToHome;         ! Program always starts from Home Pos in case it was left in random pos
@@ -205,28 +206,17 @@ MODULE MainModule
         objects:=StrToVal(tcpY,tcpYValue);
         TemporaryCam:= [[tcpXValue,tcpYValue,1300],[0.001639386,-0.3834062,-0.9235777,-0.001139545],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
         MoveL TemporaryCam,v100,fine,tool0\WObj:=wobj0;
-!        SocketClose server;
-!        SocketClose client;
     ENDPROC
     
-    PROC tcpipBottle()
-!        SocketCreate server;
-!        SocketBind server,"192.168.0.20", 1025;
-!        SocketListen server;
-!        SocketAccept server,client,\Time:=WAIT_MAX;
-        
+    PROC tcpipBottle()       
         SocketReceive client,\Str :=tcpX,\Time:=WAIT_MAX;
         objects:=StrToVal(tcpX,tcpXValue);
         SocketReceive client,\Str :=tcpY\Time:=WAIT_MAX;
         objects:=StrToVal(tcpY,tcpYValue);
         AboveBottleCoord:= [[tcpXValue,tcpYValue, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-
-        !        TestGripperToCokeBottleAbove:= [[tcpXValue,tcpYValue,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-!        TestGripperToCokeBottle:= [[tcpXValue,tcpYValue,1070],[0.001639765,-0.3834093,-0.9235764,-0.00114218],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !        moveCoke;
         
-        TestGripperToSyrupBottleAbove:= [[tcpXValue,tcpYValue,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-        TestGripperToSyrupBottle:= [[tcpXValue,tcpYValue,1120.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+        
         moveSyrup;
         
         SocketClose server;
@@ -234,6 +224,11 @@ MODULE MainModule
     ENDPROC
     
     PROC moveCoke()
+		TestGripperToCokeBottleAbove:= [[tcpXValue,tcpYValue,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+        TestGripperToCokeBottle:= [[tcpXValue,tcpYValue,1070],[0.001639765,-0.3834093,-0.9235764,-0.00114218],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+		
+		! Introducing Max Acceleration to see if it removes jolts
+		PathAccLim TRUE\AccMax := 3, FALSETRUE, \DecelMax := 3;
         MoveL TestGripperToCokeBottleAbove,v100,fine,tool0\WObj:=wobj0;
         WaitTime 1;
         MoveL TestGripperToCokeBottle,v100,fine,tool0\WObj:=wobj0;
@@ -243,12 +238,17 @@ MODULE MainModule
         moveToAboveBoxPos;
         WaitTime 2;
         moveToAboveTable;
+		PathAccLim FALSE, FALSE;
         moveToAboveBottleCoord;
         MoveL TestGripperToCokeBottle,v100,fine,tool0\WObj:=wobj0;
         open_gripper;
     ENDPROC
     
     PROC moveSyrup()
+		TestGripperToSyrupBottleAbove:= [[tcpXValue,tcpYValue,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+        TestGripperToSyrupBottle:= [[tcpXValue,tcpYValue,1120.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+		
+		PathAccLim TRUE\AccMax := 3, FALSETRUE, \DecelMax := 3
         MoveL TestGripperToSyrupBottleAbove,v100,fine,tool0\WObj:=wobj0;
         WaitTime 1;
         MoveL TestGripperToSyrupBottle,v100,fine,tool0\WObj:=wobj0;
@@ -258,6 +258,7 @@ MODULE MainModule
         moveToAboveBoxPos;
         WaitTime 2;
         moveToAboveTable;
+		PathAccLim FALSE, FALSE;
         moveToAboveBottleCoord;
         MoveL TestGripperToSyrupBottle,v100,fine,tool0\WObj:=wobj0;
         open_gripper;
@@ -389,32 +390,7 @@ MODULE MainModule
         WaitTime 2;
         SetDO D_652_10_OUT1, 1;
         WaitTime 1;
-        
      ENDPROC
-     
-!     PROC receiveSignal()
-!        !!Use if socket connection is lost
-!        SocketCreate server;
-!        SocketBind server,"192.168.0.20", 1025;
-!        SocketListen server;
-!        SocketAccept server,client;
-
-!        SocketReceive client,\Str :=signal;
-!        IF signal = "1" THEN
-!            !MoveJ...
-!            moveToHome;
-!        ELSEIF signal = "2" THEN
-            
-!        ELSEIF signal = "3" THEN
-            
-!        ELSEIF signal = "4" THEN
-            
-!        ELSEIF signal = "5" THEN
-            
-!        ELSEIF signal = "6" THEN
-            
-!        ENDIF
-!    ENDPROC
 
     PROC close_gripper()       
         SetDO D_652_10_OUT0, 1;
