@@ -144,11 +144,11 @@ MODULE MainModule
         SocketCreate server;
         SocketBind server,"192.168.0.20", 1025;
         SocketListen server;
-        SocketAccept server,client;
+        SocketAccept server,client, \Time:=WAIT_MAX;;
         
-        SocketReceive client,\Str :=signal;
+        SocketReceive client,\Str :=signal, \Time:=WAIT_MAX;;
         SocketSend client,\Str :="RSConnected";
-        SocketReceive client,\Str :=signal;
+        SocketReceive client,\Str :=signal, \Time:=WAIT_MAX;;
         
         signalInstruction;
 
@@ -175,7 +175,7 @@ MODULE MainModule
                 SocketSend client,\Str :="CamPos";
                 receiveSignal;
             ELSEIF signal = "2" THEN
-                SocketReceive client,\Str :=data;
+                SocketReceive client,\Str :=data, \Time:=WAIT_MAX;
                 WHILE data <> "3" DO
                     colour := StrPart(data,1,1);
                     found1 := StrFind(data,1,",");
@@ -187,7 +187,7 @@ MODULE MainModule
 !                    TestPos:= [[552.8+X, -553.6+Y, 1306.2],[0.02936,-0.38320,-0.92311,-0.01261],[-1,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !                    moveToTestPos;
                     SocketSend client,\Str :="SendNext";
-                    SocketReceive client,\Str :=data;
+                    SocketReceive client,\Str :=data, \Time:=WAIT_MAX;
                 ENDWHILE
                 receiveSignal;                
             ENDIF
