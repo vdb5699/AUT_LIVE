@@ -5,6 +5,7 @@ classdef photo_acquisition
        sharpness
        contrast
        saturation
+       gamma
        
        webcamID
 
@@ -22,6 +23,7 @@ classdef photo_acquisition
        defSharpness
        defContrast
        defSaturation
+       defGamma
     end
     
     methods
@@ -29,18 +31,20 @@ classdef photo_acquisition
             obj.defResolution = defResolution;
             obj.resolution = defResolution;
             
-            obj.defBrightness = 0;
-            obj.brightness = 0;
+            obj.defBrightness = 4;
+            obj.brightness = 4;
             
-            obj.defContrast = 0;
-            obj.contrast = 0;
+            obj.defContrast = 4;
+            obj.contrast = 4;
             
-            obj.defSharpness = 8;
-            obj.sharpness = 8;
+            obj.defSharpness = 4;
+            obj.sharpness = 4;
             
-            obj.defSaturation = 8;
-            obj.saturation = 8;
+            obj.defSaturation = 4;
+            obj.saturation = 4;
             
+            obj.defGamma = 4;
+            obj.gamma = 4;
             obj.webcamID = webcamID;
 
             camera = webcam(obj.webcamID);
@@ -58,6 +62,7 @@ classdef photo_acquisition
             camera.Contrast = obj.contrast;
             camera.Saturation = obj.saturation;
             camera.Sharpness = obj.sharpness;
+            camera.Gamma = obj.gamma;
             
             
             [height, width, channels] = size(snapshot(camera));
@@ -73,14 +78,14 @@ classdef photo_acquisition
             return
         end
 
-        function image = tempImage(obj, bright, res, cont, sat, shar)
+        function image = tempImage(obj, bright, res, cont, sat, shar, gamma)
             camera = webcam(obj.webcamID);
             camera.Brightness = bright;
             camera.Resolution = res;
             camera.Contrast = cont;
             camera.Saturation = sat;
             camera.Sharpness = shar;
-            camera.Gamma = 5;
+            camera.Gamma = gamma;
             
             
             [height, width, channels] = size(snapshot(camera));
@@ -89,19 +94,21 @@ classdef photo_acquisition
 %             prompt = "Press enter key to take photo";
 % 
 %             input(prompt);
-
+            %dummy image
+            im = snapshot(camera);
             image = snapshot(camera);
             image = image(:,(width/2):width,:);
 
 
         end
         
-        function obj = setVars(obj, newRes, newBri,newCont, newSat, newShar)
+        function obj = setVars(obj, newRes, newBri,newCont, newSat, newShar, newGam)
             obj.brightness = newBri;
             obj.resolution = newRes;
             obj.contrast = newCont;
             obj.saturation = newSat;
             obj.sharpness = newShar;
+            obj.gamma = newGam;
             return
         end
         
@@ -127,6 +134,11 @@ classdef photo_acquisition
         
         function sat = getDefSat(obj)
             sat = obj.defSaturation;
+            return
+        end
+
+        function gam = getDefGam(obj)
+            gam = obj.defGamma;
             return
         end
         
