@@ -5,10 +5,10 @@ MODULE MainModule
     !PERS robtarget TestGripperToBottle:= [[556.4+30.4056-64.7264, -557.2-193.0402-157.4380, 1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget TestGripperToCam:= [[599.0562,-741.7018,  1156.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget TestGripperToCamLow:= [[596.6697, -743.5580, 1156.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    PERS robtarget TestGripperToSyrupBottleAbove:= [[295.1964,-1014.7, 1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    PERS robtarget TestGripperToSyrupBottle:= [[295.1964,-1014.7, 1121.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    PERS robtarget TestGripperToCokeBottleAbove:= [[703.4182,-699.8028,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    PERS robtarget TestGripperToCokeBottle:= [[703.4182,-699.8028,1100.2],[0.001639765,-0.3834093,-0.9235764,-0.00114218],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget TestGripperToSyrupBottleAbove:= [[357.805,-958.699, 1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget TestGripperToSyrupBottle:= [[357.805,-958.699, 1115.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget TestGripperToCokeBottleAbove:= [[34.6447,-823.004,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget TestGripperToCokeBottle:= [[34.6447,-823.004,1070],[0.00163976,-0.383409,-0.923576,-0.00114218],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget Home:=[[1018.612159322,0,1417.5],[0.5,0,0.866025404,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !    CONST robtarget CameraPos:=[[888.647981627,-3.101979233,1192.532782595],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !    CONST robtarget CameraPos:=[[595.6,-367-628.37,1192.532782595],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -18,10 +18,10 @@ MODULE MainModule
     CONST robtarget OldCamPos:= [[556.4, -557.2, 1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget NewCamPos:= [[326.9438,-581.9982,1300],[0.00164,-0.38341,-0.92358,-0.00114],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget AboveBoxPos:= [[366.1, 366, 1588.4],[0.00192, -0.38294, 0.92377, 0.00293],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    CONST robtarget TemporaryCam:= [[670.6874,-495.7007,1300],[0.001639386,-0.3834062,-0.9235777,-0.001139545],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget TemporaryCam:= [[324.87,-767.578,1300],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     ! AboveBottleCoord robtarget x,y should change based on the bottle location
-    PERS robtarget AboveBottleCoord:= [[295.1964,-1014.7, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    CONST robtarget AboveTable:= [[326.9438,-581.9982, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget AboveBottleCoord:= [[357.805,-958.699, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget AboveTable:= [[550.3, -377.8, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget AboveBoxCoordOne:= [[474.1,395.9,1408.5],[0.00205,-0.38299,0.92375,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
                              !-----------New Positions END------------!       
                              !---------Old Robtargets - replace with new coords-----------!       
@@ -75,6 +75,10 @@ MODULE MainModule
     VAR string num_coke;
     VAR string x_coordinate;
     VAR string y_coordinate;
+    VAR string row;
+    VAR string column;
+    VAR string tcpX;
+    VAR string tcpY;
     VAR string colour;
     VAR string signal;
     VAR num retry_no;
@@ -86,6 +90,8 @@ MODULE MainModule
     VAR num n_coke;
     VAR num syrup_counter;
     VAR num coke_counter;
+    VAR num tcpXValue;
+    VAR num tcpYValue;
     VAR bool objects;
     VAR bool syrup;
     VAR bool coke;
@@ -93,8 +99,7 @@ MODULE MainModule
     VAR bool posy;
     PERS string socketArray{3,1}:=[[""], [""], [""]];
     PERS string socketArrayTest;
-    VAR string row;
-    VAR string column;
+    
     VAR num found1;
     VAR num found2;
     
@@ -103,12 +108,13 @@ MODULE MainModule
 !        coke_counter:=0;
 !        moveToHome;         ! Program always starts from Home Pos in case it was left in random pos
 !        receiveSignal;      ! Where robot will receive signals to do certain tasks
-!        moveToCameraPos;    
-        testpos;
-!        Waittime 2;
-!        moveToAboveBoxPos;
-!        open_gripper;
-!        tcpip;
+        moveToCameraPos;  
+!!!        testpos;
+!!!        Waittime 2;
+!!!        moveToAboveBoxPos;
+!!!        open_gripper;
+        tcpipTempCam;
+        tcpipBottle;
 !        Waittime 3;
 !        WHILE sum<num_objs DO
 !            !Move to object
@@ -143,7 +149,7 @@ MODULE MainModule
         SocketSend client,\Str :="RSConnected";
         SocketReceive client,\Str :=signal;
         
-            signalInstruction;
+        signalInstruction;
 
         ! Error Handling
         ERROR
@@ -188,23 +194,73 @@ MODULE MainModule
         moveToHome;
     ENDPROC
     
-    PROC tcpip()
+    PROC tcpipTempCam()
         SocketCreate server;
         SocketBind server,"192.168.0.20", 1025;
         SocketListen server;
-        SocketAccept server,client;
-        !Sending text to Vision Program
-        SocketSend client,\Str :="Executing Computer Vision program";
-        !Receiving number of detected object
-        SocketReceive client,\Str :=num_objects;
-        objects:=StrToVal(num_objects,num_objs);
-        !Receiving number of syrup bottles
-        SocketReceive client,\Str :=num_syrup;
-        syrup:=StrToVal(num_syrup,n_syrup);
-        !Receiving number of coke bottles
-        SocketReceive client,\Str :=num_coke;
-        coke:=StrToVal(num_coke,n_coke);
+        SocketAccept server,client, \Time:=WAIT_MAX;
+        SocketReceive client,\Str :=tcpX, \Time:=WAIT_MAX;
+        objects:=StrToVal(tcpX,tcpXValue);
+        SocketReceive client,\Str :=tcpY, \Time:=WAIT_MAX;
+        objects:=StrToVal(tcpY,tcpYValue);
+        TemporaryCam:= [[tcpXValue,tcpYValue,1300],[0.001639386,-0.3834062,-0.9235777,-0.001139545],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+        MoveL TemporaryCam,v100,fine,tool0\WObj:=wobj0;
+!        SocketClose server;
+!        SocketClose client;
+    ENDPROC
+    
+    PROC tcpipBottle()
+!        SocketCreate server;
+!        SocketBind server,"192.168.0.20", 1025;
+!        SocketListen server;
+!        SocketAccept server,client,\Time:=WAIT_MAX;
         
+        SocketReceive client,\Str :=tcpX,\Time:=WAIT_MAX;
+        objects:=StrToVal(tcpX,tcpXValue);
+        SocketReceive client,\Str :=tcpY\Time:=WAIT_MAX;
+        objects:=StrToVal(tcpY,tcpYValue);
+        AboveBottleCoord:= [[tcpXValue,tcpYValue, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+
+        !        TestGripperToCokeBottleAbove:= [[tcpXValue,tcpYValue,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+!        TestGripperToCokeBottle:= [[tcpXValue,tcpYValue,1070],[0.001639765,-0.3834093,-0.9235764,-0.00114218],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+!        moveCoke;
+        
+        TestGripperToSyrupBottleAbove:= [[tcpXValue,tcpYValue,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+        TestGripperToSyrupBottle:= [[tcpXValue,tcpYValue,1120.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+        moveSyrup;
+        
+        SocketClose server;
+        SocketClose client;
+    ENDPROC
+    
+    PROC moveCoke()
+        MoveL TestGripperToCokeBottleAbove,v100,fine,tool0\WObj:=wobj0;
+        WaitTime 1;
+        MoveL TestGripperToCokeBottle,v100,fine,tool0\WObj:=wobj0;
+        close_gripper;
+        moveToAboveBottleCoord;
+        moveToAboveTable;
+        moveToAboveBoxPos;
+        WaitTime 2;
+        moveToAboveTable;
+        moveToAboveBottleCoord;
+        MoveL TestGripperToCokeBottle,v100,fine,tool0\WObj:=wobj0;
+        open_gripper;
+    ENDPROC
+    
+    PROC moveSyrup()
+        MoveL TestGripperToSyrupBottleAbove,v100,fine,tool0\WObj:=wobj0;
+        WaitTime 1;
+        MoveL TestGripperToSyrupBottle,v100,fine,tool0\WObj:=wobj0;
+        close_gripper;
+        moveToAboveBottleCoord;
+        moveToAboveTable;
+        moveToAboveBoxPos;
+        WaitTime 2;
+        moveToAboveTable;
+        moveToAboveBottleCoord;
+        MoveL TestGripperToSyrupBottle,v100,fine,tool0\WObj:=wobj0;
+        open_gripper;
     ENDPROC
 !    PROC receiveData()
 !        SocketReceive client,\Str :=colour;
@@ -252,11 +308,15 @@ MODULE MainModule
 !    ENDPROC
     
     PROC moveGipperToCameraPos()
-        MoveL GripperInitPos,v300,fine,tool0\WObj:=wobj0;
+        MoveL GripperInitPos,v100,fine,tool0\WObj:=wobj0;
     ENDPROC
     
-    PROC moveToObjAbove()
-        MoveL ObjAbovePos,v300,fine,tool0\WObj:=wobj0;
+    PROC moveToAboveBottleCoord()
+        MoveJ AboveBottleCoord,v100,z5,tool0\WObj:=wobj0;
+    ENDPROC
+    
+    PROC moveToAboveTable()
+        MoveJ AboveTable,v100,z10,tool0\WObj:=wobj0;
     ENDPROC
     
     PROC grabSyrup()
@@ -380,13 +440,12 @@ MODULE MainModule
 !        MoveL AboveTable,v100,fine,tool0\WObj:=wobj0;
 !!        MoveL AboveBoxPos,v100,fine,tool0\WObj:=wobj0;
 !!!        MoveL AboveBoxCoordOne,v100,fine,tool0\WObj:=wobj0;
-        MoveL TestGripperToCokeBottleAbove,v100,fine,tool0\WObj:=wobj0;
-        WaitTime 2;
-        MoveL TestGripperToCokeBottle,v100,fine,tool0\WObj:=wobj0;
+!        MoveL TestGripperToCokeBottleAbove,v100,fine,tool0\WObj:=wobj0;
+!        WaitTime 2;
+!        MoveL TestGripperToCokeBottle,v100,fine,tool0\WObj:=wobj0;
 !!!!!!        !MoveL TestGripperToCokeBottle,v50,fine,tool0\WObj:=wobj0;
 !        ObjAbovePos:=[[1042.647981627+104.36,-18.60197923+135.6461,1192.532782595],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !        GrabSyrupPos:=[[1042.647981627+104.36,-18.60197923+135.6461,1135],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !        grabCokePos:=[[1042.647981627+8.85,-18.60197923+203.099,1080],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     ENDPROC
-
 ENDMODULE
