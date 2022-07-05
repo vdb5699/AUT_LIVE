@@ -5,8 +5,8 @@ MODULE MainModule
     !PERS robtarget TestGripperToBottle:= [[556.4+30.4056-64.7264, -557.2-193.0402-157.4380, 1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget TestGripperToCam:= [[599.0562,-741.7018,  1156.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget TestGripperToCamLow:= [[596.6697, -743.5580, 1156.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    PERS robtarget TestGripperToSyrupBottleAbove:= [[357.805,-958.699, 1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    PERS robtarget TestGripperToSyrupBottle:= [[357.805,-958.699, 1115.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget TestGripperToSyrupBottleAbove:= [[356.234,-597.976, 1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget TestGripperToSyrupBottle:= [[356.234,-597.976, 1120.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget TestGripperToCokeBottleAbove:= [[34.6447,-823.004,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget TestGripperToCokeBottle:= [[34.6447,-823.004,1070],[0.00163976,-0.383409,-0.923576,-0.00114218],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget Home:=[[1018.612159322,0,1417.5],[0.5,0,0.866025404,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -18,9 +18,9 @@ MODULE MainModule
     CONST robtarget OldCamPos:= [[556.4, -557.2, 1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget NewCamPos:= [[326.9438,-581.9982,1300],[0.00164,-0.38341,-0.92358,-0.00114],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget AboveBoxPos:= [[366.1, 366, 1588.4],[0.00192, -0.38294, 0.92377, 0.00293],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    PERS robtarget TemporaryCam:= [[324.87,-767.578,1300],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget TemporaryCam:= [[313.519,-400.76,1300],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     ! AboveBottleCoord robtarget x,y should change based on the bottle location
-    PERS robtarget AboveBottleCoord:= [[357.805,-958.699, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget AboveBottleCoord:= [[356.234,-597.976, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget AboveTable:= [[550.3, -377.8, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget AboveBoxCoordOne:= [[474.1,395.9,1408.5],[0.00205,-0.38299,0.92375,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
                              !-----------New Positions END------------!       
@@ -104,18 +104,20 @@ MODULE MainModule
     VAR num found2;
     
     PROC main()
-		AccSet 20,30;
+		AccSet 40,20;
 !        syrup_counter:=0;
 !        coke_counter:=0;
 !        moveToHome;         ! Program always starts from Home Pos in case it was left in random pos
 !        receiveSignal;      ! Where robot will receive signals to do certain tasks
         moveToCameraPos;  
-!!!        testpos;
-!!!        Waittime 2;
-!!!        moveToAboveBoxPos;
-!!!        open_gripper;
+!!!!        testpos;
+!!!!        Waittime 2;
+!!!!        moveToAboveBoxPos;
+!!!!        open_gripper;
         tcpipTempCam;
         tcpipBottle;
+        moveToCameraPos;
+        moveToHome;
 !        Waittime 3;
 !        WHILE sum<num_objs DO
 !            !Move to object
@@ -144,11 +146,11 @@ MODULE MainModule
         SocketCreate server;
         SocketBind server,"192.168.0.20", 1025;
         SocketListen server;
-        SocketAccept server,client, \Time:=WAIT_MAX;;
+        SocketAccept server,client, \Time:=WAIT_MAX;
         
-        SocketReceive client,\Str :=signal, \Time:=WAIT_MAX;;
+        SocketReceive client,\Str :=signal, \Time:=WAIT_MAX;
         SocketSend client,\Str :="RSConnected";
-        SocketReceive client,\Str :=signal, \Time:=WAIT_MAX;;
+        SocketReceive client,\Str :=signal, \Time:=WAIT_MAX;
         
         signalInstruction;
 
@@ -205,7 +207,9 @@ MODULE MainModule
         SocketReceive client,\Str :=tcpY, \Time:=WAIT_MAX;
         objects:=StrToVal(tcpY,tcpYValue);
         TemporaryCam:= [[tcpXValue,tcpYValue,1300],[0.001639386,-0.3834062,-0.9235777,-0.001139545],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-        MoveL TemporaryCam,v100,fine,tool0\WObj:=wobj0;
+        PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
+        MoveL TemporaryCam,v200,fine,tool0\WObj:=wobj0;
+        PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC tcpipBottle()       
@@ -228,7 +232,7 @@ MODULE MainModule
         TestGripperToCokeBottle:= [[tcpXValue,tcpYValue,1070],[0.001639765,-0.3834093,-0.9235764,-0.00114218],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 		
 		! Introducing Max Acceleration to see if it removes jolts
-		PathAccLim TRUE\AccMax := 3, FALSETRUE, \DecelMax := 3;
+		PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         MoveL TestGripperToCokeBottleAbove,v100,fine,tool0\WObj:=wobj0;
         WaitTime 1;
         MoveL TestGripperToCokeBottle,v100,fine,tool0\WObj:=wobj0;
@@ -248,8 +252,8 @@ MODULE MainModule
 		TestGripperToSyrupBottleAbove:= [[tcpXValue,tcpYValue,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
         TestGripperToSyrupBottle:= [[tcpXValue,tcpYValue,1120.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 		
-		PathAccLim TRUE\AccMax := 3, FALSETRUE, \DecelMax := 3
-        MoveL TestGripperToSyrupBottleAbove,v100,fine,tool0\WObj:=wobj0;
+		PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
+        MoveL TestGripperToSyrupBottleAbove,v200,fine,tool0\WObj:=wobj0;
         WaitTime 1;
         MoveL TestGripperToSyrupBottle,v100,fine,tool0\WObj:=wobj0;
         close_gripper;
@@ -260,7 +264,7 @@ MODULE MainModule
         moveToAboveTable;
 		PathAccLim FALSE, FALSE;
         moveToAboveBottleCoord;
-        MoveL TestGripperToSyrupBottle,v100,fine,tool0\WObj:=wobj0;
+        MoveL TestGripperToSyrupBottle,v200,fine,tool0\WObj:=wobj0;
         open_gripper;
     ENDPROC
 !    PROC receiveData()
@@ -297,11 +301,15 @@ MODULE MainModule
 !    ENDPROC
     
     PROC moveToHome()
-         MoveJ Home,v200,fine,tool0\WObj:=wobj0;
+        PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
+        MoveJ Home,v200,fine,tool0\WObj:=wobj0;
+        PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC moveToCameraPos()
-        MoveJ NewCamPos,v100,fine,tool0\WObj:=wobj0;
+        PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
+        MoveJ NewCamPos,v200,fine,tool0\WObj:=wobj0;
+        PathAccLim FALSE,FALSE;
     ENDPROC
     
 !    PROC moveAboveToCameraPos()
@@ -313,11 +321,11 @@ MODULE MainModule
     ENDPROC
     
     PROC moveToAboveBottleCoord()
-        MoveJ AboveBottleCoord,v100,z5,tool0\WObj:=wobj0;
+        MoveJ AboveBottleCoord,v200,z20,tool0\WObj:=wobj0;
     ENDPROC
     
     PROC moveToAboveTable()
-        MoveJ AboveTable,v100,z10,tool0\WObj:=wobj0;
+        MoveJ AboveTable,v200,z10,tool0\WObj:=wobj0;
     ENDPROC
     
     PROC grabSyrup()
@@ -387,14 +395,14 @@ MODULE MainModule
     ENDPROC
     PROC open_gripper()        
         SetDO D_652_10_OUT0, 0;
-        WaitTime 2;
+        WaitTime 1;
         SetDO D_652_10_OUT1, 1;
         WaitTime 1;
      ENDPROC
 
     PROC close_gripper()       
         SetDO D_652_10_OUT0, 1;
-        WaitTime 2;
+        WaitTime 1;
         SetDO D_652_10_OUT1, 0;
         WaitTime 1;
     ENDPROC
