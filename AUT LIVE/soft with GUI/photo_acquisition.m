@@ -48,7 +48,6 @@ classdef photo_acquisition
             obj.webcamID = webcamID;
 
             camera = webcam(obj.webcamID);
-            camera
             camera.Brightness = obj.brightness;
             camera.Resolution = obj.resolution;
             camera.Contrast = obj.contrast;
@@ -88,18 +87,18 @@ classdef photo_acquisition
             camera.Saturation = sat;
             camera.Sharpness = shar;
             camera.Gamma = gamma;
-            pause(2);
             
             [height, width, channels] = size(snapshot(camera));
             % preview(camera)
-
+            dummy = snapshot(camera);
 %             prompt = "Press enter key to take photo";
-% 
+            pause(1);
 %             input(prompt);
             %dummy image
-            dummy = snapshot(camera);
+            clear camera
+            camera = webcam(obj.webcamID);
+            [height, width, channels] = size(snapshot(camera));
             camera
-
             image = snapshot(camera);
             image = image(:,(width/2):width,:);
 
