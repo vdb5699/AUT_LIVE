@@ -6,10 +6,13 @@
 % disp(b)
 
 %%
-camera = photo_acquisition('4416x1242', 1);
-fig = figure;
-camera = camera.setVars("4416x1242", 4,4,4,4);
-imshow(camera.manualImageAcq());
+% camera = photo_acquisition('4416x1242', 1);
+% fig = figure;
+% camera = camera.setVars("4416x1242", 4,4,4,4);
+% imshow(camera.manualImageAcq());
+cam = webcam("ZED 2i");
+cam.Resolution = '4416x1242';
+cam
 % saveas(fig, "x-axis syrup",'fig');
 % fig2 = figure;
 % camera = camera.setVars("4416x1242", 8, 8, 8, 8);
