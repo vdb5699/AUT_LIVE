@@ -1,3 +1,4 @@
+%% Follow Step numbers in order from 1 - 4
 %% take photo - Step: 1, 4
 camera = camera.setVars("4416x1242", 4,4,4,4,4);
 imshow(camera.manualImageAcq());
