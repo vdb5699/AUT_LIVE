@@ -40,6 +40,24 @@ classdef cap_detection
             return
         end
 
+        function ax = tempDetection(obj, img, sens, edge)
+            radius = round(obj.diameter/2);
+            [centres, radii] = imfindcircles(img, [radius-8 radius+8], 'Sensitivity', sens, 'EdgeThreshold', edge);
+            [centres2, radii2] = imfindcircles(img, [radius-8 radius+8], "EdgeThreshold", edge, Sensitivity=sens, ObjectPolarity="dark");
+            centres = [centres; centres2];
+            radii = [radii; radii2];
+            caps = round(centres);
+            ax = axes(HandleVisibility="off");
+%             fig = figure("Name", "detected caps", Visible="off");
+            viscircles(ax, centres, radii); 
+            for i = 1:height(caps)
+                str = num2str(caps(i,1)) + ", "+ num2str(caps(i,2));
+                text(ax,centres(i,1), centres(i,2), str, 'color', 'cyan');
+            end
+            ax = img;
+            return
+        end
+
         function newDia = obtainDiameter(obj, image)
             flag = 0;
             while flag == 0
