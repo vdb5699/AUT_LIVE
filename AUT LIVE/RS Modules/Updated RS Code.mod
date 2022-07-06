@@ -12,7 +12,8 @@ MODULE MainModule
     PERS robtarget TestGripperToCokeBottle:= [[34.6447,-823.004,1070],[0.00163976,-0.383409,-0.923576,-0.00114218],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     ! CONST robtarget CameraPos:=[[888.647981627,-3.101979233,1192.532782595],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     ! CONST robtarget CameraPos:=[[595.6,-367-628.37,1192.532782595],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    
+    !-----------Test Positions END------------!
+	
     !-----------New Positions START-----------!
     CONST robtarget Home:=[[1018.612159322,0,1417.5],[0.5,0,0.866025404,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget ZeroPos:=[[1030, 0, 1460],[0.70706, 0, 0.70715,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -114,15 +115,15 @@ MODULE MainModule
 		AccSet 20,30;           ! Max Acceleration set to 20mm/s^2 and ramping is 30
 !        syrup_counter:=0;
 !        coke_counter:=0;
-!        moveToHome;             ! Program always starts from Home Pos in case it was left in random pos
-!        receiveSignal;         ! Where robot will receive signals to do certain tasks
-        moveToCameraPos;       ! New 
+!        moveToHome;			 ! Program always starts from Home Pos in case it was left in random pos
+!        receiveSignal;          ! Where robot will receive signals to do certain tasks - works with GUI
+        moveToCameraPos;       	! NewCamPos
 !        testpos;
 !        Waittime 2;
 !        moveToAboveBoxPos;
 !        open_gripper;
-!        tcpipTempCam;
-!        tcpipBottle;
+!        tcpipTempCam;			! Use if wanting to manually test coords from MATLAB
+!        tcpipBottle;			! Same as above (use MATLAB "testCoordsManually.m")
 !        moveToCameraPos;
 !        moveToHome;
 !        Waittime 3;
@@ -224,7 +225,7 @@ MODULE MainModule
     ! for testing the the pixel to real world conversions.
     ! (This function is used without the GUI)
     ! TempCamPos is where the camera is right above the bottle.
-    ! The MATLAB tester2 script file will run together with
+    ! The MATLAB "testCoordsManually.m" script file will run together with
     ! this function - unless it is changed.
     
     PROC tcpipTempCam()
@@ -248,7 +249,7 @@ MODULE MainModule
     ! In this function, the robot moves to bottle coords sent by MATLAB.
 	! This function calls "moveCoke" and "moveSyrup" to move bottles.
     ! WARNING: Comment "moveCoke" when moving Syrup bottle (vice versa)
-    ! The MATLAB tester2 script file will run together with
+    ! The MATLAB "testCoordsManually.m" script file will run together with
     ! this function - unless it is changed.
     
     PROC tcpipBottle()
