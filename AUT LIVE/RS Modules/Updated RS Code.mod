@@ -1,6 +1,7 @@
 MODULE MainModule
 	!Constant positions (Please Do not Change it)
-                            !-----------Test Positions - can be deleted once Postions Finalised-----------!
+    
+    !-----------Test Positions - can be deleted once Postions Finalised-----------!
     !PERS robtarget TestGripperToCam:= [[556.4+38.5373+114.3314,-557.2-188.4440+55.1777, 1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     !PERS robtarget TestGripperToBottle:= [[556.4+30.4056-64.7264, -557.2-193.0402-157.4380, 1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget TestGripperToCam:= [[599.0562,-741.7018,  1156.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -12,7 +13,8 @@ MODULE MainModule
     CONST robtarget Home:=[[1018.612159322,0,1417.5],[0.5,0,0.866025404,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !    CONST robtarget CameraPos:=[[888.647981627,-3.101979233,1192.532782595],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !    CONST robtarget CameraPos:=[[595.6,-367-628.37,1192.532782595],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-                            !-----------New Positions START-----------!
+    
+    !-----------New Positions START-----------!
     CONST robtarget NewGripperPosManual:= [[369.6, -766.5, 1214.4],[0.00164,-0.38341,-0.92358,-0.00114],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget OldOldCameraPos:= [[552.8, -553.6, 1306.2],[0.02936,-0.38320,-0.92311,-0.01261],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget OldCamPos:= [[556.4, -557.2, 1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -24,8 +26,9 @@ MODULE MainModule
     CONST robtarget AboveTable:= [[550.3, -377.8, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget AboveBoxCoordOne:= [[473.5,410,1408.5],[0.00197,-0.38293,0.92377,0.00290],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget BoxCoordOne:= [[473.5,410,1101],[0.00197,-0.38293,0.92377,0.00290],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];                         
-    !-----------New Positions END------------!       
-                             !---------Old Robtargets - replace with new coords-----------!       
+    !-----------New Positions END------------!
+    
+    !---------Old Robtargets - replace with new coords-----------!       
     CONST robtarget BoxEdgeAbove:=[[-330,780,1375],[-0.000000048,1,0.00000002,-0.000000013],[1,0,-2,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget BoxEdge:=[[-330,780,695],[-0.000000048,1,0.00000002,-0.000000013],[1,0,-2,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget stackBoxAbove:=[[110,780,1375],[-0.000000048,1,0.00000002,-0.000000013],[1,0,-2,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -64,8 +67,9 @@ MODULE MainModule
     PERS robtarget GrabSyrupPos:=[[1146.61,-54.6672,1135],[0.00436311,0.00610856,-0.999972,-4.1884E-05],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     !Coke
     PERS robtarget GrabCokePos:=[[1067.37,104.869,1080],[0.00436311,0.00610856,-0.999972,-4.1884E-05],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-                            !--------------------Old Robtargets END-------------------------!  
-                            !------------------Initialising Variables-----------------------!
+    !--------------------Old Robtargets END-------------------------!  
+    
+    !------------------Initialising Variables-----------------------!
     VAR	socketdev serverSocket;
 	VAR	socketdev clientSocket;
 	VAR	string data;
@@ -100,12 +104,11 @@ MODULE MainModule
     VAR bool posy;
     PERS string socketArray{3,1}:=[[""], [""], [""]];
     PERS string socketArrayTest;
-    
     VAR num found1;
     VAR num found2;
     
     PROC main()
-		AccSet 40,20;
+		AccSet 40,30;       ! Max Acceleration set to 20mm/s^2 and ramping is 20
 !        syrup_counter:=0;
 !        coke_counter:=0;
 !        moveToHome;         ! Program always starts from Home Pos in case it was left in random pos
@@ -139,9 +142,11 @@ MODULE MainModule
 !        moveToHome;
 !        SocketClose server;
 !        SocketClose client;
-!moveToAboveBoxPos;
     ENDPROC
     
+    ! The receiveSignal function is where the GUI and RS 
+    ! are connected via TCP. This function calls the 
+    ! signalInstruction method
     PROC receiveSignal()
         SocketClose server;
         SocketClose client;
