@@ -245,8 +245,9 @@ MODULE MainModule
     ! The "tcpipBottle" function was specifically created 
     ! for testing the the pixel to real world conversions.
     ! (This function is used without the GUI)
-    ! In this function, the robot moves to the bottle and picks it up
-    ! WARNING: Comment moveCoke when using to move Syrup (vice versa)
+    ! In this function, the robot moves to bottle coords sent by MATLAB.
+	! This function calls "moveCoke" and "moveSyrup" to move bottles.
+    ! WARNING: Comment "moveCoke" when moving Syrup bottle (vice versa)
     ! The MATLAB tester2 script file will run together with
     ! this function - unless it is changed.
     
@@ -256,21 +257,28 @@ MODULE MainModule
         objects:=StrToVal(tcpX,tcpXValue);
         SocketReceive client,\Str :=tcpY\Time:=WAIT_MAX;
         objects:=StrToVal(tcpY,tcpYValue);
+		
+		! Assigning coords sent by MATLAB to AboveBottleCoord
         AboveBottleCoord:= [[tcpXValue,tcpYValue, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-	
-!        moveCoke;
-        moveSyrup;
+		
+		! Move bottle
+!        moveCoke;		! Comment this when picking up Syrup
+        moveSyrup;		! Comment this when picking up Coke
         
         SocketClose server;
         SocketClose client;
     ENDPROC
     
+	! The "moveCoke" function is self-explanatory.
+	! The robot moves to Coke bottle above, picks it up
+    ! and moves it to BoxCoordOne
+	
     PROC moveCoke()
-	TestGripperToCokeBottleAbove:= [[tcpXValue,tcpYValue,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+		TestGripperToCokeBottleAbove:= [[tcpXValue,tcpYValue,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
         TestGripperToCokeBottle:= [[tcpXValue,tcpYValue,1070],[0.001639765,-0.3834093,-0.9235764,-0.00114218],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 		
-	! Introducing Max Acceleration to see if it removes jolts
-	PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
+		! Introducing Max Acceleration to see if it removes jolts
+		PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         MoveL TestGripperToCokeBottleAbove,v100,fine,tool0\WObj:=wobj0;
         WaitTime 1;
         MoveL TestGripperToCokeBottle,v100,fine,tool0\WObj:=wobj0;
@@ -280,17 +288,21 @@ MODULE MainModule
         moveToAboveBoxPos;
         WaitTime 2;
         moveToAboveTable;
-	PathAccLim FALSE, FALSE;
+		PathAccLim FALSE, FALSE;
         moveToAboveBottleCoord;
         MoveL TestGripperToCokeBottle,v100,fine,tool0\WObj:=wobj0;
         open_gripper;
     ENDPROC
+	
+	! The "moveCoke" function is self-explanatory.
+	! The robot moves to Syrup bottle above, picks it up
+    ! and moves it to BoxCoordOne
     
     PROC moveSyrup()
-	TestGripperToSyrupBottleAbove:= [[tcpXValue,tcpYValue,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+		TestGripperToSyrupBottleAbove:= [[tcpXValue,tcpYValue,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
         TestGripperToSyrupBottle:= [[tcpXValue,tcpYValue,1180.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 		
-	PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
+		PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
         MoveL TestGripperToSyrupBottleAbove,v200,fine,tool0\WObj:=wobj0;
         WaitTime 1;
         MoveL TestGripperToSyrupBottle,v100,fine,tool0\WObj:=wobj0;
@@ -306,8 +318,12 @@ MODULE MainModule
 !        moveToAboveBottleCoord;
 !        MoveL TestGripperToSyrupBottle,v200,fine,tool0\WObj:=wobj0;
 !        open_gripper;
-	PathAccLim FALSE, FALSE;
+		PathAccLim FALSE, FALSE;
     ENDPROC
+	
+	! The "robotWrite" function is not yet used.
+	! Currently, the robot just moves to ZeroPos
+    ! in this function.
     
     PROC robotWrite()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
@@ -343,17 +359,12 @@ MODULE MainModule
 !        ! get the current location
 !        CurRobT2:=CRobT();
 !        IF RobtToRobtDist(Location,CurRobT2) THEN
-            
 !        ENDIF
 
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         MoveJ ZeroPos,v50,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
-    
-!    PROC moveAboveToCameraPos()
-!        MoveL aboveCameraPos,v300,fine,tool0\WObj:=wobj0;
-!    ENDPROC
     
     PROC moveGipperToCameraPos()
         MoveL GripperInitPos,v100,fine,tool0\WObj:=wobj0;
@@ -371,17 +382,17 @@ MODULE MainModule
         PathAccLim FALSE,FALSE;
     ENDPROC
     
-    PROC grabSyrup()
-        MoveL GrabSyrupPos,v100,fine,tool0\WObj:=wobj0;
-    ENDPROC
+!    PROC grabSyrup()
+!        MoveL GrabSyrupPos,v100,fine,tool0\WObj:=wobj0;
+!    ENDPROC
     
-    PROC grabCoke()
-        MoveL GrabCokePos,v100,fine,tool0\WObj:=wobj0;
-    ENDPROC
+!    PROC grabCoke()
+!        MoveL GrabCokePos,v100,fine,tool0\WObj:=wobj0;
+!    ENDPROC
     
-    PROC boxAbvpos()
+!    PROC boxAbvpos()
 !        MoveL moveToBoxAbv,v300,fine,tool0\WObj:=wobj0;
-    ENDPROC
+!    ENDPROC
     
     PROC moveToAboveBoxPos()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
@@ -395,11 +406,12 @@ MODULE MainModule
         PathAccLim FALSE,FALSE;
     ENDPROC
     
-    PROC moveToBoxCoordOne()
+    PROC moveToBoxCoordOne()	!Pos is inside the box
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         MoveL BoxCoordOne, v60,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
+	
 !    PROC moveToTestPos()
 !        MoveL TestPos,v50,fine,tool0\WObj:=wobj0;
 !    ENDPROC
@@ -449,6 +461,7 @@ MODULE MainModule
         ENDIF
             
     ENDPROC
+	
     PROC open_gripper()        
         SetDO D_652_10_OUT0, 0;
         WaitTime 1;
