@@ -10,9 +10,8 @@ MODULE MainModule
     PERS robtarget TestGripperToSyrupBottle:= [[280.698,-909.789, 1180.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget TestGripperToCokeBottleAbove:= [[34.6447,-823.004,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget TestGripperToCokeBottle:= [[34.6447,-823.004,1070],[0.00163976,-0.383409,-0.923576,-0.00114218],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    
-!    CONST robtarget CameraPos:=[[888.647981627,-3.101979233,1192.532782595],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-!    CONST robtarget CameraPos:=[[595.6,-367-628.37,1192.532782595],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    ! CONST robtarget CameraPos:=[[888.647981627,-3.101979233,1192.532782595],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    ! CONST robtarget CameraPos:=[[595.6,-367-628.37,1192.532782595],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     
     !-----------New Positions START-----------!
     CONST robtarget Home:=[[1018.612159322,0,1417.5],[0.5,0,0.866025404,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -193,6 +192,7 @@ MODULE MainModule
     ! Signal 3 = 
     ! This function calls "receiveSignal" method after
     ! each signal task is completed
+    
     PROC signalInstruction()        
         WHILE signal <> "0" DO
             IF signal = "1" THEN
@@ -220,6 +220,13 @@ MODULE MainModule
         moveToHome;
     ENDPROC
     
+    ! The "tcpipTempCam" function was specifically created 
+    ! for testing the the pixel to real world conversions.
+    ! (This function is used without the GUI)
+    ! TempCamPos is where the camera is right above the bottle.
+    ! The MATLAB tester2 script file will run together with
+    ! this function - unless it is changed.
+    
     PROC tcpipTempCam()
         SocketCreate server;
         SocketBind server,"192.168.0.20", 1025;
@@ -235,6 +242,14 @@ MODULE MainModule
         PathAccLim FALSE,FALSE;
     ENDPROC
     
+    ! The "tcpipBottle" function was specifically created 
+    ! for testing the the pixel to real world conversions.
+    ! (This function is used without the GUI)
+    ! In this function, the robot moves to the bottle and picks it up
+    ! WARNING: Comment moveCoke when using to move Syrup (vice versa)
+    ! The MATLAB tester2 script file will run together with
+    ! this function - unless it is changed.
+    
     PROC tcpipBottle()
         open_gripper;
         SocketReceive client,\Str :=tcpX,\Time:=WAIT_MAX;
@@ -242,9 +257,8 @@ MODULE MainModule
         SocketReceive client,\Str :=tcpY\Time:=WAIT_MAX;
         objects:=StrToVal(tcpY,tcpYValue);
         AboveBottleCoord:= [[tcpXValue,tcpYValue, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+	
 !        moveCoke;
-        
-        
         moveSyrup;
         
         SocketClose server;
@@ -252,11 +266,11 @@ MODULE MainModule
     ENDPROC
     
     PROC moveCoke()
-		TestGripperToCokeBottleAbove:= [[tcpXValue,tcpYValue,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+	TestGripperToCokeBottleAbove:= [[tcpXValue,tcpYValue,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
         TestGripperToCokeBottle:= [[tcpXValue,tcpYValue,1070],[0.001639765,-0.3834093,-0.9235764,-0.00114218],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 		
-		! Introducing Max Acceleration to see if it removes jolts
-		PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
+	! Introducing Max Acceleration to see if it removes jolts
+	PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         MoveL TestGripperToCokeBottleAbove,v100,fine,tool0\WObj:=wobj0;
         WaitTime 1;
         MoveL TestGripperToCokeBottle,v100,fine,tool0\WObj:=wobj0;
@@ -266,17 +280,17 @@ MODULE MainModule
         moveToAboveBoxPos;
         WaitTime 2;
         moveToAboveTable;
-		PathAccLim FALSE, FALSE;
+	PathAccLim FALSE, FALSE;
         moveToAboveBottleCoord;
         MoveL TestGripperToCokeBottle,v100,fine,tool0\WObj:=wobj0;
         open_gripper;
     ENDPROC
     
     PROC moveSyrup()
-		TestGripperToSyrupBottleAbove:= [[tcpXValue,tcpYValue,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+	TestGripperToSyrupBottleAbove:= [[tcpXValue,tcpYValue,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
         TestGripperToSyrupBottle:= [[tcpXValue,tcpYValue,1180.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 		
-		PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
+	PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
         MoveL TestGripperToSyrupBottleAbove,v200,fine,tool0\WObj:=wobj0;
         WaitTime 1;
         MoveL TestGripperToSyrupBottle,v100,fine,tool0\WObj:=wobj0;
@@ -292,7 +306,7 @@ MODULE MainModule
 !        moveToAboveBottleCoord;
 !        MoveL TestGripperToSyrupBottle,v200,fine,tool0\WObj:=wobj0;
 !        open_gripper;
-		PathAccLim FALSE, FALSE;
+	PathAccLim FALSE, FALSE;
     ENDPROC
     
     PROC robotWrite()
