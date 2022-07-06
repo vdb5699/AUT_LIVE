@@ -84,6 +84,20 @@ classdef photo_acquisition
             [height, width, channels] = size(image);
             image = image(:,(width/2):width,:);
         end
+
+        function image = tempImageLeft(obj, bright, res, cont, sat, shar, gamma)
+            camera = webcam(obj.webcamID);
+            camera.Brightness = bright;
+            camera.Resolution = res;
+            camera.Contrast = cont;
+            camera.Saturation = sat;
+            camera.Sharpness = shar;
+            camera.Gamma = gamma;
+            pause(1);
+            image = snapshot(camera);
+            [height, width, channels] = size(image);
+            image = image(:,1:(width/2),:);
+        end
         
         function obj = setVars(obj, newRes, newBri,newCont, newSat, newShar, newGam)
             obj.brightness = newBri;
