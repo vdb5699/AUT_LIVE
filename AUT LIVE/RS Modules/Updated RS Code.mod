@@ -111,7 +111,7 @@ MODULE MainModule
     VAR robtarget CurRobT2;
     
     PROC main()
-		AccSet 20,30;           ! Max Acceleration set to 20mm/s^2 and ramping is 30
+		AccSet 20,30;           ! Max Acceleration set to 20% of normal and ramping 30% of normal
 !        syrup_counter:=0;
 !        coke_counter:=0;
 !        moveToHome;             ! Program always starts from Home Pos in case it was left in random pos
