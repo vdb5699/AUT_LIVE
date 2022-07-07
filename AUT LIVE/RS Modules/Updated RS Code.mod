@@ -300,7 +300,7 @@ MODULE MainModule
     
     PROC moveSyrup()
 		TestGripperToSyrupBottleAbove:= [[tcpXValue,tcpYValue,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-        TestGripperToSyrupBottle:= [[tcpXValue,tcpYValue,1180.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+        TestGripperToSyrupBottle:= [[tcpXValue,tcpYValue,1120],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 		
 		PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
         MoveL TestGripperToSyrupBottleAbove,v200,fine,tool0\WObj:=wobj0;
