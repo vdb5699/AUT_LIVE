@@ -1,19 +1,21 @@
 %% Follow Step numbers in order from 1 - 4
 %% take photo - Step: 1, 4
-camera = camera.setVars("4416x1242", 4,4,4,4,4);
-imshow(camera.manualImageAcq());
+camera = photo_acquisition('4416x1242', 1);
+image = camera.tempImageLeft(4, '4416x1242', 4, 4, 4, 5);
+figure;
+imshow(image);
 %% - Step: 2
 tcp = tcpclient("192.168.0.20", 1025);
 
 %% analyse 1st coord - Step: 3
 converter = convert_coord();
-coord = [1510 170]; %add coord
+coord = [1431 609]; %add coord
 cap1 = cap(coord, "Brown");
 % cap1 = cap(coord, "Red");
 % [newCamPosX newCamPosY] = converter.convertBrown(cap1.centreCoord(1), cap1.centreCoord(2));
 [newCamPosX newCamPosY] = converter.convertRed(cap1.centreCoord(1), cap1.centreCoord(2), 1);
-newCamPosX = newCamPosX + 326.9438
-newCamPosY = newCamPosY + -581.9982
+newCamPosX = newCamPosX + 215
+newCamPosY = newCamPosY + -680.3
 
 tcp.write(string(newCamPosX))
 pause(3)
@@ -26,7 +28,7 @@ cap2 = cap(coord, "Brown");
 % [posX, posY] = converter.convertBrown(cap2.centreCoord(1), cap2.centreCoord(2));
 [posX, posY] = converter.convertRed(cap2.centreCoord(1), cap2.centreCoord(2),2);
 % camToGrip = converter.convertDirection(100.3,160.625, (3*pi)/4);
-camToGrip = converter.convertDirection(110.3,160.625, (3*pi)/4);
+camToGrip = converter.convertDirection(-23,160.625, (3*pi)/4);
 posX = newCamPosX + camToGrip(1) + posX
 posY = newCamPosY + camToGrip(2) + posY
 tcp.write(string(posX))
