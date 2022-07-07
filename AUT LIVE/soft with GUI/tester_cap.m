@@ -44,24 +44,18 @@ viscircles(cen, rad);
 
 %%
 camera = photo_acquisition('4416x1242', 1);
-image = camera.tempImage(8, '4416x1242', 8, 8, 0, 8);
+image = camera.tempImage(8, '4416x1242', 8, 8, 0, 500);
 figure;
 imshow(image);
 figure;
 grey = rgb2gray(image);
-imshow(grey);
 
-% subplot(1,3,1);
-% imshow(greyD);
-% 
-% subplot(1,3,2);
-% imshow(greyB);
-% 
-% subplot(1,3,3);
-% imshow(greyN);
+% grey = medfilt2(grey,[15 15], 'symmetric');
+
+imshow(grey);
 % 
 figure;
-% for y = 255:-1:250
+% for y = 255:-1:240
 %     bwB = grey < y;
 %     imshow(bwB)
 %     pause(0.5)
@@ -69,14 +63,12 @@ figure;
 bwB = grey < 250;
 imshow(bwB);
 
-bwB = bwareaopen(bwB, 35);
-imshow(bwB);
-
-% subplot(2,3,4);
-% imshow(bwD);
-% 
-% subplot(2,3,5);
+% bwB = bwareaopen(imfill(bwB,'holes'), 40);
+bwB = bwareaopen(bwB, 40);
 % imshow(bwB);
 % 
-% subplot(2,3,6);
-% imshow(bwN);
+% se = strel('disk', 5);
+% bwB = imclose(bwB,se);
+imshow(bwB);
+bwB = imfill(bwB,'holes');
+imshow(bwB);
