@@ -3,8 +3,8 @@ classdef convert_coord
         function [newX, newY]= convertBrown(obj, x, y)
 %             newX = (1e-9*(x^3)) - (4e-6*(x^2)) + 0.0354*x - 35.343;
 %             newY = -1*(1e-9*(y^3)) + (3e-6*(y^2)) -0.0325*y + 17.602;
-            newX = -1*(1e06*(x*x)) + (0.0339*x) - 30.833;
-            newY = -1*(9e-9*(y*y)) - 0.03*y +19.819;
+            newX = -1*(3e-7*(x*x)) + (0.0319*x) - 39.087;
+            newY = -1*(6e-7*(y*y)) - (0.0304*y) + 18.211;
             newX = newX*10;
             newY = newY*10;
             newCoord = obj.convertDirection(newX, newY, ((3*pi)/4));
