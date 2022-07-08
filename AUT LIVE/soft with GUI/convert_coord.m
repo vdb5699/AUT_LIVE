@@ -1,12 +1,15 @@
 classdef convert_coord
     methods
-        function [newX, newY]= convertBrown(obj, x, y)
+        function [newX, newY]= convertBrown(obj, x, y, flag)
 %             newX = (1e-9*(x^3)) - (4e-6*(x^2)) + 0.0354*x - 35.343;
 %             newY = -1*(1e-9*(y^3)) + (3e-6*(y^2)) -0.0325*y + 17.602;
-            newX = -1*(3e-7*(x*x)) + (0.0319*x) - 39.087;
-            newY = -1*(6e-7*(y*y)) - (0.0304*y) + 18.211;
+            newX = (4e-7*(x*x)) + (0.0301*x) - 33.946;
+            newY = -1*(7e-7*(y*y)) - (0.0301*y) + 18.543;
             newX = newX*10;
             newY = newY*10;
+            if flag == 1
+                newX = newX - ((3e-5*(newX*newX)) + 0.0153*newX + 2)
+            end
             newCoord = obj.convertDirection(newX, newY, ((3*pi)/4));
             newX = newCoord(1);
             newY = newCoord(2);
