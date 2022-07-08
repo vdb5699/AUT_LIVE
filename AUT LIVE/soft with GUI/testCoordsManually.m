@@ -9,7 +9,7 @@ tcp = tcpclient("192.168.0.20", 1025);
 
 %% analyse 1st coord - Step: 3
 converter = convert_coord();
-coord = [2139 586]; %add coord
+coord = [1566 186]; %add coord
 cap1 = cap(coord, "Brown");
 % cap1 = cap(coord, "Red");
 [newCamPosX newCamPosY] = converter.convertBrown(cap1.centreCoord(1), cap1.centreCoord(2), 0);
@@ -26,7 +26,7 @@ tcp.write(string(newCamPosY))
 % end
 
 %% analyse 2nd coord - Step: 5
-coord = [1141 688]; %add coord
+coord = [1147 634]; %add coord
 cap2 = cap(coord, "Brown");
 % cap2 = cap(coord, "Red");
 [posX, posY] = converter.convertBrown(cap2.centreCoord(1), cap2.centreCoord(2), 1);
