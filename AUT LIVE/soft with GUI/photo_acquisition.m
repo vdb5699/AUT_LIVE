@@ -46,14 +46,6 @@ classdef photo_acquisition
             obj.defGamma = 5;
             obj.gamma = 5;
             obj.webcamID = webcamID;
-
-            camera = webcam(obj.webcamID);
-            camera.Brightness = obj.brightness;
-            camera.Resolution = obj.resolution;
-            camera.Contrast = obj.contrast;
-            camera.Saturation = obj.saturation;
-            camera.Sharpness = obj.sharpness;
-            camera.Gamma = obj.gamma;
         end
         
         function image = manualImageAcq(obj)
