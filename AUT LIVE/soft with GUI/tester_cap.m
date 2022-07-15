@@ -72,3 +72,19 @@ bwB = bwareaopen(bwB, 40);
 imshow(bwB);
 bwB = imfill(bwB,'holes');
 imshow(bwB);
+
+%%
+img = imread("normal.png");
+width = 4416;
+img = img(:,width/2:width,:);
+hi = cap_detection(0.93, 0.02, 80);
+cen = hi.automaticDetection(img);
+
+% centres = [850 1012; 852 575; 1104 280; 1074 317; 1396 897; 868 931; 1257 578; 865 993; 1139 900; 1358 1080; 1538 815; 1669 573; 1708 1080; 1881 879; 875 970];
+% hi = cap_detection(0.9, 0.02, 80);
+caps = hi.eliminateDup(cen, 100);
+rad = zeros(height(caps),1);
+rad(:) = 40;
+figure
+imshow(img);
+viscircles(caps, rad);

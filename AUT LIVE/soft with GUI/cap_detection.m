@@ -26,7 +26,7 @@ classdef cap_detection
             [centres2, radii2] = imfindcircles(image, [radius-8 radius+8], "EdgeThreshold", obj.edgethresh, Sensitivity=obj.sensitivity, ObjectPolarity="dark");
             centres = [centres; centres2];
             radii = [radii; radii2]
-            caps = round(centres);
+            caps = round(centres)
 %             fig = figure("Name", "detected caps", Visible="off");
             fig = figure("Name", "detected caps");
             imshow(image);
@@ -60,19 +60,19 @@ classdef cap_detection
             return
         end
 
-        function shortenedCaps = eliminateDup(obj, caps)
+        function shortenedCaps = eliminateDup(obj, caps, range)
             caps = unique(caps,'rows');
             counter = 1;
             %dummy data
             shortenedCaps = [0 0];
             for x = 1:height(caps)
                 for y = 1:height(shortenedCaps)
-                    if (shortenedCaps(x, 1) < caps(x, 1)+100 && shortenedCaps(x, 1) > caps(x, 1)-100) && (shortenedCaps(y, 1) < caps(y, 1)+100 && shortenedCaps(y, 1) > caps(y, 1)-100)
+                    if (shortenedCaps(y, 1) < caps(x, 1)+range && shortenedCaps(y, 1) > caps(x, 1)-range) && (shortenedCaps(y, 2) < caps(x, 2)+range && shortenedCaps(y, 2) > caps(x, 2)-range)
                         break
                     end
                     if y == height(shortenedCaps)
                         shortenedCaps(counter,1) = caps(x, 1);
-                        shortenedCaps(counter,2) = caps(y, 2);
+                        shortenedCaps(counter,2) = caps(x, 2);
                         counter = counter + 1;
                     end
                 end

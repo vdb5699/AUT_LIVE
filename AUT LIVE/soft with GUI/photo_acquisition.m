@@ -74,7 +74,7 @@ classdef photo_acquisition
             pause(1);
             image = snapshot(camera);
             [height, width, channels] = size(image);
-            image = image(:,(width/2):width,:);
+            image = image(:,1:width/2,:);
         end
 
         function image = tempImageLeft(obj, bright, res, cont, sat, shar, gamma)
@@ -88,7 +88,7 @@ classdef photo_acquisition
             pause(1);
             image = snapshot(camera);
             [height, width, channels] = size(image);
-            image = image(:,1:(width/2),:);
+            image = image(:,1:width/2,:);
         end
         
         function obj = setVars(obj, newRes, newBri,newCont, newSat, newShar, newGam)
