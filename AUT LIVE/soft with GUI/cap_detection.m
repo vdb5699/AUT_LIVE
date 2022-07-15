@@ -60,6 +60,27 @@ classdef cap_detection
             return
         end
 
+        function shortenedCaps = eliminateDup(obj, caps)
+            caps = unique(caps,'rows');
+            counter = 1;
+            %dummy data
+            shortenedCaps = [0 0];
+            for x = 1:height(caps)
+                for y = 1:height(shortenedCaps)
+                    if (shortenedCaps(x, 1) < caps(x, 1)+100 && shortenedCaps(x, 1) > caps(x, 1)-100) && (shortenedCaps(y, 1) < caps(y, 1)+100 && shortenedCaps(y, 1) > caps(y, 1)-100)
+                        break
+                    end
+                    if y == height(shortenedCaps)
+                        shortenedCaps(counter,1) = caps(x, 1);
+                        shortenedCaps(counter,2) = caps(y, 2);
+                        counter = counter + 1;
+                    end
+                end
+            end
+            return
+        end
+
+
         function newDia = obtainDiameter(obj, image)
             flag = 0;
             while flag == 0
