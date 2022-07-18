@@ -1,21 +1,23 @@
-tic
+tic 
     camera = photo_acquisition('4416x1242', 1);
+    img = camera.tempImageLeft(0, "3840x1080", 0, 8, 0, 1);
     camera = camera.setVars("3840x1080",4,4,4,4,5);
     imgN = camera.manualImageAcq();
-    img = camera.tempImageLeft(0, "3840x1080", 0, 8, 0, 1);
+    imgB = camera.tempImageLeft(8,"3840x1080",8,8,0,1);
     circledet = cap_detection(0.9, 0.05, 80);
-
+    
     %%
-    colDet = colour_detection([75 150], [30 120], [0 50], [155, 255], [0 120], [0 10]);
+    
+    colDet = colour_detection([250 255], [240 255], [0 200], [175, 255], [0 120], [0 10]);
     % camera = camera.setVars("4416x1242", 8,4,8,8,9);
     % imgB = camera.manualImageAcq();
     
     f = figure;
-    [cen, rad] = imfindcircles(img, [32 48], "Method","PhaseCode","Sensitivity",0.94,"EdgeThreshold",0.02, "ObjectPolarity","bright");
+    [cen, rad] = imfindcircles(img, [32 48], "Method","PhaseCode","Sensitivity",0.95,"EdgeThreshold",0.02, "ObjectPolarity","bright");
     % [cen2, rad2] = imfindcircles(img, [32 52], "Method","PhaseCode","Sensitivity",0.9,"EdgeThreshold",0.05, "ObjectPolarity","dark");
     cen = round(cen);
     rad = zeros(height(cen), 1);
-    rad(:) = 40;
+    rad(:) = 22;
     imshow(img)
     hold on
     for w = 1:height(cen)
@@ -26,7 +28,7 @@ tic
     hold on
     %%
     % cen = circledet.eliminateDup(cen, 100);
-    capList = colDet.detectColourAdv(img, img, cen)
+    capList = colDet.detectColourAdv(imgB, img, cen)
     c = [0 0 "brown"];
     for w =  1:width(capList)
         str = capList(w).toString;
@@ -39,7 +41,7 @@ tic
     %     text(c(w,1), c(w,2), str, Color=[1 0 1]);
     end
     c = circledet.eliminateDup(str2double(c(:,1:2)), 100)
-    cL = colDet.detectColourAdv(img, img, c);
+    cL = colDet.detectColourAdv(imgB, img, c);
     for h = 1:width(cL)
         str = cL(h).toString();
         C = strsplit(str,", ");

@@ -56,7 +56,6 @@ classdef photo_acquisition
             camera.Saturation = obj.saturation;
             camera.Sharpness = obj.sharpness;
             camera.Gamma = obj.gamma;
-            pause(1);
             image = snapshot(camera);
             [height, width, channels] = size(image);
             image = image(:,1:(width/2),:);
@@ -85,7 +84,6 @@ classdef photo_acquisition
             camera.Saturation = sat;
             camera.Sharpness = shar;
             camera.Gamma = gamma;
-            pause(1);
             image = snapshot(camera);
             [height, width, channels] = size(image);
             image = image(:,1:width/2,:);

@@ -98,7 +98,7 @@ classdef colour_detection
                 yE = yPos+3;
                
                 brown = 0;
-                white = 0;
+                maybe = 0;
                 notBrown = 0;
                
                 for y = yS:yE
@@ -106,15 +106,20 @@ classdef colour_detection
                          [r, g, b] = obj.getColour(brightImage, x, y);
                          if (r >= obj.RboundB(1) && r <= obj.RboundB(2)) && (g >= obj.GboundB(1) && g <= obj.GboundB(2)) && (b >= obj.BboundB(1) && b <= obj.BboundB(2))
                              brown = brown + 1;
+                         elseif (r >= obj.RboundB(1) && r <= obj.RboundB(2)) && (g >= obj.GboundB(1) && g <= obj.GboundB(2)) && (b > obj.BboundB(2) && b <= obj.BboundB(2)+40)
+                             maybe = maybe+0.5;
                          else
                              notBrown = notBrown + 1;
                          end
                     end
                 end
-                if brown >= notBrown
+                if (brown+maybe) >= notBrown
                     brownCount = brownCount + 1;
                     brownList(brownCount) = cap([caps(index, 1), caps(index,2)], "Brown");
                 end
+            end
+            if brownCount == 0
+                brownList = [];
             end
             return
         end
@@ -152,8 +157,12 @@ classdef colour_detection
                     redList(redCount) = cap([caps(index, 1), caps(index,2)], "Red");
                 end
             end
+            if redCount == 0
+                redList = [];
+            end
             return
         end
+        
         function [R, G, B] = getColour(obj, image,x, y)
             R = image(y, x, 1);
             G = image(y, x, 2);
