@@ -2,7 +2,7 @@ tic
     camera = photo_acquisition('4416x1242', 1);
     camera = camera.setVars("3840x1080",4,4,4,4,5);
     imgN = camera.manualImageAcq();
-    img = camera.tempImageLeft(0, "3840x1080", 0, 8, 0, 1);
+    img = camera.tempImageLeft("3840x1080", 0, 0, 8, 0, 1);
     circledet = cap_detection(0.9, 0.05, 80);
 
     %%

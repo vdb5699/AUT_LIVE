@@ -76,11 +76,11 @@ classdef colour_detection
         end
         
         %%advanced one
-        function capList = detectColourAdv(obj, brightImage, darkImage, caps)
+        function capList = detectColourAdv(obj, image, caps)
             %%%%%%%%%FIND A WAY TO REDUCE CAPS WHEN DETECTED AS A BROWN, SO
             %%%%%%%%%THERE IS NO DULICATE.
-            brownList = obj.detectBrown(brightImage, caps);
-            redList = obj.detectRed(darkImage, caps);
+            brownList = obj.detectBrown(image, caps);
+            redList = obj.detectRed(image, caps);
 
             capList = [brownList, redList];
         end

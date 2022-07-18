@@ -76,7 +76,7 @@ classdef photo_acquisition
             return
         end
 
-        function image = tempImageLeft(obj, bright, res, cont, sat, shar, gamma)
+        function image = tempImageLeft(obj, res,bright, cont, sat, shar, gamma)
             camera = webcam(obj.webcamID);
             camera.Brightness = bright;
             camera.Resolution = res;
