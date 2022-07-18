@@ -58,8 +58,8 @@ classdef photo_acquisition
             camera.Gamma = obj.gamma;
             pause(1);
             image = snapshot(camera);
-            [height, width, channels] = size(snapshot(camera));
-            image = image(:,(width/2):width,:);
+            [height, width, channels] = size(image);
+            image = image(:,1:(width/2),:);
             return
         end
 
@@ -71,10 +71,10 @@ classdef photo_acquisition
             camera.Saturation = sat;
             camera.Sharpness = shar;
             camera.Gamma = gamma;
-            pause(1);
             image = snapshot(camera);
             [height, width, channels] = size(image);
-            image = image(:,1:width/2,:);
+            image = image(:,(width/2):width,:);
+            return
         end
 
         function image = tempImageLeft(obj, bright, res, cont, sat, shar, gamma)
@@ -89,6 +89,7 @@ classdef photo_acquisition
             image = snapshot(camera);
             [height, width, channels] = size(image);
             image = image(:,1:width/2,:);
+            return
         end
         
         function obj = setVars(obj, newRes, newBri,newCont, newSat, newShar, newGam)

@@ -68,7 +68,12 @@ classdef cap_detection
             for x = 1:height(caps)
                 for y = 1:height(shortenedCaps)
                     if (shortenedCaps(y, 1) < caps(x, 1)+range && shortenedCaps(y, 1) > caps(x, 1)-range) && (shortenedCaps(y, 2) < caps(x, 2)+range && shortenedCaps(y, 2) > caps(x, 2)-range)
-                        break
+                        if (caps(x, 1) > 1104)
+                            shortenedCaps(y, 1) = caps(x, 1);
+                            shortenedCaps(y, 2) = caps(x, 2);
+                        else
+                            break
+                        end
                     end
                     if y == height(shortenedCaps)
                         shortenedCaps(counter,1) = caps(x, 1);
