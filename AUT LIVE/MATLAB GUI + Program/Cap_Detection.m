@@ -13,7 +13,7 @@ classdef Cap_Detection
 
     methods
         function obj = Cap_Detection()
-            obj.defDia = 40;
+            obj.defDia = 80;
             obj.defEdge = 0.05;
             obj.defSens = 0.9;
 
@@ -22,26 +22,27 @@ classdef Cap_Detection
 
         function caps = detectCaps(obj, image)
             radius = round(obj.dia/2);
-            [centres, radii] = imfindcircles(image, [raidius-8 radius+8], Sensitivity=obj.sens, EdgeThreshold=obj.edge);
+            [centres, radii] = imfindcircles(image, [radius-8 radius+8], Sensitivity=obj.sens, EdgeThreshold=obj.edge);
             caps = round(centres);
             return
         end
 
         function caps = tempDetectCaps(obj, image, sen, edg)
             radius = round(obj.dia/2);
-            [centres, radii] = imfindcircles(image, [raidius-8 radius+8], Sensitivity=sen, EdgeThreshold=edg);
+            [centres, radii] = imfindcircles(image, [radius-8 radius+8], Sensitivity=sen, EdgeThreshold=edg);
             caps = round(centres);
             return
         end
         
         function img = visualiseCaps(obj, image, caps)
             fig = figure(Visible="off");
+            radii = zeros(height(caps),1);
+            radii(:) = 40;
             imshow(image);
             hold on;
-            for h = 1:height(caps)
-                plot(caps(h,1), caps(h,2), 'bo', 'MarkerSize', round(obj.dia/2));
-            end
+            viscircles(caps, radii);
             f = getframe(fig);
+            hold off
             img = frame2im(f);
             return
         end
