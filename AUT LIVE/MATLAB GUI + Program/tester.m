@@ -15,7 +15,7 @@ tic
     imN = cam.imageAcq(1, 'l');
     imD = cam.tempImageAcq(1,'l', '3840x1080', 0, 0, 8, 0, 1);
     capdet = Cap_Detection();
-    capdet = capdet.setVariables(0.95, 0.01);
+    capdet = capdet.setVariables(0.96, 0.01);
     caps = capdet.detectCaps(imD);
     img = capdet.visualiseCaps(imD, caps(:,1:2));
     colDet = Colour_Detection();

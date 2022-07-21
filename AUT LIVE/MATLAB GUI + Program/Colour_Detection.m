@@ -21,8 +21,8 @@ classdef Colour_Detection
     
     methods (Access = public)
         function obj = Colour_Detection()
-            obj.defRB = [75 150];
-            obj.defGB = [30 120];
+            obj.defRB = [75 160];
+            obj.defGB = [10 120];
             obj.defBB = [0 50];
 
             obj.defRR = [155 255];
@@ -103,6 +103,17 @@ classdef Colour_Detection
         end
 
         function [R, G, B] = getColour(obj, image,x, y)
+            if x > 1920
+                x = 1920;
+            elseif x < 0
+                x = 0;
+            end
+
+            if y > 1080
+                y = 1080;
+            elseif y < 0
+                y = 0;
+            end
             R = image(y, x, 1);
             G = image(y, x, 2);
             B = image(y, x, 3);
@@ -148,7 +159,11 @@ classdef Colour_Detection
                     for x = xS:xE
                         [r, g, b] = obj.getColour(image, x, y);
                         if (r >= rb(1) && r <= rb(2)) && (g >= gb(1) && g <= gb(2)) && (b >= bb(1) && b <= bb(2)) %&& (radius > radRange(1) && radius < radRange(2))
-                            brown = brown + 1;
+                            if (radius > radRange(1) && radius < radRange(2))
+                                brown = brown + 1;
+                            else
+                                maybe = maybe + 0.5;
+                            end
                         elseif (r >= rb(1) && r <= rb(2)) && (g >= gb(1) && g <= gb(2)) && (b > bb(2) && b <= bb(2)+50) && (radius > radRange(1) && radius < radRange(2))   
                             maybe = maybe + 0.5;
                         else
@@ -189,7 +204,11 @@ classdef Colour_Detection
                     for x = xS:xE
                         [r, g, b] = obj.getColour(image, x, y);
                         if (r >= rr(1) && r <= rr(2)) && (g >= gr(1) && g <= gr(2)) && (b >= br(1) && b <= br(2)) %&& (radius > radRange(1) && radius < radRange(2))
-                            red = red + 1;
+                            if (radius > radRange(1) && radius < radRange(2))
+                                red = red + 1;
+                            else 
+                                maybe = maybe + 1;
+                            end
                         % estimated values, make them general later
                         elseif (r <= 160 && r >= 95) && (g <= 100 && g >= 50) && (b >= 40 && b <= 85) && (radius > radRange(1) && radius < radRange(2))   
                             maybe = maybe + 0.5;
