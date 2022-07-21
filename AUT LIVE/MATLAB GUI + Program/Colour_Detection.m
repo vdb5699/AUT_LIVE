@@ -54,7 +54,13 @@ classdef Colour_Detection
             counter = 1;
             for ind = 1:width(capList)
                 for ind2 = 1:width(newCapList)
-                    if (newCapList(ind2).x < (capList(ind).x + range) && newCapList(ind2).x > (capList(ind).x-range)) && (newCapList(ind2).y < (capList(ind).y+range) && newCapList(ind2).y > (capList(ind).y-range))
+                    MaxX = capList(ind).x + 100;
+                    MinX = capList(ind).x - 100;
+                    MaxY = capList(ind).y + 100;
+                    MinY = capList(ind).y - 100;
+                    newX = newCapList(ind2).x;
+                    newY = newCapList(ind2).y;
+                    if ((MaxX > newX) && (MinX < newX)) && ((newY < MaxY) && (newY > MinY))
                         if (capList(ind).x >= w/2 && capList(ind).y >= h/2)
                             if sqrt((1920-capList(ind).x)^2+(1080-capList(ind).y)^2) < sqrt((1920-newCapList(ind2).x)^2+(1080-newCapList(ind2).y)^2)
                                 newCapList(ind2) = Cap(capList(ind).centreCoord, capList(ind).radius, capList(ind).colour);
@@ -67,7 +73,7 @@ classdef Colour_Detection
                             break
                         elseif (capList(ind).x > w/2 && capList(ind).y < h/2)
                             if sqrt((1920-capList(ind).x)^2+(capList(ind).y)^2) < sqrt((1920-newCapList(ind2).x)^2+(newCapList(ind2).y)^2)
-                                newCapList(ind2).x = Cap(capList(ind).centreCoord, capList(ind).radius, capList(ind).colour);
+                                newCapList(ind2) = Cap(capList(ind).centreCoord, capList(ind).radius, capList(ind).colour);
                             end
                             break
                         elseif (capList(ind).x < w/2 && capList(ind).y > h/2)
@@ -76,6 +82,7 @@ classdef Colour_Detection
                             end
                             break
                         end
+
                     end
                     if ind2 == width(newCapList)
                         newCapList(counter) = Cap(capList(ind).centreCoord, capList(ind).radius, capList(ind).colour);
