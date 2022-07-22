@@ -21,8 +21,10 @@ tic
     colDet = Colour_Detection();
     capL = colDet.detectColour(imD, caps(:,1:2), caps(:,3), 86.5)
     capL2 = colDet.eliminateDuplicate(capL, 100)
-    colDet.visualiseAnalysis(capL, imN);
-    colDet.visualiseAnalysis(capL2, imN);
+%     colDet.visualiseAnalysis(capL, imN);
+    imag = colDet.visualiseAnalysis(capL2, imN);
+    figure(Visible="on")
+    imshow(imag);
 toc
 
 % for h = 1:width(capL)
@@ -31,3 +33,5 @@ toc
 %         plot(str2double(C(1)), str2double(C(2)), 'bo', 'MarkerSize', 40);
 %         text(str2double(C(1)), str2double(C(2)), str, Color=[1 0 1]);
 % end
+%%
+imshow(imread('Colours_ready.png'))

@@ -17,7 +17,7 @@ classdef Camera
         defGam
     end
 
-    methods 
+    methods (Access = public)
         function obj = Camera()
             obj.defRes = '3840x1080';
             obj.defBright = 4;

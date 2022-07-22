@@ -31,6 +31,16 @@ classdef Colour_Detection
 
             obj = restoreDefault(obj);
         end
+        
+        function obj = setBoundaries(obj, rb, gb, bb, rr, gr, br)
+            obj.RB = rb;
+            obj.GB = gb;
+            obj.BB = bb;
+            obj.RR = rr;
+            obj.GR = gr;
+            obj.BR = br;
+            return
+        end
 
         function capList = detectColour(obj, image, caps, rad, diameter)
             brownList = obj.detectBrown(image, caps, rad, diameter, obj.RB, obj.GB, obj.BB);
@@ -94,19 +104,23 @@ classdef Colour_Detection
         end
 
         function newImage = visualiseAnalysis(obj, capList, image)
-            fig = figure;
+            fig = figure(Visible="off");
             imshow(image);
             hold on
            
             for h = 1:width(capList)
                     str = capList(h).toString();
                     C = strsplit(str,", ");
-                    plot(str2double(C(1)), str2double(C(2)), 'bo', 'MarkerSize', capList(h).radius);
-                    text(str2double(C(1)), str2double(C(2)), str, Color=[1 0 1]);
+                    plot(str2double(C(1)), str2double(C(2)), 'bo', 'MarkerSize', capList(h).radius, 'LineWidth',5);
+                    text(str2double(C(1)), str2double(C(2)), str, Color=[0 1 0], FontSize=16, FontWeight="bold");
             end
             f = getframe(fig);
             hold off
             newImage = frame2im(f);
+            newImage = newImage(29:750,86:1367,:);
+%             figure
+%             imshow(newImage);
+            return
         end
 
         function [R, G, B] = getColour(obj, image,x, y)
