@@ -16,49 +16,63 @@ classdef Connection
             return
         end
 
-        function move2Cam(obj)
-            tcp = obj.connectToTcp();
-            tcp.write('1');
-            tcp.flush();
-            flag = 0;
-            while flag == 0
-                str = read(tcp);
-                if char(str) == "CamPos"
-                    break
-                end
-                pause(0.5);
-                count = count + 1;
-                if count > 15
-                    ME = MException("receivingDataError", "Error receiving RobotStudio.");
-                    throw(ME);
-                end
-            end
-            clear tcp
-        end
-
-        function move2Bot(obj, capList)
-            tcp = obj.connectToTcp();
-            tcp.write("2");
-            tcp.flush();
-
-            for h = 1:height(capList)
-                if capList(h).colour == "Brown"
-                    str = "B," + num2str(capList(h).x) + "," + num2str(capList(h).y); 
-                else
-                    str = "R," + num2str(capList(h).x) + "," + num2str(capList(h).y); 
-                end
-                tcp.write(str);
+        function success =  move2Cam(obj)
+            try
+                tcp = obj.connectToTcp();
+                tcp.write('1');
                 tcp.flush();
                 flag = 0;
                 while flag == 0
-                    stri = read(tcp);
-                    if char(stri) == "SendNext"
-                        flag = 1;
+                    str = read(tcp);
+                    if char(str) == "CamPos"
+                        break
                     end
                     pause(0.5);
+                    count = count + 1;
+                    if count > 15
+                        ME = MException("receivingDataError", "Error receiving RobotStudio.");
+                        throw(ME);
+                    end
                 end
+                clear tcp
+                success = true;
+            catch
+                warndlg("there was an error sending signal to move to Camera Position")
+                success = false;
+                return
             end
-            clear tcp
+        end
+
+        function success = move2Bot(obj, capList)
+            try
+                tcp = obj.connectToTcp();
+                tcp.write("2");
+                tcp.flush();
+    
+                for h = 1:height(capList)
+                    if capList(h).colour == "Brown"
+                        str = "B," + num2str(capList(h).x) + "," + num2str(capList(h).y); 
+                    else
+                        str = "R," + num2str(capList(h).x) + "," + num2str(capList(h).y); 
+                    end
+                    tcp.write(str);
+                    tcp.flush();
+                    flag = 0;
+                    while flag == 0
+                        stri = read(tcp);
+                        if char(stri) == "SendNext"
+                            flag = 1;
+                        end
+                        pause(0.5);
+                    end
+                end
+                clear tcp
+                success = true;
+            catch
+                warndlg("there was an error sending signal to move to Camera Position")
+                success = false;
+                return
+            end
         end
         
     end
