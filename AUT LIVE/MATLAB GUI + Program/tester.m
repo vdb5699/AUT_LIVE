@@ -60,7 +60,7 @@ tcp = tcpclient("192.168.0.20", 1025);
 % analyse 1st coord - Step: 3
 converter = Coordinate_Converter();
 
-coord = [1794 643]; %add coord
+coord = [868 699]; %add coord
 cap1 = Cap(coord, 45, "Brown");
 % cap1 = cap(coord, "Red");
 [newCamPosX newCamPosY] = converter.convertBrown(cap1.x, cap1.y);
