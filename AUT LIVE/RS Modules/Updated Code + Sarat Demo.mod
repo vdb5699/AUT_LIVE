@@ -61,6 +61,7 @@ MODULE MainModule
 !    CONST robtarget CokeBoxCoordFour:= [[473.5000,558.4924,1115],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
     CONST robtarget CokeBoxCoordFive:= [[409.8604,813.0509,1065],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
     CONST robtarget CokeBoxCoordSix:= [[303.7944,919.1169,1065],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+	!-----------Sarat Demo Positions END------------!
     !---------Old Robtargets - replace with new coords-----------!       
     CONST robtarget BoxEdgeAbove:=[[-330,780,1375],[-0.000000048,1,0.00000002,-0.000000013],[1,0,-2,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget BoxEdge:=[[-330,780,695],[-0.000000048,1,0.00000002,-0.000000013],[1,0,-2,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -142,7 +143,7 @@ MODULE MainModule
     VAR robtarget CurRobT2;
     
     PROC main()
-		AccSet 40,30;           ! Max Acceleration set to 20mm/s^2 and ramping is 20
+		AccSet 20,20;           ! Max Acceleration set to 20mm/s^2 and ramping is 20
 !        syrup_counter:=0;
 !        open_gripper;
 !        coke_counter:=0;
@@ -343,6 +344,8 @@ MODULE MainModule
     PROC robotWrite()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         moveToZeroPos;
+		WaitTime 2;
+		MoveL Offs (moveToZeroPos, 0, 0, -200), v100, fine, tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
