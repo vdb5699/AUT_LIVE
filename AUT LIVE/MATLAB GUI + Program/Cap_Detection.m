@@ -14,8 +14,8 @@ classdef Cap_Detection
     methods
         function obj = Cap_Detection()
             obj.defDia = 86.5;
-            obj.defEdge = 0.05;
-            obj.defSens = 0.9;
+            obj.defEdge = 0.03;
+            obj.defSens = 0.96;
 
             obj = restoreDefault(obj);
         end
@@ -35,13 +35,12 @@ classdef Cap_Detection
         end
         
         function img = visualiseCaps(obj, image, caps)
-%             fig = figure(Visible="off");
-            fig = figure(Visible="on");
-            radii = zeros(height(caps),1);
-            radii(:) = 40;
+            fig = figure(Visible="off");
+%             fig = figure(Visible="on");
+            radii = caps(:,3);
             imshow(image);
             hold on;
-            viscircles(caps, radii);
+            viscircles(caps(:,1:2), radii);
             f = getframe(fig);
             hold off
             img = frame2im(f);

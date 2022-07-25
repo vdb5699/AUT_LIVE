@@ -20,11 +20,11 @@ classdef Camera
     methods (Access = public)
         function obj = Camera()
             obj.defRes = '3840x1080';
-            obj.defBright = 4;
-            obj.defCont = 4;
-            obj.defSharp = 4;
-            obj.defSat = 4;
-            obj.defGam = 5;
+            obj.defBright = 0;
+            obj.defCont = 0;
+            obj.defSharp = 0;
+            obj.defSat = 8;
+            obj.defGam = 1;
             obj = restoreDefault(obj);
      
         end
