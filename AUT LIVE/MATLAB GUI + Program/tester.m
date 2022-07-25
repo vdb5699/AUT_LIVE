@@ -46,28 +46,30 @@ capdet = Cap_Detection();
 capdet = capdet.setVariables(0.96, 0.02);
 caps = capdet.detectCaps(imD);
 img = capdet.visualiseCaps(imD, caps(:,1:2));
-imshow(img)
+% imshow(img)
 colDet = Colour_Detection();
 capL = colDet.detectColour(imD, caps(:,1:2), caps(:,3), 86.5)
 capL2 = colDet.eliminateDuplicate(capL, 100)
 %     colDet.visualiseAnalysis(capL, imN);
 imag = colDet.visualiseAnalysis(capL2, imN);
-figure(Visible="on")
-imshow(imag);
+% figure(Visible="on")
+% imshow(imag);
 %% connect tcp - Step: 2
 tcp = tcpclient("192.168.0.20", 1025);
 
-%% analyse 1st coord - Step: 3
+% analyse 1st coord - Step: 3
 converter = Coordinate_Converter();
 
-coord = [1566 186]; %add coord
-cap1 = cap(coord, "Brown");
+coord = [1794 643]; %add coord
+cap1 = Cap(coord, 45, "Brown");
 % cap1 = cap(coord, "Red");
-[newCamPosX newCamPosY] = converter.convertBrown(cap1.centreCoord(1), cap1.centreCoord(2), 0);
+[newCamPosX newCamPosY] = converter.convertBrown(cap1.x, cap1.y);
 % [newCamPosX newCamPosY] = converter.convertRed(cap1.centreCoord(1), cap1.centreCoord(2), 1);
-newCamPosX = newCamPosX + 215;
-newCamPosY = newCamPosY + -680.3;
+camToGrip = converter.convertDirection(-15,163, (3*pi)/4);
+% camToGrip = converter.convertDirection(-15+5,163+1, (3*pi)/4);
+bottlePosX = newCamPosX + camToGrip(1) +215
+bottlePosY = newCamPosY + camToGrip(2) -680.3
 
-tcp.write(string(newCamPosX))
+tcp.write(num2str(bottlePosX))
 pause(3)
-tcp.write(string(newCamPosY))
+tcp.write(num2str(bottlePosY))

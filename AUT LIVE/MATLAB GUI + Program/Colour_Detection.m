@@ -104,7 +104,7 @@ classdef Colour_Detection
         end
 
         function newImage = visualiseAnalysis(obj, capList, image)
-            fig = figure(Visible="off");
+            fig = figure(Visible="on");
             imshow(image);
             hold on
            

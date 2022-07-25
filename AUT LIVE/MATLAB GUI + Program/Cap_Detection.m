@@ -36,7 +36,7 @@ classdef Cap_Detection
         
         function img = visualiseCaps(obj, image, caps)
 %             fig = figure(Visible="off");
-            fig = figure;
+            fig = figure(Visible="on");
             radii = zeros(height(caps),1);
             radii(:) = 40;
             imshow(image);
