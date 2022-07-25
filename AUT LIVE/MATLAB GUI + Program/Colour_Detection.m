@@ -52,7 +52,7 @@ classdef Colour_Detection
 
         function capList = tempDetectColour(obj, image, caps, rad, diameter,rb, gb, bb, rr, gr, br)
             brownList = obj.detectBrown(image, caps, rad, diameter, rb, gb, bb);
-            redList = obj.detectRed(image, caps, rad, diamter, rr, gr, br);
+            redList = obj.detectRed(image, caps, rad, diameter, rr, gr, br);
 
             capList = [brownList, redList];
         end
