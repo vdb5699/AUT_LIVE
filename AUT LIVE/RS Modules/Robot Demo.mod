@@ -132,8 +132,10 @@ MODULE MainModule
     
     PROC main()
 		AccSet 20,20;           ! Max Acceleration set to 20mm/s^2 and ramping is 20
+        moveToHome;
         moveToCameraPos;       ! New Cam Pos
         Demo;
+        moveToHome;
 !        SocketClose server;
 !        SocketClose client;
     ENDPROC
@@ -198,11 +200,10 @@ MODULE MainModule
 
         moveToAboveBoxPos;
         moveToAboveBox1;
-        moveToAboveBoxCoordOne;
         moveToBoxCoordOne;
         close_gripper;
         moveToAboveBox1;
-        moveToAboveBoxPos;
+        moveToAboveBoxPosSlow;
         moveToAboveSyrupBottle1;
         moveToSyrupBottle1;
         open_gripper;
@@ -213,7 +214,7 @@ MODULE MainModule
         moveToBoxCoordTwo;
         close_gripper;
         moveToAboveBox1;
-        moveToAboveBoxPos;
+        moveToAboveBoxPosSlow;
         moveToAboveSyrupBottle2;
         moveToSyrupBottle2;
         open_gripper;
@@ -224,7 +225,7 @@ MODULE MainModule
         moveToBoxCoordFive;
         close_gripper;
         moveToAboveBox1;
-        moveToAboveBoxPos;
+        moveToAboveBoxPosSlow;
         moveToAboveSyrupBottle3;
         moveToSyrupBottle3;
         open_gripper;
@@ -235,7 +236,7 @@ MODULE MainModule
         moveToBoxCoordSix;
         close_gripper;
         moveToAboveBox1;
-        moveToAboveBoxPos;
+        moveToAboveBoxPosSlow;
         moveToAboveSyrupBottle4;
         moveToSyrupBottle4;
         open_gripper;
@@ -289,6 +290,12 @@ MODULE MainModule
     PROC moveToAboveBoxPos()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         MoveJ AboveBoxPos, v500, fine, tool0\WObj:=wobj0;
+        PathAccLim FALSE,FALSE;
+    ENDPROC
+    
+    PROC moveToAboveBoxPosSlow()
+        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
+        MoveJ AboveBoxPos, v200, fine, tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
@@ -391,7 +398,7 @@ MODULE MainModule
     
     PROC moveToAboveCokeBottle1()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL AboveCokeBottle1, v200,fine,tool0\WObj:=wobj0;
+        MoveL AboveCokeBottle1, v200,z20,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
@@ -403,7 +410,7 @@ MODULE MainModule
     
     PROC moveToAboveCokeBottle2()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL AboveCokeBottle2, v200,fine,tool0\WObj:=wobj0;
+        MoveL AboveCokeBottle2, v200,z20,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
@@ -415,7 +422,7 @@ MODULE MainModule
     
     PROC moveToAboveCokeBottle3()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL AboveCokeBottle3, v200,fine,tool0\WObj:=wobj0;
+        MoveL AboveCokeBottle3, v200,z20,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
@@ -427,13 +434,13 @@ MODULE MainModule
     
     PROC moveToAboveCokeBottle4()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL AboveCokeBottle4, v200,fine,tool0\WObj:=wobj0;
+        MoveL AboveCokeBottle4, v200,z20,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC moveToAboveBox1()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL AboveBox1, v150,fine,tool0\WObj:=wobj0;
+        MoveL AboveBox1, v200,z40,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
