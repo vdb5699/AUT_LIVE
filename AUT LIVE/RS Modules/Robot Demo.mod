@@ -14,25 +14,25 @@ MODULE MainModule
     PERS robtarget AboveBottleCoord:= [[301.544,-974.157, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget AboveTable:= [[550.3, -377.8, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget AboveBoxCoordOne:= [[473.5,410,1410],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    CONST robtarget BoxCoordOne:= [[473.5,410,1115],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-    CONST robtarget BoxCoordTwo:= [[399.2538,484.2462,1115],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-    CONST robtarget BoxCoordThree:= [[547.7462,484.2462,1115],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-    CONST robtarget BoxCoordFour:= [[473.5000,558.4924,1115],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-    CONST robtarget BoxCoordFive:= [[621.9924,558.4924,1115],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-    CONST robtarget BoxCoordSix:= [[547.7462,632.7386,1115],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+    CONST robtarget BoxCoordOne:= [[473.5,410,1110],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+    CONST robtarget BoxCoordTwo:= [[399.2538,484.2462,1110],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+    CONST robtarget BoxCoordThree:= [[547.7462,484.2462,1110],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+    CONST robtarget BoxCoordFour:= [[473.5000,558.4924,1110],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+    CONST robtarget BoxCoordFive:= [[621.9924,558.4924,1110],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+    CONST robtarget BoxCoordSix:= [[547.7462,632.7386,1110],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
     CONST robtarget WritePos:= [[1018.612159322,0,1417.5],[0.00197,-0.38293,0.92377,0.00290],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
     !-----------New Positions END------------!
     !-----------Sarat Demo Positions------------!
     CONST robtarget AboveCokeBox:= [[258.5, 819.8, 1454.6],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
     PERS robtarget AboveBox1:= [[490, 462, 1454.6],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
     PERS robtarget AboveSyrupBottle1:= [[315, -712.5, 1588],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-    CONST robtarget SyrupBottle1:= [[315, -712.5, 1125],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+    CONST robtarget SyrupBottle1:= [[315, -712.5, 1120],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
     PERS robtarget AboveSyrupBottle2:= [[545.9, -701.3, 1588],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-    CONST robtarget SyrupBottle2:= [[545.9, -701.3, 1125],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+    CONST robtarget SyrupBottle2:= [[545.9, -701.3, 1120],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
     PERS robtarget AboveSyrupBottle3:= [[519, -561.7, 1588],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-    CONST robtarget SyrupBottle3:= [[519, -561.7, 1125],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+    CONST robtarget SyrupBottle3:= [[519, -561.7, 1120],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
     PERS robtarget AboveSyrupBottle4:= [[399.7, -831.4, 1588],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-    CONST robtarget SyrupBottle4:= [[399.7, -831.4, 1125],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+    CONST robtarget SyrupBottle4:= [[399.7, -831.4, 1120],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
     PERS robtarget AboveCokeBottle1:= [[248.3, -842.8, 1600],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
     CONST robtarget CokeBottle1:= [[248.3, -842.8, 1069],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
     PERS robtarget AboveCokeBottle2:= [[248.3, -842.8, 1600],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
@@ -142,7 +142,7 @@ MODULE MainModule
 !        moveToAboveSyrupBottle1;
 !        AboveSyrupBottle1:= [[315, -712.5, 1588],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
         
-!       ! Syrup
+!!       ! Syrup
         AboveSyrupBottle1:= [[315, -712.5, 1300],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
         open_gripper;
         moveToAboveSyrupBottle1;
@@ -155,7 +155,7 @@ MODULE MainModule
         moveToBoxCoordOne;
         open_gripper;
         moveToAboveBoxPos;
-        moveToCameraPos;
+        moveToCameraPosFast;
         
         AboveSyrupBottle2:= [[545.9, -701.3, 1300],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
         moveToAboveSyrupBottle2;
@@ -168,7 +168,7 @@ MODULE MainModule
         moveToBoxCoordTwo;
         open_gripper;
         moveToAboveBoxPos;
-        moveToCameraPos;
+        moveToCameraPosFast;
         
         AboveSyrupBottle3:= [[519, -561.7, 1300],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
         moveToAboveSyrupBottle3;
@@ -181,7 +181,7 @@ MODULE MainModule
         moveToBoxCoordFive;
         open_gripper;
         moveToAboveBoxPos;
-        moveToCameraPos;
+        moveToCameraPosFast;
         
         AboveSyrupBottle4:= [[399.7, -831.4, 1300],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
         moveToAboveSyrupBottle4;
@@ -194,7 +194,7 @@ MODULE MainModule
         moveToBoxCoordSix;
         open_gripper;
         moveToAboveBoxPos;
-        moveToCameraPos;
+        moveToCameraPosFast;
 
         moveToAboveBoxPos;
         moveToAboveBox1;
@@ -240,10 +240,8 @@ MODULE MainModule
         moveToSyrupBottle4;
         open_gripper;
         moveToAboveSyrupBottle4;
-        
     ENDPROC
 
-    
     PROC moveToHome()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         MoveJ Home,v200,fine,tool0\WObj:=wobj0;
@@ -253,6 +251,12 @@ MODULE MainModule
     PROC moveToCameraPos()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         MoveJ NewCamPos,v200,fine,tool0\WObj:=wobj0;
+        PathAccLim FALSE,FALSE;
+    ENDPROC
+	
+	PROC moveToCameraPosFast()
+        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
+        MoveJ NewCamPos,v600,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
@@ -268,13 +272,6 @@ MODULE MainModule
         PathAccLim FALSE,FALSE;
     ENDPROC
 	
-!    PROC moveAboveToCameraPos()
-!        MoveL aboveCameraPos,v300,fine,tool0\WObj:=wobj0;
-!    ENDPROC
-    
-    PROC moveGipperToCameraPos()
-        MoveL GripperInitPos,v100,fine,tool0\WObj:=wobj0;
-    ENDPROC
     
     PROC moveToAboveBottleCoord()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
@@ -291,110 +288,104 @@ MODULE MainModule
     
     PROC moveToAboveBoxPos()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveJ AboveBoxPos, v200, fine, tool0\WObj:=wobj0;
+        MoveJ AboveBoxPos, v500, fine, tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC moveToAboveBoxCoordOne()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveJ AboveBoxCoordOne, v100,fine,tool0\WObj:=wobj0;
+        MoveJ AboveBoxCoordOne, v400,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC moveToBoxCoordOne()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL BoxCoordOne, v60,fine,tool0\WObj:=wobj0;
+        MoveL BoxCoordOne, v100,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC moveToBoxCoordTwo()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL BoxCoordTwo, v60,fine,tool0\WObj:=wobj0;
+        MoveL BoxCoordTwo, v100,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC moveToBoxCoordThree()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL BoxCoordThree, v60,fine,tool0\WObj:=wobj0;
+        MoveL BoxCoordThree, v100,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC moveToBoxCoordFour()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL BoxCoordFour, v60,fine,tool0\WObj:=wobj0;
+        MoveL BoxCoordFour, v100,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC moveToBoxCoordFive()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL BoxCoordFive, v60,fine,tool0\WObj:=wobj0;
+        MoveL BoxCoordFive, v150,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC moveToBoxCoordSix()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL BoxCoordSix, v60,fine,tool0\WObj:=wobj0;
+        MoveL BoxCoordSix, v100,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
-!    PROC moveToAboveSyrupBottle1()
-!        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-!        PERS robtarget AboveSyrupBottle1:= [[315, -712.5, 1125],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-!        MoveL SyrupBottle1, v60,fine,tool0\WObj:=wobj0;
-!        PathAccLim FALSE,FALSE;
-!    ENDPROC
     
     PROC moveToSyrupBottle1()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL SyrupBottle1, v60,fine,tool0\WObj:=wobj0;
+        MoveL SyrupBottle1, v200,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC moveToAboveSyrupBottle1()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL AboveSyrupBottle1, v200,fine,tool0\WObj:=wobj0;
+        MoveL AboveSyrupBottle1, v500,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC moveToSyrupBottle2()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL SyrupBottle2, v60,fine,tool0\WObj:=wobj0;
+        MoveL SyrupBottle2, v200,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC moveToAboveSyrupBottle2()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL AboveSyrupBottle2, v200,fine,tool0\WObj:=wobj0;
+        MoveL AboveSyrupBottle2, v500,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC moveToSyrupBottle3()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL SyrupBottle3, v60,fine,tool0\WObj:=wobj0;
+        MoveL SyrupBottle3, v200,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC moveToAboveSyrupBottle3()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL AboveSyrupBottle3, v200,fine,tool0\WObj:=wobj0;
+        MoveL AboveSyrupBottle3, v500,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC moveToSyrupBottle4()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL SyrupBottle4, v60,fine,tool0\WObj:=wobj0;
+        MoveL SyrupBottle4, v200,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC moveToAboveSyrupBottle4()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL AboveSyrupBottle4, v200,fine,tool0\WObj:=wobj0;
+        MoveL AboveSyrupBottle4, v500,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC moveToCokeBottle1()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL CokeBottle1, v60,fine,tool0\WObj:=wobj0;
+        MoveL CokeBottle1, v200,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
@@ -442,7 +433,7 @@ MODULE MainModule
     
     PROC moveToAboveBox1()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL AboveBox1, v300,fine,tool0\WObj:=wobj0;
+        MoveL AboveBox1, v150,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
@@ -505,4 +496,4 @@ MODULE MainModule
         WaitTime 2;
         moveToBoxCoordSix;
     ENDPROC
-
+ENDMODULE
