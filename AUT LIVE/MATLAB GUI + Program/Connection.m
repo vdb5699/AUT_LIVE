@@ -18,7 +18,17 @@ classdef Connection
 
         function success =  move2Cam(obj)
             try
-                tcp = obj.connectToTcp();
+                tcp = tcpclient(obj.IP, obj.port);
+                tcp.write('Connected');
+                tcp.flush;
+                flag = 0;
+                while flag == 0
+                    str = read(app.tcpConnection);
+                    if char(str) == "RSConnected"
+                        break
+                    end
+                    pause(0.5);
+                end
                 tcp.write('1');
                 tcp.flush();
                 flag = 0;
@@ -44,8 +54,19 @@ classdef Connection
         end
 
         function success = move2Bot(obj, capList)
-            try
-                tcp = obj.connectToTcp();
+%             try
+                tcp = tcpclient("192.168.0.20", 1025);
+                pause(3);
+                tcp.write('Connected');
+                tcp.flush;
+                flag = 0;
+                while flag == 0
+                    str = read(app.tcpConnection);
+                    if char(str) == "RSConnected"
+                        break
+                    end
+                    pause(0.5);
+                end
                 tcp.write("2");
                 tcp.flush();
     
@@ -68,36 +89,36 @@ classdef Connection
                 end
                 clear tcp
                 success = true;
-            catch
-                warndlg("there was an error sending signal to move to Camera Position")
-                success = false;
-                return
-            end
+%             catch
+%                 warndlg("there was an error sending signal to move to Bottle Position")
+%                 success = false;
+%                 return
+%             end
         end
         
     end
 
-    methods (Access = private)
-        function tcp = connectToTcp(obj)
-            try
-                tcp = tcpclient(obj.IP, obj.port);
-            catch
-                f = warndlg("Something went wrong trying to connect to tcp");
-                clear tcp
-                tcp = 0;
-                return
-            end
-            tcp.wrote('Connected');
-            tcp.flush;
-            flag = 0;
-            while flag == 0
-                str = read(app.tcpConnection);
-                if char(str) == "RSConnected"
-                    break
-                end
-                pause(0.5);
-            end
-            return
-        end
-    end
+%     methods (Access = private)
+%         function tcp = connectToTcp(obj)
+%             try
+%                 tcp = tcpclient(obj.IP, obj.port);
+%             catch
+%                 f = warndlg("Something went wrong trying to connect to tcp");
+%                 clear tcp
+%                 tcp = 0;
+%                 return
+%             end
+%             tcp.wrote('Connected');
+%             tcp.flush;
+%             flag = 0;
+%             while flag == 0
+%                 str = read(app.tcpConnection);
+%                 if char(str) == "RSConnected"
+%                     break
+%                 end
+%                 pause(0.5);
+%             end
+%             return
+%         end
+%     end
 end
