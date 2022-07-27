@@ -1,12 +1,12 @@
 %% playing with the camera
 c = Camera();
-img = c.imageAcq(1,'l');
+img = c.tempImageAcq(1,'l', '3840x1080', 4, 4, 4, 4, 5);
 figure(Visible="on")
 imshow(img);
 % c = c.changeSettings('3840x1080', 8,8,8,8,500);
 % imshow(c.imageAcq(1,'l'));
 % c = c.restoreDefault();
-% pause(1);
+% pause(1); 
 % imshow(c.imageAcq(1,'r'));
 % pause(1);
 % imshow(c.tempImageAcq(1, 'l', '3840x1080', 0,0,8,0,500));
@@ -44,7 +44,7 @@ imD = cam.tempImageAcq(1,'l', '3840x1080', 0, 0, 8, 0, 1);
 capdet = Cap_Detection();
 capdet = capdet.setVariables(0.96, 0.02);
 caps = capdet.detectCaps(imD);
-img = capdet.visualiseCaps(imD, caps(:,1:2));
+img = capdet.visualiseCaps(imD, caps);
 % imshow(img)
 colDet = Colour_Detection();
 capL = colDet.detectColour(imD, caps(:,1:2), caps(:,3), 86.5)
@@ -59,12 +59,12 @@ tcp = tcpclient("192.168.0.20", 1025);
 % analyse 1st coord - Step: 3
 converter = Coordinate_Converter();
 
-coord = [868 699]; %add coord
+coord = [885 255]; %add coord
 cap1 = Cap(coord, 45, "Brown");
 % cap1 = cap(coord, "Red");
-[newCamPosX newCamPosY] = converter.convertBrown(cap1.x, cap1.y);
-% [newCamPosX newCamPosY] = converter.convertRed(cap1.centreCoord(1), cap1.centreCoord(2), 1);
-camToGrip = converter.convertDirection(-15,163, (3*pi)/4);
+% [newCamPosX newCamPosY] = converter.convertBrown(cap1.x, cap1.y);
+[newCamPosX newCamPosY] = converter.convertRed(cap1.x, cap1.y);
+camToGrip = converter.convertDirection(-20,163, (3*pi)/4);
 % camToGrip = converter.convertDirection(-15+5,163+1, (3*pi)/4);
 bottlePosX = newCamPosX + camToGrip(1) +215
 bottlePosY = newCamPosY + camToGrip(2) -680.3

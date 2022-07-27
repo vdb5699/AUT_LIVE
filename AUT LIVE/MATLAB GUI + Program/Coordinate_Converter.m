@@ -2,27 +2,36 @@ classdef Coordinate_Converter
     methods
         function [newX, newY] = convertBrown(obj, x, y)
             %% write func when calibration is done
-            newX = 0.0306*x - 29.464;
-            newX = newX*10;
-            newY = -1*((7e-7)*y*y) - 0.0299*y + 17.235;
-            newY = newY*10;
-            erX = (((9e-5)*newX*newX) + 0.037*newX + 3);
-            if erX < 0 
-                erX = 0;
-            end
-            newX = newX + erX;
-            newY = newY + (((-1e-5)*newX*newX) - 0.0873*newX - 25);
-%             newX = newX - ((0.0015*newX*newX) + 0.0577*newX + 0.5);
+%             newX = ((1e-8)*x*x*x) - ((3e-5)*x*x) + 0.3287*x -296.9;
+            newX = 0.3085*x - 294.79;
+            newY = (-0.3018*y) +162.89; 
             newc = obj.convertDirection(newX, newY, ((3*pi)/4));
-            newX = newc(1);
-%             a = obj.convertDirection(0, -15, ((3*pi)/4));
-            newY = newc(2);
+%             extrax = ((-3e-10)*(newX^4)) + ((6e-8)*(newX^3)) + ((2e-5)*(newX^2)) + 0.0319*x + 15;
+%             extray = ((8e-10)*(newX^4)) + ((-5e-7)*(newX^3)) + ((4e-5)*(newX^2)) - 0.0536*x -22;
+            extrax = 0.0356*newX + 15.128;
+            extray = -0.085*newX - 18.706;
+            extrax = extrax - (-0.0818*newY + 2.0184);
+            extray = extray - (-0.0515*newY - 1.7187);
+            extra = obj.convertDirection(extrax, extray, ((3*pi)/4));
+            newX = newc(1) + extra(1);
+            newY = newc(2) + extra(2);
             return
         end
 
         function [newX, newY] = convertRed(obj, x, y)
             %% write func when calibration is done
-
+            newX = 0.3085*x - 294.79;
+            newY = -0.3018*y +162.89;
+            newc = obj.convertDirection(newX, newY, ((3*pi)/4));
+            %             extrax = ((-3e-10)*(newX^4)) + ((6e-8)*(newX^3)) + ((2e-5)*(newX^2)) + 0.0319*x + 15;
+            %             extray = ((8e-10)*(newX^4)) + ((-5e-7)*(newX^3)) + ((4e-5)*(newX^2)) - 0.0536*x -22;
+            extrax = (0.0356*newX + 15.128) + newX*(0.1294);
+            extray = (-0.085*newX - 18.706) + (-0.0125*newX - 4.2288);
+            extrax = extrax - (-0.0818*newY + 2.0184);
+            extray = extray - (-0.0515*newY - 1.7187) + (0.1104*newY + 2.99);
+            extra = obj.convertDirection(extrax, extray, ((3*pi)/4));
+            newX = newc(1) + extra(1);
+            newY = newc(2) + extra(2);
 
         end
 

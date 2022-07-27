@@ -132,10 +132,10 @@ MODULE MainModule
     
     PROC main()
 		AccSet 20,20;           ! Max Acceleration set to 20mm/s^2 and ramping is 20
-        moveToHome;
+!        moveToHome;
         moveToCameraPos;       ! New Cam Pos
-        Demo;
-        moveToHome;
+!        Demo;
+!        moveToHome;
 !        SocketClose server;
 !        SocketClose client;
     ENDPROC
@@ -440,7 +440,7 @@ MODULE MainModule
     
     PROC moveToAboveBox1()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL AboveBox1, v200,z40,tool0\WObj:=wobj0;
+        MoveL AboveBox1, v150,z40,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     

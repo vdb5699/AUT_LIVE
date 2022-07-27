@@ -23,7 +23,7 @@ MODULE MainModule
     CONST robtarget OldNewCamPos:= [[326.9438,-581.9982,1300],[0.00164,-0.38341,-0.92358,-0.00114],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget NewCamPos:= [[215, -680.3, 1300],[0.00163,-0.38344,-0.92356,-0.00115],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget AboveBoxPos:= [[366.1, 366, 1588.4],[0.00192, -0.38294, 0.92377, 0.00293],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    PERS robtarget TemporaryCam:= [[315.629,-721.49,1160],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget TemporaryCam:= [[407.305,-836.938,1070],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     ! AboveBottleCoord robtarget x,y should change based on the bottle location
     PERS robtarget AboveBottleCoord:= [[301.544,-974.157, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget AboveTable:= [[550.3, -377.8, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -35,6 +35,9 @@ MODULE MainModule
     CONST robtarget BoxCoordFive:= [[621.9924,558.4924,1115],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
     CONST robtarget BoxCoordSix:= [[547.7462,632.7386,1115],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
     CONST robtarget WritePos:= [[1018.612159322,0,1417.5],[0.00197,-0.38293,0.92377,0.00290],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+    CONST robtarget CokePos1:= [[240.8, 693.9, 1060.7],[0.00191, -0.34877, 0.93720,  0.00298],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+    CONST robtarget CokePos2:= [[183.4, 762.5, 1060.7],[0.00191, -0.34877, 0.93720,  0.00298],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget TestCokePos2:= [[141.1598, 742.3402, 1060.7],[0.00191, -0.34877, 0.93720,  0.00298],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     !-----------New Positions END------------!
     !-----------Sarat Demo Positions------------!
     CONST robtarget AboveCokeBox:= [[258.5, 819.8, 1454.6],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
@@ -147,23 +150,23 @@ MODULE MainModule
     PROC main()
 		AccSet 20,20;           ! Max Acceleration set to 20mm/s^2 and ramping is 20
 !        syrup_counter:=0;
-!        open_gripper;
-!        coke_counter:=0;
-!        moveToHome;             ! Program always starts from Home Pos in case it was left in random pos
-!        receiveSignal;         ! Where robot will receive signals to do certain tasks
-        moveToCameraPos;       ! New Cam Pos
-        Demo;
-!        moveToCokeCoordOne;
-!!!!        testpos;
-!!!!        Waittime 2;
-!!        moveToAboveBoxPos;
-!!        testingBoxCoords;
-!!        moveToAboveBoxPos;
-!!        tcpipTempCam;
 !!        open_gripper;
-!!        tcpipBottle;
-!!        moveToCameraPos;
-!        moveToHome;
+!!        coke_counter:=0;
+!!        moveToHome;             ! Program always starts from Home Pos in case it was left in random pos
+!!        receiveSignal;         ! Where robot will receive signals to do certain tasks
+!        moveToCameraPos;       ! New Cam Pos
+!!!        moveToCokeCoordOne;
+!!!!!!        testpos;
+!!!!!!        Waittime 2;
+!!!!        moveToAboveBoxPos;
+!!!!        testingBoxCoords;
+!!!!        moveToAboveBoxPos;
+!        tcpipTempCam;
+!        close_gripper;
+!        open_gripper;
+!!!        tcpipBottle;
+        moveToAboveBoxPos;
+        moveToHome;
 !        Waittime 3;
 !        WHILE sum<num_objs DO
 !            !Move to object
@@ -273,7 +276,8 @@ MODULE MainModule
         TemporaryCam:= [[tcpXValue,tcpYValue,1300],[0.001639386,-0.3834062,-0.9235777,-0.001139545],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
         PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
         MoveL TemporaryCam,v100,fine,tool0\WObj:=wobj0;
-        TemporaryCam:= [[tcpXValue,tcpYValue,1160],[0.001639386,-0.3834062,-0.9235777,-0.001139545],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+        TemporaryCam:= [[tcpXValue,tcpYValue,1070],[0.001639386,-0.3834062,-0.9235777,-0.001139545],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+        ! TemporaryCam:= [[tcpXValue,tcpYValue,1195],[0.001639386,-0.3834062,-0.9235777,-0.001139545],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
         WaitTime 2;
         MoveL TemporaryCam,v50,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
@@ -343,18 +347,18 @@ MODULE MainModule
 		PathAccLim FALSE, FALSE;
     ENDPROC
     
-    PROC robotWrite()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        moveToZeroPos;
-		WaitTime 2;
-		MoveL Offs (moveToZeroPos, 0, -50, -200), v80, fine, tool0\WObj:=wobj0;
-		moveToZeroPos;
-		MoveL Offs (moveToZeroPos, 0, 50, -200), v80, fine, tool0\WObj:=wobj0;
-		moveToZeroPos;
-		moveToA_Horizontal;
-		MoveL Offs (moveToZeroPos, 0, 22.5, 0), v80, fine, tool0\WObj:=wobj0;
-        PathAccLim FALSE,FALSE;
-    ENDPROC
+!    PROC robotWrite()
+!        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
+!        moveToZeroPos;
+!		WaitTime 2;
+!		MoveL Offs (moveToZeroPos, 0, -50, -200), v80, fine, tool0\WObj:=wobj0;
+!		moveToZeroPos;
+!		MoveL Offs (moveToZeroPos, 0, 50, -200), v80, fine, tool0\WObj:=wobj0;
+!		moveToZeroPos;
+!		moveToA_Horizontal;
+!		MoveL Offs (moveToZeroPos, 0, 22.5, 0), v80, fine, tool0\WObj:=wobj0;
+!        PathAccLim FALSE,FALSE;
+!    ENDPROC
     
     PROC Demo()
 !        moveToAboveSyrupBottle1;
@@ -691,13 +695,13 @@ MODULE MainModule
     
     PROC moveToCokeCoordOne()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL CokeBoxCoordOne, v100,fine,tool0\WObj:=wobj0;
+        MoveL CokePos1, v100,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC moveToCokeCoordTwo()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL CokeBoxCoordTwo, v100,fine,tool0\WObj:=wobj0;
+        MoveL TestCokePos2, v100,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
