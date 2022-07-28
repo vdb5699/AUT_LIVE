@@ -35,17 +35,22 @@ classdef Cap_Detection
         end
         
         function img = visualiseCaps(obj, image, caps)
-            fig = figure(Visible="off");
-%             fig = figure(Visible="on");
-            radii = caps(:,3);
-            imshow(image);
-            hold on;
-            viscircles(caps(:,1:2), radii);
-            f = getframe(fig);
-            hold off
-            img = frame2im(f);
-            img = img(29:750,86:1367,:);
-            return
+            if height(caps) < 0
+                img = image;
+                return
+            else
+                fig = figure(Visible="off");
+    %             fig = figure(Visible="on");
+                radii = caps(:,3);
+                imshow(image);
+                hold on;
+                viscircles(caps(:,1:2), radii);
+                f = getframe(fig);
+                hold off
+                img = frame2im(f);
+                img = img(29:750,86:1367,:);
+                return
+            end
         end
 
         function diameter = obtainDiameter(obj, image)

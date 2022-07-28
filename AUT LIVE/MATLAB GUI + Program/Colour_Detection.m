@@ -58,69 +58,79 @@ classdef Colour_Detection
         end
 
         function newCapList = eliminateDuplicate(obj, capList, range)
-            newCapList = [Cap([0,0], 0, "Unknown"), Cap([0,0], 0,"Unknown")];
-            w = 1920;
-            h = 1080;
-            counter = 1;
-            for ind = 1:width(capList)
-                for ind2 = 1:width(newCapList)
-                    MaxX = capList(ind).x + 100;
-                    MinX = capList(ind).x - 100;
-                    MaxY = capList(ind).y + 100;
-                    MinY = capList(ind).y - 100;
-                    newX = newCapList(ind2).x;
-                    newY = newCapList(ind2).y;
-                    if ((MaxX > newX) && (MinX < newX)) && ((newY < MaxY) && (newY > MinY))
-                        if (capList(ind).x >= w/2 && capList(ind).y >= h/2)
-                            if sqrt((1920-capList(ind).x)^2+(1080-capList(ind).y)^2) < sqrt((1920-newCapList(ind2).x)^2+(1080-newCapList(ind2).y)^2)
-                                newCapList(ind2) = Cap(capList(ind).centreCoord, capList(ind).radius, capList(ind).colour);
+            if width(capList) < 1
+                newCapList = [];
+                return
+            else
+                newCapList = [Cap([0,0], 0, "Unknown"), Cap([0,0], 0,"Unknown")];
+                w = 1920;
+                h = 1080;
+                counter = 1;
+                for ind = 1:width(capList)
+                    for ind2 = 1:width(newCapList)
+                        MaxX = capList(ind).x + range;
+                        MinX = capList(ind).x - range;
+                        MaxY = capList(ind).y + range;
+                        MinY = capList(ind).y - range;
+                        newX = newCapList(ind2).x;
+                        newY = newCapList(ind2).y;
+                        if ((MaxX > newX) && (MinX < newX)) && ((newY < MaxY) && (newY > MinY))
+                            if (capList(ind).x >= w/2 && capList(ind).y >= h/2)
+                                if sqrt((1920-capList(ind).x)^2+(1080-capList(ind).y)^2) < sqrt((1920-newCapList(ind2).x)^2+(1080-newCapList(ind2).y)^2)
+                                    newCapList(ind2) = Cap(capList(ind).centreCoord, capList(ind).radius, capList(ind).colour);
+                                end
+                                break
+                            elseif (capList(ind).x <= w/2 && capList(ind).y <= h/2)
+                                if sqrt(((capList(ind).x)^2)+((capList(ind).y)^2)) < sqrt(((newCapList(ind2).x)^2)+((newCapList(ind2).y)^2))
+                                    newCapList(ind2) = Cap(capList(ind).centreCoord, capList(ind).radius, capList(ind).colour);
+                                end
+                                break
+                            elseif (capList(ind).x > w/2 && capList(ind).y < h/2)
+                                if sqrt((1920-capList(ind).x)^2+(capList(ind).y)^2) < sqrt((1920-newCapList(ind2).x)^2+(newCapList(ind2).y)^2)
+                                    newCapList(ind2) = Cap(capList(ind).centreCoord, capList(ind).radius, capList(ind).colour);
+                                end
+                                break
+                            elseif (capList(ind).x < w/2 && capList(ind).y > h/2)
+                                if sqrt((capList(ind).x)^2+(1080-capList(ind).y)^2) < sqrt((newCapList(ind2).x)^2+(1080-newCapList(ind2).y)^2)
+                                    newCapList(ind2) = Cap(capList(ind).centreCoord, capList(ind).radius, capList(ind).colour);
+                                end
+                                break
                             end
-                            break
-                        elseif (capList(ind).x <= w/2 && capList(ind).y <= h/2)
-                            if sqrt(((capList(ind).x)^2)+((capList(ind).y)^2)) < sqrt(((newCapList(ind2).x)^2)+((newCapList(ind2).y)^2))
-                                newCapList(ind2) = Cap(capList(ind).centreCoord, capList(ind).radius, capList(ind).colour);
-                            end
-                            break
-                        elseif (capList(ind).x > w/2 && capList(ind).y < h/2)
-                            if sqrt((1920-capList(ind).x)^2+(capList(ind).y)^2) < sqrt((1920-newCapList(ind2).x)^2+(newCapList(ind2).y)^2)
-                                newCapList(ind2) = Cap(capList(ind).centreCoord, capList(ind).radius, capList(ind).colour);
-                            end
-                            break
-                        elseif (capList(ind).x < w/2 && capList(ind).y > h/2)
-                            if sqrt((capList(ind).x)^2+(1080-capList(ind).y)^2) < sqrt((newCapList(ind2).x)^2+(1080-newCapList(ind2).y)^2)
-                                newCapList(ind2) = Cap(capList(ind).centreCoord, capList(ind).radius, capList(ind).colour);
-                            end
-                            break
+    
                         end
-
-                    end
-                    if ind2 == width(newCapList)
-                        newCapList(counter) = Cap(capList(ind).centreCoord, capList(ind).radius, capList(ind).colour);
-                        counter = counter + 1;
+                        if ind2 == width(newCapList)
+                            newCapList(counter) = Cap(capList(ind).centreCoord, capList(ind).radius, capList(ind).colour);
+                            counter = counter + 1;
+                        end
                     end
                 end
+                return
             end
-            return
         end
 
         function newImage = visualiseAnalysis(obj, capList, image)
-            fig = figure(Visible="on");
-            imshow(image);
-            hold on
-           
-            for h = 1:width(capList)
-                    str = capList(h).toString();
-                    C = strsplit(str,", ");
-                    plot(str2double(C(1)), str2double(C(2)), 'bo', 'MarkerSize', capList(h).radius, 'LineWidth',5);
-                    text(str2double(C(1)), str2double(C(2)), str, Color=[0 1 0], FontSize=16, FontWeight="bold");
+            if width(capList) < 1
+                newImage = image;
+                return
+            else
+                fig = figure(Visible="on");
+                imshow(image);
+                hold on
+               
+                for h = 1:width(capList)
+                        str = capList(h).toString();
+                        C = strsplit(str,", ");
+                        plot(str2double(C(1)), str2double(C(2)), 'bo', 'MarkerSize', capList(h).radius, 'LineWidth',5);
+                        text(str2double(C(1)), str2double(C(2)), str, Color=[0 1 0], FontSize=16, FontWeight="bold");
+                end
+                f = getframe(fig);
+                hold off
+                newImage = frame2im(f);
+                newImage = newImage(29:750,86:1367,:);
+    %             figure
+    %             imshow(newImage);
+                return
             end
-            f = getframe(fig);
-            hold off
-            newImage = frame2im(f);
-            newImage = newImage(29:750,86:1367,:);
-%             figure
-%             imshow(newImage);
-            return
         end
 
         function [R, G, B] = getColour(obj, image,x, y)
