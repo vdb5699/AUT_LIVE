@@ -113,7 +113,7 @@ classdef Colour_Detection
                 newImage = image;
                 return
             else
-                fig = figure(Visible="on");
+                fig = figure(Visible="off");
                 imshow(image);
                 hold on
                
