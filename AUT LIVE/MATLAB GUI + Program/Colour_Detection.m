@@ -58,6 +58,7 @@ classdef Colour_Detection
         end
 
         function newCapList = eliminateDuplicate(obj, capList, range)
+            centre = [960 540];
             if width(capList) < 1
                 newCapList = [];
                 return
@@ -75,7 +76,12 @@ classdef Colour_Detection
                         newX = newCapList(ind2).x;
                         newY = newCapList(ind2).y;
                         if ((MaxX > newX) && (MinX < newX)) && ((newY < MaxY) && (newY > MinY))
-                            if (capList(ind).x >= w/2 && capList(ind).y >= h/2)
+                            if (capList(ind).x < centre(1)+range && capList(ind).x > centre(1)-range) && (capList(ind).y < centre(2)+range && capList(ind).y > centre(2)-range)
+                                if sqrt((centre(1)-capList(ind).x)^2+(centre(2)-capList(ind).y)^2) < sqrt((centre(1)-newCapList(ind2).x)^2+(centre(2)-newCapList(ind2).y)^2)
+                                    newCapList(ind2) = Cap(capList(ind).centreCoord, capList(ind).radius, capList(ind).colour);
+                                end
+                                break 
+                            elseif (capList(ind).x >= w/2 && capList(ind).y >= h/2)
                                 if sqrt((1920-capList(ind).x)^2+(1080-capList(ind).y)^2) < sqrt((1920-newCapList(ind2).x)^2+(1080-newCapList(ind2).y)^2)
                                     newCapList(ind2) = Cap(capList(ind).centreCoord, capList(ind).radius, capList(ind).colour);
                                 end
