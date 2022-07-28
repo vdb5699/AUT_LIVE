@@ -11,7 +11,8 @@ MODULE MainModule
     CONST robtarget TestTableTopLeftMATLAB:=[[241.1275,1721.8,950],[-0.000000007,-0.382683401,0.923879546,0],[0,0,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget TestBottomCentreMATLABFIG:=[[66.1186,715.938,848],[-0.000000007,-0.382683401,0.923879546,0],[0,0,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 	CONST robtarget TestBottomCentreMATLABANG:=[[90.8673,740.6984,848],[-0.000000007,-0.382683401,0.923879546,0],[0,0,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-	CONST robtarget TestTableCentreMATLABANG:=[[90.8673,740.6984,848],[-0.000000007,-0.382683401,0.923879546,0],[0,0,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+	CONST robtarget High_TestCamTableCentreMATLABANG:=[[223.0963,844.6431,1375],[-0.000000007,-0.382683401,0.923879546,0],[0,0,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+	CONST robtarget Low_TestCamTableCentreMATLABANG:=[[223.0963,844.6431,848],[-0.000000007,-0.382683401,0.923879546,0],[0,0,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 	PROC main()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         !Add your code here
@@ -32,6 +33,8 @@ MODULE MainModule
         MoveL TableBottomLeftMATLAB,v200,fine,tool0\WObj:=wobj0;
 !        WaitTime 1;
 !        MoveL TestTableTopLeftMATLAB,v50,fine,tool0\WObj:=wobj0;
+		MoveL High_TestCamTableCentreMATLABANG,v50,fine,tool0\WObj:=wobj0;
+		MoveL Low_TestCamTableCentreMATLABANG,v50,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
 ENDMODULE
