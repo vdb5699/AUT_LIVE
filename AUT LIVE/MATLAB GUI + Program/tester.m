@@ -45,14 +45,14 @@ capdet = Cap_Detection();
 capdet = capdet.setVariables(0.96, 0.02);
 caps = capdet.detectCaps(imD);
 img = capdet.visualiseCaps(imD, caps);
-% imshow(img)
+imshow(img)
 colDet = Colour_Detection();
 capL = colDet.detectColour(imD, caps(:,1:2), caps(:,3), 86.5)
 capL2 = colDet.eliminateDuplicate(capL, 100)
 %     colDet.visualiseAnalysis(capL, imN);
 imag = colDet.visualiseAnalysis(capL2, imN);
-% figure(Visible="on")
-% imshow(imag);
+figure(Visible="on")
+imshow(imag);
 %% connect tcp - Step: 2
 tcp = tcpclient("192.168.0.20", 1025);
 

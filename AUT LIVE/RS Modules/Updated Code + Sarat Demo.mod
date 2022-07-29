@@ -10,7 +10,7 @@ MODULE MainModule
     PERS robtarget TestGripperToSyrupBottle:= [[301.544,-974.157, 1120],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget TestGripperToCokeBottleAbove:= [[412.693,-899.473,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget TestGripperToCokeBottle:= [[412.693,-899.473,1070],[0.00163976,-0.383409,-0.923576,-0.00114218],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    PERS robtarget TestingGUIPos:= [[357.471,-864.804,1588],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget TestingGUIPos:= [[351.838,-853.917,1588],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !    CONST robtarget CameraPos:=[[888.647981627,-3.101979233,1192.532782595],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !    CONST robtarget CameraPos:=[[595.6,-367-628.37,1192.532782595],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     
@@ -157,15 +157,15 @@ MODULE MainModule
 !        syrup_counter:=0;
 !        open_gripper;
 !!        coke_counter:=0;
-        moveToHome;             ! Program always starts from Home Pos in case it was left in random pos
-        receiveSignal;         ! Where robot will receive signals to do certain tasks
+!        moveToHome;             ! Program always starts from Home Pos in case it was left in random pos
+!        receiveSignal;         ! Where robot will receive signals to do certain tasks
 !        moveToCameraPos;       ! New Cam Pos
 !!!        moveToCokeCoordOne;
 !!!!!!        testpos;
 !!!!!!        Waittime 2;
 !!!!        moveToAboveBoxPos;
 !!!!        testingBoxCoords;
-!!!!        moveToAboveBoxPos;
+        moveToAboveBoxPos;
 !        tcpipTempCam;
 !        close_gripper;
 !        open_gripper;
@@ -369,12 +369,12 @@ MODULE MainModule
     PROC PickUpBottles()
         IF colour = "B" THEN
             TestingGUIPos:= [[X,Y,1300],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-            MoveL TestingGUIPos,v500,fine,tool0\WObj:=wobj0;
+            MoveL TestingGUIPos,v1000,fine,tool0\WObj:=wobj0;
             TestingGUIPos:= [[X,Y,1125],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-            MoveL TestingGUIPos,v500,fine,tool0\WObj:=wobj0;
+            MoveL TestingGUIPos,v1000,fine,tool0\WObj:=wobj0;
             close_gripper;
             TestingGUIPos:= [[X,Y,1588],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-            MoveL TestingGUIPos,v500,fine,tool0\WObj:=wobj0;
+            MoveL TestingGUIPos,v1000,fine,tool0\WObj:=wobj0;
             n_syrup:= n_syrup + 1;
             PutBottlesDown;
         ELSE
@@ -405,6 +405,7 @@ MODULE MainModule
             open_gripper;
             MoveL AboveBoxCoordOne,v300,fine,tool0\WObj:=wobj0;
             MoveL ViaPoint,v500,z100,tool0\WObj:=wobj0;
+            moveToCameraPosFast;
         ELSEIF n_syrup = 2 THEN
             moveToAboveBoxPos;
             MoveL AboveBoxCoordTwo,v300,fine,tool0\WObj:=wobj0;
@@ -412,6 +413,7 @@ MODULE MainModule
             open_gripper;
             MoveL AboveBoxCoordTwo,v300,fine,tool0\WObj:=wobj0;
             MoveL ViaPoint,v500,z200,tool0\WObj:=wobj0;
+            moveToCameraPosFast;
         ELSEIF n_syrup = 3 THEN
             moveToAboveBoxPos;
             MoveL AboveBoxCoordThree,v300,fine,tool0\WObj:=wobj0;
@@ -419,6 +421,7 @@ MODULE MainModule
             open_gripper;
             MoveL AboveBoxCoordThree,v300,fine,tool0\WObj:=wobj0;
             MoveL ViaPoint,v500,z200,tool0\WObj:=wobj0;
+            moveToCameraPosFast;
         ELSEIF n_syrup = 4 THEN
             moveToAboveBoxPos;
             MoveL AboveBoxCoordFour,v300,fine,tool0\WObj:=wobj0;
@@ -426,6 +429,7 @@ MODULE MainModule
             open_gripper;
             MoveL AboveBoxCoordFour,v300,fine,tool0\WObj:=wobj0;
             MoveL ViaPoint,v500,z200,tool0\WObj:=wobj0;
+            moveToCameraPosFast;
         ELSEIF n_syrup = 5 THEN
             moveToAboveBoxPos;
             MoveL AboveBoxCoordFive,v300,fine,tool0\WObj:=wobj0;
@@ -433,6 +437,7 @@ MODULE MainModule
             open_gripper;
             MoveL AboveBoxCoordFive,v300,fine,tool0\WObj:=wobj0;
             MoveL ViaPoint,v500,z200,tool0\WObj:=wobj0;
+            moveToCameraPosFast;
         ELSEIF n_syrup = 6 THEN
             moveToAboveBoxPos;
             MoveL AboveBoxCoordSix,v300,fine,tool0\WObj:=wobj0;
@@ -440,6 +445,7 @@ MODULE MainModule
             open_gripper;
             MoveL AboveBoxCoordSix,v300,fine,tool0\WObj:=wobj0;
             MoveL ViaPoint,v500,z200,tool0\WObj:=wobj0;
+            moveToCameraPosFast;
         ENDIF
     ENDPROC
     
@@ -571,6 +577,12 @@ MODULE MainModule
         PathAccLim FALSE,FALSE;
     ENDPROC
     
+    PROC moveToCameraPosFast()
+        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
+        MoveJ NewCamPos,v600,fine,tool0\WObj:=wobj0;
+        PathAccLim FALSE,FALSE;
+    ENDPROC
+    
     PROC moveToZeroPos()
 !        ! get the current location
 !        CurRobT2:=CRobT();
@@ -621,7 +633,7 @@ MODULE MainModule
     
     PROC moveToAboveBoxPos()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveJ AboveBoxPos, v400, fine, tool0\WObj:=wobj0;
+        MoveJ AboveBoxPos, v800, fine, tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     

@@ -10,6 +10,10 @@ MODULE MainModule
     CONST robtarget NewCamPos:= [[215, -680.3, 1300],[0.00163,-0.38344,-0.92356,-0.00115],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget AboveBoxPos:= [[366.1, 366, 1588.4],[0.00192, -0.38294, 0.92377, 0.00293],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget TemporaryCam:= [[315.629,-721.49,1160],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget WritePos:=[[1118.762959576,0,936.635523609],[0.701584454,0,0.712586314,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget Via:=[[1299.925263731,0,969.956556898],[0.295536241,0,0.955331529,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget WriteStart:=[[1336,0,1300],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget A:=[[1336,100,1150],[0.706152,0,0.708061,0],[0,0,-1,1],[9E+9,9E+9,9E+9,9E+9,9E+9,9E+9]];
     ! AboveBottleCoord robtarget x,y should change based on the bottle location
     PERS robtarget AboveBottleCoord:= [[301.544,-974.157, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget AboveTable:= [[550.3, -377.8, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -20,7 +24,7 @@ MODULE MainModule
     CONST robtarget BoxCoordFour:= [[473.5000,558.4924,1115],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
     CONST robtarget BoxCoordFive:= [[621.9924,558.4924,1115],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
     CONST robtarget BoxCoordSix:= [[547.7462,632.7386,1115],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-    CONST robtarget WritePos:= [[1018.612159322,0,1417.5],[0.00197,-0.38293,0.92377,0.00290],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+    
     !-----------New Positions END------------!
 	!-----------RobotWriting Alphabets Coords------------!
 	CONST robtarget A_Horizontal:= [[1018.612159322,-22.5,1327],[0.00197,-0.38293,0.92377,0.00290],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];     
@@ -32,30 +36,47 @@ MODULE MainModule
 !        syrup_counter:=0;
 !        open_gripper;
 !        coke_counter:=0;
+        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
+!        MoveJ Home,v100,z100,tool0\WObj:=wobj0;
+!        MoveJ Via,v80,z100,tool0\WObj:=wobj0;
+!        MoveJ WriteStart,v80,z100,tool0\WObj:=wobj0;
+        A := [[1336,100,1150],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+        MoveL A,v80,fine,tool0\WObj:=wobj0;
+        A := [[1336,0-100,1150],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+        MoveL A,v80,fine,tool0\WObj:=wobj0;
+        A := [[1336,100,1150],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+        MoveL A,v80,fine,tool0\WObj:=wobj0;
+!        A := [[1336,0+100,1300],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+!        MoveL A,v80,fine,tool0\WObj:=wobj0;
+!        A := [[1336,100,1150],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+!        MoveL A,v80,fine,tool0\WObj:=wobj0;
+        
+        
 !        moveToHome;             ! Program always starts from Home Pos in case it was left in random pos
 !        receiveSignal;         ! Where robot will receive signals to do certain tasks
-        moveToCameraPos;       ! New Cam Pos
+!        moveToCameraPos;       ! New Cam Pos
 !    robotWrite;
+    PathAccLim FALSE,FALSE;
     ENDPROC
 
     PROC robotWrite()
-		!!---Writing A---!!
+		!---Writing A---!!
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        moveToZeroPos;
+!        moveToZeroPos;
 		moveToWritePos;
-		WaitTime 2;
-		MoveL Offs (moveToWritePos, 0, -50, -200), v80, fine, tool0\WObj:=wobj0;
-		moveToWritePos;
-		MoveL Offs (moveToWritePos, 0, 50, -200), v80, fine, tool0\WObj:=wobj0;
-		moveToWritePos;
-		moveToA_Horizontal;
-		MoveL Offs (moveToWritePos, 0, 22.5, 0), v80, fine, tool0\WObj:=wobj0;
+!		WaitTime 2;
+!		MoveL Offs (moveToWritePos, 0, -50, -200), v80, fine, tool0\WObj:=wobj0;
+!		moveToWritePos;
+!		MoveL Offs (moveToWritePos, 0, 50, -200), v80, fine, tool0\WObj:=wobj0;
+!		moveToWritePos;
+!		moveToA_Horizontal;
+!		MoveL Offs (moveToWritePos, 0, 22.5, 0), v80, fine, tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC moveToHome()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveJ Home,v200,fine,tool0\WObj:=wobj0;
+        MoveJ Home,v80,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
@@ -73,7 +94,7 @@ MODULE MainModule
 !        ENDIF
 
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveJ ZeroPos,v50,fine,tool0\WObj:=wobj0;
+        MoveL ZeroPos,v50,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
 	
@@ -89,9 +110,9 @@ MODULE MainModule
 !        MoveL aboveCameraPos,v300,fine,tool0\WObj:=wobj0;
 !    ENDPROC
     
-    PROC moveGipperToCameraPos()
-        MoveL GripperInitPos,v100,fine,tool0\WObj:=wobj0;
-    ENDPROC
+!    PROC moveGipperToCameraPos()
+!        MoveL GripperInitPos,v100,fine,tool0\WObj:=wobj0;
+!    ENDPROC
     
     PROC moveToAboveBottleCoord()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
@@ -111,17 +132,17 @@ MODULE MainModule
         PathAccLim FALSE,FALSE;
     ENDPROC
     
-    PROC open_gripper()        
-        SetDO D_652_10_OUT0, 0;
-        WaitTime 1;
-        SetDO D_652_10_OUT1, 1;
-        WaitTime 1;
-     ENDPROC
+!    PROC open_gripper()        
+!        SetDO D_652_10_OUT0, 0;
+!        WaitTime 1;
+!        SetDO D_652_10_OUT1, 1;
+!        WaitTime 1;
+!     ENDPROC
 
-    PROC close_gripper()       
-        SetDO D_652_10_OUT0, 1;
-        WaitTime 1;
-        SetDO D_652_10_OUT1, 0;
-        WaitTime 1;
-    ENDPROC    
-    
+!    PROC close_gripper()       
+!        SetDO D_652_10_OUT0, 1;
+!        WaitTime 1;
+!        SetDO D_652_10_OUT1, 0;
+!        WaitTime 1;
+!    ENDPROC    
+ENDMODULE

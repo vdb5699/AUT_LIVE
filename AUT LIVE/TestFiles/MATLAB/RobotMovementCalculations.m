@@ -57,7 +57,7 @@ y = output(2) + 275.775662061
 
 %% BoxTable Centre Coordinates (from bottom-right pos)
 % -20x and 163y is distance between the camera and the gripper
-vertDis = 400-163; %400(half of width of table)
+vertDis = 400-163 +20; %400(half of width of table) + 20mm offset
 HorizonDis = -1175/2 + 20; %30mm off from 1205
 % ang = (3/4)*pi %Angle between Camera Frame and the Base Frame of Robot
 ang = pi/4;
