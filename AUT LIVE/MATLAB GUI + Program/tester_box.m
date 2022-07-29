@@ -3,7 +3,6 @@ img = c.tempImageAcq(1,'l', '3840x1080', 8, 0, 8, 8, 1);
 imshow(img)
 grey = rgb2gray(img);
 imshow(grey);
-figure
 bw = grey > 50;
 imshow(bw);
 
@@ -14,7 +13,6 @@ bw = imclose(bw, se);
 % bw = bwareaopen(bw,50);
 
 bw = (bw == false);
-figure;
 imshow(bw);
 se = strel('square', 8);
 bw = imclose(bw, se);
@@ -41,44 +39,72 @@ for k = 1:length(B)
 
     metric = 4*pi*area/perimeter^2;
 
-
-
-
-    if (metric > 0.5 && metric < 0.7)
+    if (metric > 0.5 && metric < 0.7 && area > 100000)
         metric_string = sprintf('%2.2f',metric);
         text(boundary(1,2)-35,boundary(1,1)+13,metric_string,'Color','y',...
             'FontSize',14,'FontWeight','bold')
         found = false;
         cent = round(stats(k).Centroid);
-        cent
         eq = boundary(:, 2) ~= cent(1);
         newBound = boundary;
         newBound(eq,:) = [];
-        pos = [newBound(2,2), newBound(2,1)]
-        dist = norm(cent-pos)
-        angle = acos(275/dist);
+        pos = [newBound(2,2), newBound(2,1)];
+        dist = norm(cent-pos);
+        angle = acos(295/dist);
+        plot([cent(1) pos(1)], [cent(2) pos(2)]);
+%         conv = Coordinate_Converter();
+%         if abs(angle) > 0.01
+%             newCoord = conv.convertDirection(0, dist, angle);
+%         else
+%             newCoord = pos - cent;
+%         end
+%         newCoord(1) = newCoord(1) + cent(1);
+%         newCoord(2) = newCoord(2) + cent(2);
+% %         newCoord = newCoord + cent
+%         plot([cent(1) newCoord(1)], [cent(2) newCoord(2)]);
+% 
+%         plot(newCoord(1), newCoord(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+% 
+%         newCoord = conv.convertDirection(0, dist, -angle);
+%         newCoord(1) = newCoord(1) + cent(1);
+%         newCoord(2) = newCoord(2) + cent(2);
+%         plot(newCoord(1), newCoord(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+%         plot([cent(1) newCoord(1)], [cent(2) newCoord(2)]);
+
         opp = 100*tan(angle);
-        newCoord = [cent(1)+100, cent(2)-opp];
-        plot(newCoord(1), newCoord(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+        nc = [cent(1)+100, cent(2)-opp];
+        plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+        yMin = [0 10000];
+        xMin = [10000 0];
+        yMax = [0 -10000];
+        xMax = [-10000 0];
         
+        %CORNERS OF THE RECT. SEARCH FOR OTHER COORD USING ARRAY THING USED
+        %ABOVE
+
+        yMax = max(boundary(:,1))
+        yMin = min(boundary(:,1))
+        xMax = max(boundary(:,2))
+        xMin = min(boundary(:,2))
 %         testing
-                d = drawline();
-                pos = d.Position;
-                diffpos = diff(pos);
-                diameter = hypot(diffpos(1), diffpos(2))
-        %         d = drawline();
-        %         pos = d.Position;
-        %         diffpos = diff(pos);
-        %         diameter2 = hypot(diffpos(1), diffpos(2))
-        %
-        %         d = drawline();
-        %         pos = d.Position;
-        %         diffpos = diff(pos);
-        %         diameter3 = hypot(diffpos(1), diffpos(2))
-        %         d = drawline();
-        %         pos = d.Position;
-        %         diffpos = diff(pos);
-        %         diameter4 = hypot(diffpos(1), diffpos(2))
+% d = drawline();
+% pos = d.Position;
+% diffpos = diff(pos);
+% diameter = hypot(diffpos(1), diffpos(2))
+% d = drawline();
+% pos = d.Position;
+% diffpos = diff(pos);
+% diameter2 = hypot(diffpos(1), diffpos(2))
+% 
+% d = drawline();
+% pos = d.Position;
+% diffpos = diff(pos);
+% diameter3 = hypot(diffpos(1), diffpos(2))
+% d = drawline();
+% pos = d.Position;
+% diffpos = diff(pos);
+% diameter4 = hypot(diffpos(1), diffpos(2))
+
     end
 end
 
