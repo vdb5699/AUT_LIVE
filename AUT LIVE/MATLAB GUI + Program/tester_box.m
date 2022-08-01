@@ -106,6 +106,9 @@ for k = 1:length(B)
         else
             angle = acos(195/dist);
         end
+        if isreal(angle) == false
+            angle = phase(angle);
+        end
         plot([cent(1) pos(1)], [cent(2) pos(2)]);
         conv = Coordinate_Converter();
 %         if abs(angle) > 0.01
