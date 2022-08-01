@@ -196,7 +196,7 @@ for k = 1:length(B)
 
             nc6 = conv.convertDirection(0, -220, ((pi/2)-1.1071) - angle);
             plot(nc6(1)+cent(1), nc6(2)+cent(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
-        elseif (tilt == 0) && (portrait == 0)
+        elseif (tilt == 1) && (portrait == 0)
             %bottom side
             opp = 100*tan(angle);
             nc = [cent(1)-opp, cent(2)+100];
