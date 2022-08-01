@@ -96,10 +96,11 @@ for k = 1:length(B)
         eq = boundary(:, 2) ~= cent(1);
         newBound = boundary;
         newBound(eq,:) = [];
+        
         pos = [newBound(2,2), newBound(2,1)];
         dist = norm(cent-pos);
         angle = 0;
-        if portrait == 0
+        if portrait == 1
             angle = acos(295/dist);
         else
             angle = acos(195/dist);
