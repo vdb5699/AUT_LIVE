@@ -215,7 +215,7 @@ for k = 1:length(B)
             nc5 = conv.convertDirection(220, 0, -1*((pi/2)-1.1071) - angle);
             plot(nc5(1)+cent(1), nc5(2)+cent(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
-            nc6 = conv.convertDirection(-220, ((pi/2)-1.1071) - angle);
+            nc6 = conv.convertDirection(-220, 0, ((pi/2)-1.1071) - angle);
             plot(nc6(1)+cent(1), nc6(2)+cent(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
         else
             %bottom side
@@ -236,7 +236,7 @@ for k = 1:length(B)
             nc5 = conv.convertDirection(220, 0, -1*((pi/2)-1.1071) + angle);
             plot(nc5(1)+cent(1), nc5(2)+cent(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
-            nc6 = conv.convertDirection(-220, ((pi/2)-1.1071) + angle);
+            nc6 = conv.convertDirection(-220, 0, ((pi/2)-1.1071) + angle);
             plot(nc6(1)+cent(1), nc6(2)+cent(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
         end
