@@ -68,7 +68,7 @@ for k = 1:length(B)
         if xMinCoord(2) > xMaxCoord(2)
             tilt = 1;
         end
-        dist = [norm(yMaxCoord-xMaxCoord); norm(yMaxCoord-xMinCoord)]
+        dist = [norm(yMaxCoord-xMaxCoord); norm(yMaxCoord-xMinCoord)];
         dist = max(dist);
         portrait = 1;
         if round(dist) == round(norm(yMaxCoord-xMaxCoord))
@@ -98,6 +98,8 @@ for k = 1:length(B)
         
         pos = [newBound(2,2), newBound(2,1)];
         dist = norm(cent-pos);
+        dist
+      
         angle = 0;
         if portrait == 1
             angle = acos(295/dist);

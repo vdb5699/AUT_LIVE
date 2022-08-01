@@ -12,7 +12,9 @@ Letter= "A"
 if Letter == "A" % 5 Points all linear
     startPos(3) = startPos(3) + Centroid(2);
     L_Corner = [currentCoords(1), currentCoords(2) - Centroid(1), currentCoords(3)-Centroid(2)];
+    currentCoords + L_Corner
     R_Corner = [currentCoords(1), currentCoords(2) + Centroid(1), currentCoords(3)-Centroid(2)];
+    currentCoords + R_Corner
     L_Mid = [currentCoords(1), currentCoords(2) -  Centroid(1)*0.6, currentCoords(3)-(2*Centroid(2)*0.6-Centroid(2))];
     R_Mid = [currentCoords(1), currentCoords(2) + Centroid(1)*0.6, currentCoords(3)-(2*Centroid(2)*0.6-Centroid(2))];
 %     tcp.write(string(startPos(2), startPos(3)))
