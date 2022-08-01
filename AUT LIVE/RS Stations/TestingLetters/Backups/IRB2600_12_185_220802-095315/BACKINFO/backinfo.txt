@@ -1,0 +1,41 @@
+#
+# Generated backup file, do not edit.
+#
+# Originally at: C:\Users\vdb5699\Downloads\AUT_LIVE\AUT LIVE\RS Stations\TestingLetters\Virtual Controllers\TEMP\2e20a7b1-0da4-4168-9ffb-bd946161a176\backup.236810
+# 2022-08-02  09:53:15
+#
+>>SYSTEM_ID:
+VIRTUAL_USE
+
+>>PRODUCTS_ID:
+RobotWare Version: 6.13.01.00
+
+  RobotWare Base
+  English
+  Drive System IRB 2600/390/4400/6400R
+  ADU-790A in position X3
+  ADU-790A in position Y3
+  ADU-790A in position Z3
+  Axis Calibration
+  IRB 2600-12/1.85 Type B
+
+>>HOME:
+All public files and directories
+
+>>SYSPAR:
+SYS.cfg
+PROC.cfg
+MMC.cfg
+EIO.cfg
+SIO.cfg
+MOC.cfg
+
+
+>>TASK1: (T_ROB1,,)
+SYSMOD\user.sys @ 
+PROGMOD\MainModule.mod @ 
+PROGMOD\Module1.mod @ 
+PROGMOD\RsTempModule.mod @ 
+
+
+>>EOF:
