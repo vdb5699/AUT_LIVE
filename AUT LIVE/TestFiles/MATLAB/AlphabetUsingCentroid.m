@@ -1,5 +1,5 @@
 %%
-Centroid = [100,150];
+Centroid = [100,200];
 % tcp = tcpclient("192.168.125.1", 1025);
 % str = char(65)
 % % UnicodeVal = double(str);
