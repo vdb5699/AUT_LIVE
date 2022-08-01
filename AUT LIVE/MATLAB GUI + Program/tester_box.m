@@ -1,9 +1,12 @@
 c = Camera();
-img = c.tempImageAcq(1,'l', '3840x1080', 8, 0, 8, 8, 1);
+img = c.tempImageAcq(1,'l', '3840x1080', 8, 0, 8, 0, 1);
 imshow(img)
+imwrite(img, "testImage.png")
 grey = rgb2gray(img);
 imshow(grey);
 bw = grey > 50;
+% bw = edge(grey, "canny_old");
+figure
 imshow(bw);
 
 % bw = imfill(bw, 'holes');
@@ -11,10 +14,11 @@ imshow(bw);
 se = strel('square', 8);
 bw = imclose(bw, se);
 % bw = bwareaopen(bw,50);
-
-bw = (bw == false);
 imshow(bw);
-se = strel('square', 8);
+bw = (bw == false);
+figure
+imshow(bw);
+se = strel('square', 5);
 bw = imclose(bw, se);
 
 bw = bwareaopen(imfill(bw, 'holes'),50);
@@ -22,9 +26,10 @@ figure;
 
 [B,L] = bwboundaries(bw,'noholes');
 stats = regionprops(L,'Area','Centroid','Perimeter','Circularity');
-% imshow(label2rgb(L,@jet,[.5 .5 .5]))
+imshow(label2rgb(L,@jet,[.5 .5 .5]))
 imshow(img)
 hold on
+
 for k = 1:length(B)
     boundary = B{k};
     area = stats(k).Area;
@@ -36,10 +41,12 @@ for k = 1:length(B)
 
     delta_sq = diff(boundary).^2;
     perimeter = sum(sqrt(sum(delta_sq,2)));
-
+    
     metric = 4*pi*area/perimeter^2;
-
-    if (metric > 0.5 && metric < 0.7 && area > 100000)
+    metric_string = sprintf('%2.2f',metric);
+        text(boundary(1,2)-35,boundary(1,1)+13,metric_string,'Color','y',...
+            'FontSize',14,'FontWeight','bold')
+    if (metric >= 0.4 && metric <= 0.75 && area > 100000)
 
         %CORNERS OF THE RECT. SEARCH FOR OTHER COORD USING ARRAY THING USED
         %ABOVE
@@ -70,12 +77,26 @@ for k = 1:length(B)
         end
         dist = [norm(yMaxCoord-xMaxCoord); norm(yMaxCoord-xMinCoord)];
         dist = max(dist);
+
         portrait = 1;
-        if round(dist) == round(norm(yMaxCoord-xMaxCoord))
+
+
+        cent = round(stats(k).Centroid);
+        eq = boundary(:, 2) ~= cent(1);
+        newBound = boundary;
+        newBound(eq,:) = [];
+        
+        pos = [newBound(2,2), newBound(2,1)];
+        dist2 = norm(cent-pos);
+        if dist2 > 205-10 && dist2 < 205+10
+            portrait = 0;
+        elseif dist2 > 298-10 && dist2 < 298+10
+            portrait = 1;
+        elseif round(dist) == round(norm(yMaxCoord-xMaxCoord))
             coordDiff = [0 0];
             coordDiff(1) = abs(yMaxCoord(1)-xMaxCoord(1));
             coordDiff(2) = abs(yMaxCoord(2)-xMaxCoord(2));
-            if coordDiff(1) > coordDiff(2)
+            if coordDiff(1) > coordDiff(2) 
                 portrait = 0;
             end
         else
@@ -86,70 +107,48 @@ for k = 1:length(B)
                 portrait = 0;
             end
         end
-%%      
-        metric_string = sprintf('%2.2f',metric);
-        text(boundary(1,2)-35,boundary(1,1)+13,metric_string,'Color','y',...
-            'FontSize',14,'FontWeight','bold')
-        found = false;
-        cent = round(stats(k).Centroid);
-        eq = boundary(:, 2) ~= cent(1);
-        newBound = boundary;
-        newBound(eq,:) = [];
-        
-        pos = [newBound(2,2), newBound(2,1)];
-        dist = norm(cent-pos);
-        dist
-      
+        portrait
+        dist2
         angle = 0;
         if portrait == 1
-            angle = acos(280/dist);
+            if dist2 < 298+10 && dist2 > 298-10
+                z = 1;
+            else
+                z = 295/dist2;
+            end
+            angle = acos(z);
+            if isreal(angle) == false
+               portrait = 0;
+               angle = acos(205/dist2)
+            end
         else
-            angle = acos(180/dist);
+            if dist2 < 205+10 && dist2 > 205-10
+                z = 1;
+            else
+                z = 205/dist2;
+            end
+            angle = acos(z);
         end
 
-        if (isreal(angle) == false) && (tilt == 1)
-            angle = phase(angle);
-            angle = angle - (pi/2)
-        elseif (isreal(angle) == false)
-            angle = phase(angle);
-            angle = angle + (pi/2)
-        end
-
+        
         plot([cent(1) pos(1)], [cent(2) pos(2)]);
         conv = Coordinate_Converter();
-%         if abs(angle) > 0.01
-%             newCoord = conv.convertDirection(0, dist, angle);
-%         else
-%             newCoord = pos - cent;
-%         end
-%         newCoord(1) = newCoord(1) + cent(1);
-%         newCoord(2) = newCoord(2) + cent(2);
-% %         newCoord = newCoord + cent
-%         plot([cent(1) newCoord(1)], [cent(2) newCoord(2)]);
-% 
-%         plot(newCoord(1), newCoord(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-% 
-%         newCoord = conv.convertDirection(0, dist, -angle);
-%         newCoord(1) = newCoord(1) + cent(1);
-%         newCoord(2) = newCoord(2) + cent(2);
-%         plot(newCoord(1), newCoord(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-%         plot([cent(1) newCoord(1)], [cent(2) newCoord(2)]);
 
-        if (abs(angle) < 0.05) && (portrait == 1)
+        if (abs(angle) < 0.175) && (portrait == 1)
             nc = [cent(1)+100, cent(2)];
             plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-            nc2 = [cent(1)+100, cent(2)+100];
+            nc2 = [cent(1)+100, cent(2)+200];
             plot(nc2(1), nc2(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-            nc3 = [cent(1)+100, cent(2)-100];
+            nc3 = [cent(1)+100, cent(2)-200];
             plot(nc3(1), nc3(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
             nc4 = [cent(1)-100, cent(2)];
             plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-            nc5 = [cent(1)-100, cent(2)+100];
+            nc5 = [cent(1)-100, cent(2)+200];
             plot(nc5(1), nc5(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-            nc6 = [cent(1)-100, cent(2)-100];
+            nc6 = [cent(1)-100, cent(2)-200];
             plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 
-        elseif (abs(angle) < 0.05) && (portrait == 0)
+        elseif (abs(angle) < 0.175) && (portrait == 0)
             nc = [cent(1), cent(2)+100];
             plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
             nc2 = [cent(1)+200, cent(2)+100];
@@ -261,7 +260,7 @@ for k = 1:length(B)
 % pos = d.Position;
 % diffpos = diff(pos);
 % diameter2 = hypot(diffpos(1), diffpos(2))
-% 
+
 % d = drawline();
 % pos = d.Position;
 % diffpos = diff(pos);
