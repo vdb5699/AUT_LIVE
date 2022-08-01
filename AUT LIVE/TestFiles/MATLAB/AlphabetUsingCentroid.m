@@ -6,8 +6,8 @@ Centroid = [100,200];
 % Letter = "wqe";
 currentCoords = [1336,0,1300]
 startPos = currentCoords; % Where the robot will start writing from
-% for i = 65:90
-Letter= "A"
+for i = 65:90
+Letter= char(i)
 
 if Letter == "A" % 5 Points all linear
     
@@ -519,4 +519,4 @@ if Letter == "Z" % 4 points All Linear movement
     plot(R_Top_Corner(2), R_Top_Corner(3), '-o')
 end
 
-% end
+end

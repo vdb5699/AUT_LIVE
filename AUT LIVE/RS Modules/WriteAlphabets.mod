@@ -12,8 +12,8 @@ MODULE MainModule
     PERS robtarget TemporaryCam:= [[315.629,-721.49,1160],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget WritePos:=[[1118.762959576,0,936.635523609],[0.701584454,0,0.712586314,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget Via:=[[1299.925263731,0,969.956556898],[0.295536241,0,0.955331529,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    CONST robtarget WriteStart:=[[1336,0,1300],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    PERS robtarget A:=[[1336,100,1150],[0.706152,0,0.708061,0],[0,0,-1,1],[9E+9,9E+9,9E+9,9E+9,9E+9,9E+9]];
+    CONST robtarget WriteStart:=[[1336,0,1090],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget A:=[[1336,0,1450],[0.706152,0,0.708061,0],[0,0,0,1],[9E+9,9E+9,9E+9,9E+9,9E+9,9E+9]];
     !-----------New Positions END------------!
 	!-----------RobotWriting Alphabets Coords------------!
 	CONST robtarget A_Horizontal:= [[1018.612159322,-22.5,1327],[0.00197,-0.38293,0.92377,0.00290],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];     
@@ -43,8 +43,22 @@ MODULE MainModule
         
 !        MoveJ Home,v100,z100,tool0\WObj:=wobj0;
 !        MoveJ Via,v80,z100,tool0\WObj:=wobj0;
-        MoveJ WriteStart,v80,z100,tool0\WObj:=wobj0;
-!        A := [[1336,100,1150],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+        MoveJ WriteStart,v80,fine,tool0\WObj:=wobj0;
+!        WaitTime 2;
+!        Y:= 0 ;
+!        Y:= 1450;
+!         A := [[1336,X, Y],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+!!!        MoveL A,v80,fine,tool0\WObj:=wobj0;
+!        MoveL Offs(WriteStart,0,0,150), v80,fine,tool0\WObj:=wobj0;
+!        MoveL Offs(WriteStart,0,-100,-200), v80,fine,tool0\WObj:=wobj0;
+!        MoveL Offs(WriteStart,0,0,150), v80,fine,tool0\WObj:=wobj0;
+!        MoveL Offs(WriteStart,0,100,-200), v80,fine,tool0\WObj:=wobj0;
+        MoveL Offs(WriteStart,0,-50,-40), v80,fine,tool0\WObj:=wobj0;
+!        WaitTime 5;
+!        MoveJ WriteStart,v80,z100,tool0\WObj:=wobj0;
+!        WaitTime 5;
+!        MoveL Offs(WriteStart,0,100, -150), v80,fine,tool0\WObj:=wobj0;
+        !        A := [[1336,100,1150],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !        MoveL A,v80,fine,tool0\WObj:=wobj0;
 !        A := [[1336,0-100,1150],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !        MoveL A,v80,fine,tool0\WObj:=wobj0;
@@ -61,13 +75,13 @@ MODULE MainModule
 !        moveToCameraPos;       ! New Cam Pos
 !    robotWrite;
     PathAccLim FALSE,FALSE;
-    receiveSignal;
+!    receiveSignal;
     ENDPROC
     
     PROC receiveSignal()
         !Create Socket
         SocketCreate server;
-        SocketBind server,"192.168.0.20", 1025;
+        SocketBind server,"192.168.125.1", 1025;
         SocketListen server;
         SocketAccept server,client, \Time:=WAIT_MAX;
     WHILE counter <> 27 DO
@@ -141,18 +155,6 @@ MODULE MainModule
 !    PROC moveGipperToCameraPos()
 !        MoveL GripperInitPos,v100,fine,tool0\WObj:=wobj0;
 !    ENDPROC
-    
-    PROC moveToAboveBottleCoord()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveJ AboveBottleCoord,v200,z20,tool0\WObj:=wobj0;
-        PathAccLim FALSE,FALSE;
-    ENDPROC
-    
-    PROC moveToAboveTable()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveJ AboveTable,v200,z10,tool0\WObj:=wobj0;
-        PathAccLim FALSE,FALSE;
-    ENDPROC
     
     PROC moveToAboveBoxPos()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
