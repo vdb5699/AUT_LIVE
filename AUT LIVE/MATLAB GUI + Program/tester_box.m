@@ -103,18 +103,20 @@ for k = 1:length(B)
 %                 portrait = 1;
 %             end
 %         end
-        if dist2 <= 288
+        if dist2 <= 255
             portrait = 0;
         else
             if tilt == 1
                 if yMaxCoord(1) < pos(1)
                     portrait = 0;
+                    tilt = 0;
                 else
                     portrait = 1;
                 end
             else
                 if yMaxCoord(1) > pos(1)
                     portrait = 0;
+                    tilt = 1;
                 else
                     portrait = 1;
                 end
