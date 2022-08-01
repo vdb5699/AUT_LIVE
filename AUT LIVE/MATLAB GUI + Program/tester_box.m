@@ -178,7 +178,7 @@ for k = 1:length(B)
         plot([cent(1) pos(1)], [cent(2) pos(2)]);
         conv = Coordinate_Converter();
 
-        if (abs(angle) < 0.175) && (portrait == 1)
+        if (abs(angle) < 0.125) && (portrait == 1)
             nc = [cent(1)+100, cent(2)];
             plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
             nc2 = [cent(1)+100, cent(2)+200];
@@ -192,7 +192,7 @@ for k = 1:length(B)
             nc6 = [cent(1)-100, cent(2)-200];
             plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 
-        elseif (abs(angle) < 0.175) && (portrait == 0)
+        elseif (abs(angle) < 0.125) && (portrait == 0)
             nc = [cent(1), cent(2)+100];
             plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
             nc2 = [cent(1)+200, cent(2)+100];
@@ -252,7 +252,7 @@ for k = 1:length(B)
         elseif (tilt == 0) && (portrait == 0)
             %bottom side
             opp = 100*tan(angle);
-            nc = [cent(1)+opp, cent(2)+100];
+            nc = [cent(1)+opp-30, cent(2)+100-30];
             plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 
             nc2 = conv.convertDirection(220, 0, -1*((pi/2)-1.1071) + angle);
@@ -262,7 +262,7 @@ for k = 1:length(B)
 
             %%top side
 
-            nc4 = [cent(1)-opp, cent(2)-100];
+            nc4 = [cent(1)-opp+30, cent(2)-100+30];
             plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
             nc5 = conv.convertDirection(220, 0, ((pi/2)-1.1071) + angle);
@@ -273,7 +273,7 @@ for k = 1:length(B)
         else
             %bottom side
             opp = 100*tan(angle);
-            nc = [cent(1)-opp, cent(2)+100];
+            nc = [cent(1)-opp+30, cent(2)+100-30];
             plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 
             nc2 = conv.convertDirection(220, 0, -1*((pi/2)-1.1071) - angle);
@@ -283,7 +283,7 @@ for k = 1:length(B)
 
             %%top side
 
-            nc4 = [cent(1)+opp, cent(2)-100];
+            nc4 = [cent(1)+opp-30, cent(2)-100+30];
             plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
             nc5 = conv.convertDirection(220, 0, ((pi/2)-1.1071) - angle);
