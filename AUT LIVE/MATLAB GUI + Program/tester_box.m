@@ -75,7 +75,6 @@ for k = 1:length(B)
             coordDiff = [0 0];
             coordDiff(1) = abs(yMaxCoord(1)-xMaxCoord(1));
             coordDiff(2) = abs(yMaxCoord(2)-xMaxCoord(2));
-            coordDiff
             if coordDiff(1) > coordDiff(2)
                 portrait = 0;
             end
@@ -88,7 +87,7 @@ for k = 1:length(B)
                 portrait = 0;
             end
         end
-%%
+%%      
         metric_string = sprintf('%2.2f',metric);
         text(boundary(1,2)-35,boundary(1,1)+13,metric_string,'Color','y',...
             'FontSize',14,'FontWeight','bold')
@@ -99,7 +98,12 @@ for k = 1:length(B)
         newBound(eq,:) = [];
         pos = [newBound(2,2), newBound(2,1)];
         dist = norm(cent-pos);
-        angle = acos(295/dist);
+        angle = 0;
+        if portrait == 0
+            angle = acos(295/dist);
+        else
+            angle = acos(195/dist);
+        end
         plot([cent(1) pos(1)], [cent(2) pos(2)]);
         conv = Coordinate_Converter();
 %         if abs(angle) > 0.01
@@ -119,8 +123,36 @@ for k = 1:length(B)
 %         newCoord(2) = newCoord(2) + cent(2);
 %         plot(newCoord(1), newCoord(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 %         plot([cent(1) newCoord(1)], [cent(2) newCoord(2)]);
+        if (abs(angle) < 0.1) && (portrait == 1)
+            nc = [cent(1)+100, cent(2)];
+            plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+            nc2 = [cent(1)+100, cent(2)+100];
+            plot(nc2(1), nc2(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+            nc3 = [cent(1)+100, cent(2)-100];
+            plot(nc3(1), nc3(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+            nc4 = [cent(1)-100, cent(2)];
+            plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+            nc5 = [cent(1)-100, cent(2)+100];
+            plot(nc5(1), nc5(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+            nc6 = [cent(1)-100, cent(2)-100];
+            plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 
-        if (tilt == 0) && (portrait == 1)
+        elseif (abs(angle) < 0.1) && (portrait == 0)
+            nc = [cent(1), cent(2)+100];
+            plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+            nc2 = [cent(1)+200, cent(2)+100];
+            plot(nc2(1), nc2(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+            nc3 = [cent(1)-200, cent(2)+100];
+            plot(nc3(1), nc3(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+            nc4 = [cent(1), cent(2)-100];
+            plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+            nc5 = [cent(1)+200, cent(2)-100];
+            plot(nc5(1), nc5(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+            nc6 = [cent(1)-200, cent(2)-100];
+            plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+
+
+        elseif (tilt == 0) && (portrait == 1)
             %%% PATTERN ONE
             %right side
             opp = 100*tan(angle);
@@ -164,6 +196,49 @@ for k = 1:length(B)
 
             nc6 = conv.convertDirection(0, -220, ((pi/2)-1.1071) - angle);
             plot(nc6(1)+cent(1), nc6(2)+cent(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
+        elseif (tilt == 0) && (portrait == 0)
+            %bottom side
+            opp = 100*tan(angle);
+            nc = [cent(1)-opp, cent(2)+100];
+            plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+
+            nc2 = conv.convertDirection(220, 0, ((pi/2)-1.1071) - angle);
+            plot(nc2(1)+cent(1), nc2(2)+cent(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
+            nc3 = conv.convertDirection(-220, 0, -1*((pi/2)-1.1071) - angle);
+            plot(nc3(1)+cent(1), nc3(2)+cent(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
+
+            %%top side
+
+            nc4 = [cent(1)+opp, cent(2)-100];
+            plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
+
+            nc5 = conv.convertDirection(220, 0, -1*((pi/2)-1.1071) - angle);
+            plot(nc5(1)+cent(1), nc5(2)+cent(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
+
+            nc6 = conv.convertDirection(-220, ((pi/2)-1.1071) - angle);
+            plot(nc6(1)+cent(1), nc6(2)+cent(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
+        else
+            %bottom side
+            opp = 100*tan(angle);
+            nc = [cent(1)+opp, cent(2)+100];
+            plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+
+            nc2 = conv.convertDirection(220, 0, ((pi/2)-1.1071) + angle);
+            plot(nc2(1)+cent(1), nc2(2)+cent(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
+            nc3 = conv.convertDirection(-220, 0, -1*((pi/2)-1.1071) + angle);
+            plot(nc3(1)+cent(1), nc3(2)+cent(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
+
+            %%top side
+
+            nc4 = [cent(1)-opp, cent(2)-100];
+            plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
+
+            nc5 = conv.convertDirection(220, 0, -1*((pi/2)-1.1071) + angle);
+            plot(nc5(1)+cent(1), nc5(2)+cent(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
+
+            nc6 = conv.convertDirection(-220, ((pi/2)-1.1071) + angle);
+            plot(nc6(1)+cent(1), nc6(2)+cent(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
+
         end
         %WORDKING OUT THE TILT
 
