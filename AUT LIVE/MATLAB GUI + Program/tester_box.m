@@ -109,14 +109,12 @@ for k = 1:length(B)
             if tilt == 1
                 if yMaxCoord(1) < pos(1)
                     portrait = 0;
-                    tilt = 0;
                 else
                     portrait = 1;
                 end
             else
                 if yMaxCoord(1) > pos(1)
                     portrait = 0;
-                    tilt = 1;
                 else
                     portrait = 1;
                 end
