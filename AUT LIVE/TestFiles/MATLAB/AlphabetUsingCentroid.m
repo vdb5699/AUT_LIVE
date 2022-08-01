@@ -10,6 +10,7 @@ startPos = currentCoords; % Where the robot will start writing from
 Letter= "A"
 
 if Letter == "A" % 5 Points all linear
+    
     startPos(3) = startPos(3) + Centroid(2);
     L_Corner = [currentCoords(1), currentCoords(2) - Centroid(1), currentCoords(3)-Centroid(2)];
     currentCoords + L_Corner
@@ -31,7 +32,7 @@ if Letter == "A" % 5 Points all linear
 %         tcp.write(string(R_Corner(2), R_Corner(3)));
 %     end
     figure;
-    plot(currentCoords(2), currentCoords(3))
+    plot(currentCoords(2), currentCoords(3),"x")
     hold on;
     plot(startPos(2), startPos(3), '-o')
     hold on;
