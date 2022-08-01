@@ -14,22 +14,25 @@ MODULE MainModule
     CONST robtarget Via:=[[1299.925263731,0,969.956556898],[0.295536241,0,0.955331529,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget WriteStart:=[[1336,0,1300],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget A:=[[1336,100,1150],[0.706152,0,0.708061,0],[0,0,-1,1],[9E+9,9E+9,9E+9,9E+9,9E+9,9E+9]];
-    ! AboveBottleCoord robtarget x,y should change based on the bottle location
-    PERS robtarget AboveBottleCoord:= [[301.544,-974.157, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    CONST robtarget AboveTable:= [[550.3, -377.8, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    CONST robtarget AboveBoxCoordOne:= [[473.5,410,1410],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    CONST robtarget BoxCoordOne:= [[473.5,410,1115],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-    CONST robtarget BoxCoordTwo:= [[399.2538,484.2462,1115],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-    CONST robtarget BoxCoordThree:= [[547.7462,484.2462,1115],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-    CONST robtarget BoxCoordFour:= [[473.5000,558.4924,1115],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-    CONST robtarget BoxCoordFive:= [[621.9924,558.4924,1115],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-    CONST robtarget BoxCoordSix:= [[547.7462,632.7386,1115],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-    
     !-----------New Positions END------------!
 	!-----------RobotWriting Alphabets Coords------------!
 	CONST robtarget A_Horizontal:= [[1018.612159322,-22.5,1327],[0.00197,-0.38293,0.92377,0.00290],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];     
     !------------------Initialising Variables-----------------------!
     
+    VAR	socketdev serverSocket;
+	VAR	socketdev clientSocket;
+	VAR	string data;
+    VAR socketdev server;
+    VAR socketdev client;
+    VAR num found1;
+    VAR num found2;
+    VAR string x_coordinate;
+    VAR string y_coordinate;
+    VAR bool posx;
+    VAR bool posy;
+    VAR num X;
+    VAR num Y;
+    VAR num counter:=0;
     
     PROC main()
 		AccSet 20,20;           ! Max Acceleration set to 20mm/s^2 and ramping is 20
@@ -37,15 +40,16 @@ MODULE MainModule
 !        open_gripper;
 !        coke_counter:=0;
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
+        
 !        MoveJ Home,v100,z100,tool0\WObj:=wobj0;
 !        MoveJ Via,v80,z100,tool0\WObj:=wobj0;
-!        MoveJ WriteStart,v80,z100,tool0\WObj:=wobj0;
-        A := [[1336,100,1150],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-        MoveL A,v80,fine,tool0\WObj:=wobj0;
-        A := [[1336,0-100,1150],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-        MoveL A,v80,fine,tool0\WObj:=wobj0;
-        A := [[1336,100,1150],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-        MoveL A,v80,fine,tool0\WObj:=wobj0;
+        MoveJ WriteStart,v80,z100,tool0\WObj:=wobj0;
+!        A := [[1336,100,1150],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+!        MoveL A,v80,fine,tool0\WObj:=wobj0;
+!        A := [[1336,0-100,1150],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+!        MoveL A,v80,fine,tool0\WObj:=wobj0;
+!        A := [[1336,100,1150],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+!        MoveL A,v80,fine,tool0\WObj:=wobj0;
 !        A := [[1336,0+100,1300],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !        MoveL A,v80,fine,tool0\WObj:=wobj0;
 !        A := [[1336,100,1150],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -57,6 +61,30 @@ MODULE MainModule
 !        moveToCameraPos;       ! New Cam Pos
 !    robotWrite;
     PathAccLim FALSE,FALSE;
+    receiveSignal;
+    ENDPROC
+    
+    PROC receiveSignal()
+        !Create Socket
+        SocketCreate server;
+        SocketBind server,"192.168.0.20", 1025;
+        SocketListen server;
+        SocketAccept server,client, \Time:=WAIT_MAX;
+    WHILE counter <> 27 DO
+        !Receive Data
+        SocketReceive client,\Str :=data, \Time:=WAIT_MAX;
+        found1 := StrFind(data,1,",");
+        found2 := StrFind(data,found1+1,",");
+        x_coordinate := StrPart(data,found1+1,found2-found1-1);
+        y_coordinate := StrPart(data,found2+1,StrLen(data)-found2);
+        posx :=StrToVal(x_coordinate,X);
+        posy := StrToVal(y_coordinate,Y);
+         A := [[1336,100 + X, 1150 + Y],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+        MoveL A,v80,fine,tool0\WObj:=wobj0;
+        SocketSend client,\Str :="next";
+        counter:= counter +1;
+    ENDWHILE
+
     ENDPROC
 
     PROC robotWrite()

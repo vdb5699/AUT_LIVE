@@ -123,7 +123,7 @@ for k = 1:length(B)
 %         newCoord(2) = newCoord(2) + cent(2);
 %         plot(newCoord(1), newCoord(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 %         plot([cent(1) newCoord(1)], [cent(2) newCoord(2)]);
-        if (abs(angle) < 0.1) && (portrait == 1)
+        if (abs(angle) < 0.05) && (portrait == 1)
             nc = [cent(1)+100, cent(2)];
             plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
             nc2 = [cent(1)+100, cent(2)+100];
@@ -137,7 +137,7 @@ for k = 1:length(B)
             nc6 = [cent(1)-100, cent(2)-100];
             plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 
-        elseif (abs(angle) < 0.1) && (portrait == 0)
+        elseif (abs(angle) < 0.05) && (portrait == 0)
             nc = [cent(1), cent(2)+100];
             plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
             nc2 = [cent(1)+200, cent(2)+100];

@@ -1,12 +1,13 @@
 %%
 Centroid = [100,150];
+% tcp = tcpclient("192.168.125.1", 1025);
 % str = char(65)
 % % UnicodeVal = double(str);
 % Letter = "wqe";
 currentCoords = [1336,0,1300]
 startPos = currentCoords; % Where the robot will start writing from
-for i = 65:90
-    Letter = char(i)
+% for i = 65:90
+Letter= "A"
 
 if Letter == "A" % 5 Points all linear
     startPos(3) = startPos(3) + Centroid(2);
@@ -14,6 +15,19 @@ if Letter == "A" % 5 Points all linear
     R_Corner = [currentCoords(1), currentCoords(2) + Centroid(1), currentCoords(3)-Centroid(2)];
     L_Mid = [currentCoords(1), currentCoords(2) -  Centroid(1)*0.6, currentCoords(3)-(2*Centroid(2)*0.6-Centroid(2))];
     R_Mid = [currentCoords(1), currentCoords(2) + Centroid(1)*0.6, currentCoords(3)-(2*Centroid(2)*0.6-Centroid(2))];
+%     tcp.write(string(startPos(2), startPos(3)))
+%     test = tcp.read();
+%     if test == "next"
+%         tcp.write(string(L_Corner(2), L_Corner(3)));
+%     end
+%     test = tcp.read();
+%     if test == "next"
+%         tcp.write(string(startPos(2), startPos(3)));
+%     end
+%     test = tcp.read()
+%     if test == "next"
+%         tcp.write(string(R_Corner(2), R_Corner(3)));
+%     end
     figure;
     plot(currentCoords(2), currentCoords(3))
     hold on;
@@ -502,4 +516,4 @@ if Letter == "Z" % 4 points All Linear movement
     plot(R_Top_Corner(2), R_Top_Corner(3), '-o')
 end
 
-end
+% end
