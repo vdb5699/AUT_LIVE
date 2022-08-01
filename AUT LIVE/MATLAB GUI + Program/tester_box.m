@@ -102,9 +102,9 @@ for k = 1:length(B)
       
         angle = 0;
         if portrait == 1
-            angle = acos(295/dist);
+            angle = acos(280/dist);
         else
-            angle = acos(195/dist);
+            angle = acos(180/dist);
         end
 
         if (isreal(angle) == false) && (tilt == 1)
