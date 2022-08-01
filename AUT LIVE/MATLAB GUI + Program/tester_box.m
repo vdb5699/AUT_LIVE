@@ -23,7 +23,7 @@ figure;
 [B,L] = bwboundaries(bw,'noholes');
 stats = regionprops(L,'Area','Centroid','Perimeter','Circularity');
 % imshow(label2rgb(L,@jet,[.5 .5 .5]))
-imshow(bw)
+imshow(img)
 hold on
 for k = 1:length(B)
     boundary = B{k};
@@ -40,6 +40,55 @@ for k = 1:length(B)
     metric = 4*pi*area/perimeter^2;
 
     if (metric > 0.5 && metric < 0.7 && area > 100000)
+
+        %CORNERS OF THE RECT. SEARCH FOR OTHER COORD USING ARRAY THING USED
+        %ABOVE
+
+        yMax = max(boundary(:,1));
+        yMin = min(boundary(:,1));
+        xMax = max(boundary(:,2));
+        xMin = min(boundary(:,2));
+
+        for h = 1:height(boundary)
+                if boundary(h,1) == yMax
+                    yMaxCoord = [boundary(h,2), boundary(h,1)];
+                elseif boundary(h,1) == yMin
+                    yMinCoord = [boundary(h,2), boundary(h,1)];
+                elseif boundary(h,2) == xMax
+                    xMaxCoord = [boundary(h,2), boundary(h,1)];
+                else
+                    xMinCoord = [boundary(h,2), boundary(h,1)];
+                end
+        end
+        tilt = 0;
+        plot(xMaxCoord(1),xMaxCoord(2), 'bo', 'MarkerSize', 10, 'LineWidth',5);
+        plot(xMinCoord(1), xMinCoord(2),'bo', 'MarkerSize', 10, 'LineWidth',5);
+        plot(yMaxCoord(1),yMaxCoord(2), 'bo', 'MarkerSize', 10, 'LineWidth',5);
+        plot(yMinCoord(1), yMinCoord(2),'bo', 'MarkerSize', 10, 'LineWidth',5);
+        if xMinCoord(2) > xMaxCoord(2)
+            tilt = 1;
+        end
+        dist = [norm(yMaxCoord-xMaxCoord); norm(yMaxCoord-xMinCoord)]
+        dist = max(dist);
+        portrait = 1;
+        if round(dist) == round(norm(yMaxCoord-xMaxCoord))
+            coordDiff = [0 0];
+            coordDiff(1) = abs(yMaxCoord(1)-xMaxCoord(1));
+            coordDiff(2) = abs(yMaxCoord(2)-xMaxCoord(2));
+            coordDiff
+            if coordDiff(1) > coordDiff(2)
+                portrait = 0;
+            end
+        else
+            coordDiff = [0 0];
+            coordDiff(1) = abs(yMaxCoord(1)-xMinCoord(1));
+            coordDiff(2) = abs(yMaxCoord(2)-xMinCoord(2));
+            coordDiff
+            if coordDiff(1) > coordDiff(2)
+                portrait = 0;
+            end
+        end
+%%
         metric_string = sprintf('%2.2f',metric);
         text(boundary(1,2)-35,boundary(1,1)+13,metric_string,'Color','y',...
             'FontSize',14,'FontWeight','bold')
@@ -52,7 +101,7 @@ for k = 1:length(B)
         dist = norm(cent-pos);
         angle = acos(295/dist);
         plot([cent(1) pos(1)], [cent(2) pos(2)]);
-%         conv = Coordinate_Converter();
+        conv = Coordinate_Converter();
 %         if abs(angle) > 0.01
 %             newCoord = conv.convertDirection(0, dist, angle);
 %         else
@@ -71,21 +120,53 @@ for k = 1:length(B)
 %         plot(newCoord(1), newCoord(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 %         plot([cent(1) newCoord(1)], [cent(2) newCoord(2)]);
 
-        opp = 100*tan(angle);
-        nc = [cent(1)+100, cent(2)-opp];
-        plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-        yMin = [0 10000];
-        xMin = [10000 0];
-        yMax = [0 -10000];
-        xMax = [-10000 0];
-        
-        %CORNERS OF THE RECT. SEARCH FOR OTHER COORD USING ARRAY THING USED
-        %ABOVE
+        if (tilt == 0) && (portrait == 1)
+            %%% PATTERN ONE
+            %right side
+            opp = 100*tan(angle);
+            nc = [cent(1)+100, cent(2)-opp];
+            plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 
-        yMax = max(boundary(:,1))
-        yMin = min(boundary(:,1))
-        xMax = max(boundary(:,2))
-        xMin = min(boundary(:,2))
+            nc2 = conv.convertDirection(0, 220, ((pi/2)-1.1071) + angle);
+            plot(nc2(1)+cent(1), nc2(2)+cent(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
+            nc3 = conv.convertDirection(0, -220, -1*((pi/2)-1.1071) + angle);
+            plot(nc3(1)+cent(1), nc3(2)+cent(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
+
+            %%left side
+
+            nc4 = [cent(1)-100, cent(2)+opp];
+            plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
+
+            nc5 = conv.convertDirection(0, 220, -1*((pi/2)-1.1071) + angle);
+            plot(nc5(1)+cent(1), nc5(2)+cent(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
+
+            nc6 = conv.convertDirection(0, -220, ((pi/2)-1.1071) + angle);
+            plot(nc6(1)+cent(1), nc6(2)+cent(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
+        elseif (tilt == 1) && (portrait == 1)
+
+            %%%%%% PATTERN TWO
+            opp = 100*tan(angle);
+            nc = [cent(1)+100, cent(2)+opp];
+            plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+
+            nc2 = conv.convertDirection(0, 220, ((pi/2)-1.1071) - angle);
+            plot(nc2(1)+cent(1), nc2(2)+cent(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
+            nc3 = conv.convertDirection(0, -220, -1*((pi/2)-1.1071) - angle);
+            plot(nc3(1)+cent(1), nc3(2)+cent(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
+
+            %%left side
+
+            nc4 = [cent(1)-100, cent(2)-opp];
+            plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
+
+            nc5 = conv.convertDirection(0, 220, -1*((pi/2)-1.1071) - angle);
+            plot(nc5(1)+cent(1), nc5(2)+cent(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
+
+            nc6 = conv.convertDirection(0, -220, ((pi/2)-1.1071) - angle);
+            plot(nc6(1)+cent(1), nc6(2)+cent(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
+        end
+        %WORDKING OUT THE TILT
+
 %         testing
 % d = drawline();
 % pos = d.Position;
