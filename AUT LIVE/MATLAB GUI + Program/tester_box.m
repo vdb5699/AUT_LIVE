@@ -123,36 +123,36 @@ for k = 1:length(B)
 %         newCoord(2) = newCoord(2) + cent(2);
 %         plot(newCoord(1), newCoord(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 %         plot([cent(1) newCoord(1)], [cent(2) newCoord(2)]);
-        if (abs(angle) < 0.05) && (portrait == 1)
-            nc = [cent(1)+100, cent(2)];
-            plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-            nc2 = [cent(1)+100, cent(2)+100];
-            plot(nc2(1), nc2(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-            nc3 = [cent(1)+100, cent(2)-100];
-            plot(nc3(1), nc3(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-            nc4 = [cent(1)-100, cent(2)];
-            plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-            nc5 = [cent(1)-100, cent(2)+100];
-            plot(nc5(1), nc5(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-            nc6 = [cent(1)-100, cent(2)-100];
-            plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+%         if (abs(angle) < 0.05) && (portrait == 1)
+%             nc = [cent(1)+100, cent(2)];
+%             plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+%             nc2 = [cent(1)+100, cent(2)+100];
+%             plot(nc2(1), nc2(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+%             nc3 = [cent(1)+100, cent(2)-100];
+%             plot(nc3(1), nc3(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+%             nc4 = [cent(1)-100, cent(2)];
+%             plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+%             nc5 = [cent(1)-100, cent(2)+100];
+%             plot(nc5(1), nc5(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+%             nc6 = [cent(1)-100, cent(2)-100];
+%             plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+% 
+%         elseif (abs(angle) < 0.05) && (portrait == 0)
+%             nc = [cent(1), cent(2)+100];
+%             plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+%             nc2 = [cent(1)+200, cent(2)+100];
+%             plot(nc2(1), nc2(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+%             nc3 = [cent(1)-200, cent(2)+100];
+%             plot(nc3(1), nc3(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+%             nc4 = [cent(1), cent(2)-100];
+%             plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+%             nc5 = [cent(1)+200, cent(2)-100];
+%             plot(nc5(1), nc5(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+%             nc6 = [cent(1)-200, cent(2)-100];
+%             plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 
-        elseif (abs(angle) < 0.05) && (portrait == 0)
-            nc = [cent(1), cent(2)+100];
-            plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-            nc2 = [cent(1)+200, cent(2)+100];
-            plot(nc2(1), nc2(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-            nc3 = [cent(1)-200, cent(2)+100];
-            plot(nc3(1), nc3(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-            nc4 = [cent(1), cent(2)-100];
-            plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-            nc5 = [cent(1)+200, cent(2)-100];
-            plot(nc5(1), nc5(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-            nc6 = [cent(1)-200, cent(2)-100];
-            plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 
-
-        elseif (tilt == 0) && (portrait == 1)
+        if (tilt == 0) && (portrait == 1)
             %%% PATTERN ONE
             %right side
             opp = 100*tan(angle);
@@ -196,7 +196,7 @@ for k = 1:length(B)
 
             nc6 = conv.convertDirection(0, -220, ((pi/2)-1.1071) - angle);
             plot(nc6(1)+cent(1), nc6(2)+cent(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
-        elseif (tilt == 1) && (portrait == 0)
+        elseif (tilt == 0) && (portrait == 0)
             %bottom side
             opp = 100*tan(angle);
             nc = [cent(1)+opp, cent(2)+100];
