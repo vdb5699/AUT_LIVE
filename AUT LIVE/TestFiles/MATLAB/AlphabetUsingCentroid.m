@@ -520,3 +520,48 @@ if Letter == "Z" % 4 points All Linear movement
 end
 
 end
+
+%% Using difference of 2 points
+
+% Letter= char(i)
+currentCoords = [1336,0,1090]
+Letter = "A";
+Centroid = [100,150];
+
+if Letter == "A" % 5 Points all linear
+    startPos = [currentCoords(1),currentCoords(2), currentCoords(3)+Centroid(2)]
+    L_Corner = [currentCoords(1), currentCoords(2) - Centroid(1), currentCoords(3)-Centroid(2)];
+    currentCoords + L_Corner
+    R_Corner = [currentCoords(1), currentCoords(2) + Centroid(1), currentCoords(3)-Centroid(2)];
+    L_Mid = (L_Corner(:) + startPos(:)).'/2
+    R_Mid = (R_Corner(:) + startPos(:)).'/2
+%     L_Mid = [currentCoords(1), currentCoords(2) -  Centroid(1)*0.6, currentCoords(3)-(2*Centroid(2)*0.6-Centroid(2))];
+%     R_Mid = [currentCoords(1), currentCoords(2) + Centroid(1)*0.6, currentCoords(3)-(2*Centroid(2)*0.6-Centroid(2))];
+
+%   TCP Process
+%     tcp.write(string(startPos(2), startPos(3)))
+%     test = tcp.read();
+%     if test == "next"
+%         tcp.write(string(L_Corner(2), L_Corner(3)));
+%     end
+%     test = tcp.read();
+%     if test == "next"
+%         tcp.write(string(startPos(2), startPos(3)));
+%     end
+%     test = tcp.read()
+%     if test == "next"
+%         tcp.write(string(R_Corner(2), R_Corner(3)));
+%     end
+    figure;
+    plot(currentCoords(2), currentCoords(3),"x")
+    hold on;
+    plot(startPos(2), startPos(3), '-o')
+    hold on;
+    plot(L_Corner(2), L_Corner(3), '-o')
+    hold on;
+    plot(R_Corner(2), R_Corner(3), '-o')
+    hold on;
+    plot(L_Mid(2), L_Mid(3), '-o')
+    hold on;
+    plot(R_Mid(2), R_Mid(3), '-o')
+end
