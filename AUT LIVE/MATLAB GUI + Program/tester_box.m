@@ -1,6 +1,6 @@
 c = Camera();
-img = c.tempImageAcq(1,'l', '3840x1080', 8, 0, 8, 0, 1);
-% img = imread("testImage.png");
+% img = c.tempImageAcq(1,'l', '3840x1080', 8, 0, 8, 0, 1);
+img = imread("testImage.png");
 imshow(img)
 %%
 grey = rgb2gray(img);
@@ -90,23 +90,52 @@ for k = 1:length(B)
         pos = [newBound(2,2), newBound(2,1)];
         dist2 = norm(cent-pos);
         tilt
-        if tilt == 1
-            if yMaxCoord(1) < pos(1)
-                portrait = 0;
-            else
-                portrait = 1;
-            end
+%         if tilt == 1
+%             if yMaxCoord(1) < pos(1)
+%                 portrait = 0;
+%             else
+%                 portrait = 1;
+%             end
+%         else
+%             if yMaxCoord(1) > pos(1)
+%                 portrait = 0;
+%             else
+%                 portrait = 1;
+%             end
+%         end
+        if dist2 <= 288
+            portrait = 0;
         else
-            if yMaxCoord(1) > pos(1)
-                portrait = 0;
+            if tilt == 1
+                if yMaxCoord(1) < pos(1)
+                    portrait = 0;
+                    tilt = 0;
+                else
+                    portrait = 1;
+                end
             else
-                portrait = 1;
+                if yMaxCoord(1) > pos(1)
+                    portrait = 0;
+                    tilt = 1;
+                else
+                    portrait = 1;
+                end
             end
         end
-%         if dist2 > 205-10 && dist2 < 205+10
-%             portrait = 0;
 %         elseif dist2 > 298-10 && dist2 < 298+10
-%             portrait = 1;
+%             if tilt == 1
+%                 if yMaxCoord(1) < pos(1)
+%                     portrait = 0;
+%                 else
+%                     portrait = 1;
+%                 end
+%             else
+%                 if yMaxCoord(1) > pos(1)
+%                     portrait = 0;
+%                 else
+%                     portrait = 1;
+%                 end
+%             end
 %         elseif round(dist) == round(norm(yMaxCoord-xMaxCoord))
 %             coordDiff = [0 0];
 %             coordDiff(1) = abs(yMaxCoord(1)-xMaxCoord(1));
@@ -220,7 +249,7 @@ for k = 1:length(B)
 
             nc6 = conv.convertDirection(0, -220, ((pi/2)-1.1071) - angle);
             plot(nc6(1)+cent(1), nc6(2)+cent(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
-        elseif (tilt == 1) && (portrait == 0)
+        elseif (tilt == 0) && (portrait == 0)
             %bottom side
             opp = 100*tan(angle);
             nc = [cent(1)+opp, cent(2)+100];
