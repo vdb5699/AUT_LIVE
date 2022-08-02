@@ -36,6 +36,13 @@ toc
 %         plot(str2double(C(1)), str2double(C(2)), 'bo', 'MarkerSize', 40);
 %         text(str2double(C(1)), str2double(C(2)), str, Color=[1 0 1]);
 % end
+%% Playing with Box detection
+c = Camera();
+img = c.tempImageAcq(1,'l', '3840x1080', 8, 0, 8, 0, 1);
+bD = Box_Detection();
+coordinates = bD.detectBox(img)
+
+
 %% Follow Step numbers in order from 1 - 4
 %% take photo - Step: 1, 4
 cam = Camera();
