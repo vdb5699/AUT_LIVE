@@ -38,7 +38,8 @@ toc
 % end
 %% Playing with Box detection
 c = Camera();
-img = c.tempImageAcq(1,'l', '3840x1080', 8, 0, 8, 0, 1);
+% img = c.tempImageAcq(1,'l', '3840x1080', 8, 0, 8, 0, 1);
+img = imread('testImage.png');
 bD = Box_Detection();
 coordinates = bD.detectBox(img)
 

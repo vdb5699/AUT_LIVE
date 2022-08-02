@@ -17,7 +17,7 @@ classdef Box_Detection
         end
 
         function [boxes] = detectBox(obj, image)
-            boxes = [0 0];
+            boxes = [];
             %% noise deletion
             bw = rgb2gray(image) > obj.brightness;
             se = strel('square', 8);
@@ -277,7 +277,7 @@ classdef Box_Detection
                     nc5
                     nc6
         
-                    boxes = [boxes; nc; transpose(nc2); transpose(nc3); transpose(nc4); transpose(nc5); transpose(nc6)];
+                    boxes = [boxes; nc; (nc2'); (nc3'); nc4; (nc5'); (nc6')];
                 end
             end
             return
