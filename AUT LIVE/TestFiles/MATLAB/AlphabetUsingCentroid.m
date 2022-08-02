@@ -1,13 +1,13 @@
 %%
-Centroid = [100,200];
+Centroid = [30,40];
 % tcp = tcpclient("192.168.125.1", 1025);
 % str = char(65)
 % % UnicodeVal = double(str);
 % Letter = "wqe";
 currentCoords = [1336,0,1300]
 startPos = currentCoords; % Where the robot will start writing from
-for i = 65:90
-Letter= char(i)
+% for i = 65:90
+Letter= "E"
 
 if Letter == "A" % 5 Points all linear
     
@@ -519,14 +519,14 @@ if Letter == "Z" % 4 points All Linear movement
     plot(R_Top_Corner(2), R_Top_Corner(3), '-o')
 end
 
-end
+% end
 
 %% Using difference of 2 points
 
 % Letter= char(i)
 currentCoords = [1336,0,1090]
-Letter = "A";
-Centroid = [100,150];
+Letter = "E";
+Centroid = [30,40];
 
 if Letter == "A" % 5 Points all linear
     startPos = [currentCoords(1),currentCoords(2), currentCoords(3)+Centroid(2)];
@@ -571,5 +571,69 @@ if Letter == "A" % 5 Points all linear
     plot(L_Mid(2), L_Mid(3), '-o')
     hold on;
     plot(R_Mid(2), R_Mid(3), '-o')
+end
 
+if Letter == "B" % 6 points 2 circular movements
+    startPos = [currentCoords(1),currentCoords(2)-(Centroid(1)), currentCoords(3)+Centroid(2)]
+    L_Bottom = [currentCoords(1), currentCoords(2) - (Centroid(1)), currentCoords(3)-Centroid(2)]
+    L_Mid = [currentCoords(1), currentCoords(2) - (Centroid(1)), currentCoords(3)]
+%     Mid = [currentCoords(1), currentCoords(2) - (Centroid(1)*0.25), currentCoords(3)]
+    Mid = currentCoords
+    Bott_Mid = [Mid(1), Mid(2), currentCoords(3)-Centroid(2)]
+    Top_Mid = [Mid(1), Mid(2), currentCoords(3)+Centroid(2)]
+
+    startPosANS = [0,-(Centroid(1)), Centroid(2)]
+    L_Bottom_ANS = [0, - (Centroid(1)), -Centroid(2)]
+    Bott_Mid_ANS = [0, 0, -Centroid(2)]
+    Top_Mid_ANS = [0, 0, Centroid(2)]
+    L_Mid_ANS = (L_Bottom_ANS(:) + startPosANS(:)).'/2
+
+    figure;
+    plot(currentCoords(2), currentCoords(3), '-x');
+    hold on;
+    plot(startPos(2), startPos(3), '-o')
+    hold on;
+    plot(L_Bottom(2), L_Bottom(3), '-o')
+    hold on;
+%     plot(R_Corner(2), R_Corner(3), '-o')
+%     hold on;
+    plot(L_Mid(2), L_Mid(3), '-o')
+    hold on;
+    plot(Mid(2), Mid(3), '-o')
+    plot(Top_Mid(2), Top_Mid(3), '-o')
+    hold on;
+    plot(Bott_Mid(2), Bott_Mid(3), '-o')
+    hold on;
+end
+
+if Letter == "E" % 6 points All Linear movement
+    startPos = [currentCoords(1),currentCoords(2)-Centroid(1), currentCoords(3)+Centroid(2)];
+    L_Bott_Corner = [currentCoords(1), currentCoords(2)-Centroid(1), currentCoords(3)-Centroid(2)];
+    R_Bott_Corner = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)-Centroid(2)];
+    R_Top_Corner = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)+Centroid(2)];
+    L_Mid = [currentCoords(1), currentCoords(2)-Centroid(1), currentCoords(3)];
+    R_Mid = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)];
+
+    startPos_ANS = [0,-Centroid(1)*-1, Centroid(2)]
+    L_Bott_Corner_ANS = [0, -Centroid(1)*-1, -Centroid(2)]
+    R_Bott_Corner_ANS = [0, Centroid(1)*-1, -Centroid(2)]
+    R_Top_Corner_ANS = [0, Centroid(1)*-1, Centroid(2)]
+    L_Mid_ANS = [0, -Centroid(1)*-1, 0]
+    R_Mid_ANS = [0, Centroid(1)*-1, 0]
+    
+
+    figure;
+    plot(currentCoords(2), currentCoords(3), '-x');
+    hold on;
+    plot(startPos(2), startPos(3), '-o')
+    hold on;
+    plot(R_Bott_Corner(2), R_Bott_Corner(3), '-o')
+    hold on;
+    plot(L_Bott_Corner(2), L_Bott_Corner(3), '-o')
+    hold on;
+    plot(R_Top_Corner(2), R_Top_Corner(3), '-o')
+    hold on;
+    plot(L_Mid(2), L_Mid(3), '-o')
+    hold on;
+    plot(R_Mid(2), R_Mid(3), '-o')
 end
