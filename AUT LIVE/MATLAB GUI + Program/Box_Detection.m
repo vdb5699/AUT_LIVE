@@ -276,7 +276,8 @@ classdef Box_Detection
                     nc4
                     nc5
                     nc6
-                    boxes = [boxes; nc; nc2; nc3; nc4; nc5; nc6];
+        
+                    boxes = [boxes; nc; transpose(nc2); transpose(nc3); transpose(nc4); transpose(nc5); transpose(nc6)];
                 end
             end
             return
