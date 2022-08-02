@@ -80,3 +80,30 @@ bottlePosY = newCamPosY + camToGrip(2) -680.3
 tcp.write(num2str(bottlePosX))
 pause(3)
 tcp.write(num2str(bottlePosY))
+
+%% Box Detection - Step 1
+c = Camera();
+img = c.tempImageAcq(1,'l', '3840x1080', 8, 0, 8, 0, 1);
+% img = imread('testImage.png');
+bD = Box_Detection();
+coordinates = bD.detectBox(img);
+conv = Coordinate_Converter();
+box1 = [];
+box2 = [];
+for h = 1:height(coordinates)
+    [x, y] = conv.convertBox(coordinates(h,1), coordinates(h,2));
+    if h > 7
+        box1 = [box1; x, y];
+    else
+        box2 = [box2; x, y];
+    end
+end
+camToGrip = conv.convertDirection(-20,163, pi/4);
+posX = box1(1,1) + camToGrip(1) + 223.0963
+posY = box2(1,2) + camToGrip(2) + 844.6431
+
+%% Box Detection - Step 2
+tcp = tcpclient("192.168.0.20", 1025);
+tcp.write(num2str(posX))
+pause(3)
+tcp.write(num2str(PosY))
