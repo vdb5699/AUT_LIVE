@@ -240,6 +240,7 @@ MODULE MainModule
     ! Signal 1 = CamPos
     ! Signal 2 = Move to bottle
     ! Signal 3 = End of sending Coords
+	! Signal 4 = Move to BoxCamPos
     ! This function calls "receiveSignal" method after
     ! each signal task is completed
     PROC signalInstruction()        

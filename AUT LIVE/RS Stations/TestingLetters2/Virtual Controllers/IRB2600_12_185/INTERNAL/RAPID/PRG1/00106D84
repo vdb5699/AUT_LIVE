@@ -54,8 +54,7 @@ MODULE MainModule
 
         !!___________Test______________!!
         MoveJ WriteStart,v80,fine,tool0\WObj:=wobj0;
-        WriteLetterA;
-        
+
         Y:= 0;
         Z:= 150;
 !        WriteLetterA_Fixed;

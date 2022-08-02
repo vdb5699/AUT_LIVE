@@ -572,5 +572,4 @@ if Letter == "A" % 5 Points all linear
     hold on;
     plot(R_Mid(2), R_Mid(3), '-o')
 
-
 end
