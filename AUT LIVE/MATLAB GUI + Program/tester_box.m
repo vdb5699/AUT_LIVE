@@ -78,7 +78,6 @@ for k = 1:length(B)
         end
         dist = [norm(yMaxCoord-xMaxCoord); norm(yMaxCoord-xMinCoord)];
         dist = max(dist);
-
         portrait = 1;
 
 
@@ -158,7 +157,7 @@ for k = 1:length(B)
             if dist2 < 298+10 && dist2 > 298-10
                 z = 1;
             else
-                z = 295/dist2;
+                z = 298/dist2;
             end
             angle = acos(z);
             if isreal(angle) == false
