@@ -3,6 +3,10 @@ c = Camera();
 img = c.tempImageAcq(1,'l', '3840x1080', 4, 4, 4, 4, 5);
 figure(Visible="on")
 imshow(img);
+gray = rgb2gray(img);
+ imshow(gray)
+bw = imbinarize(gray);
+imshow(bw)
 % c = c.changeSettings('3840x1080', 8,8,8,8,500);
 % imshow(c.imageAcq(1,'l'));
 % c = c.restoreDefault();
@@ -88,22 +92,33 @@ img = c.tempImageAcq(1,'l', '3840x1080', 8, 0, 8, 0, 1);
 bD = Box_Detection();
 coordinates = bD.detectBox(img);
 conv = Coordinate_Converter();
-box1 = [];
-box2 = [];
+box = []
+camToGrip = conv.convertDirection(-20,163, pi/4);
 for h = 1:height(coordinates)
     [x, y] = conv.convertBox(coordinates(h,1), coordinates(h,2));
-    if h > 7
-        box1 = [box1; x, y];
-    else
-        box2 = [box2; x, y];
-    end
+    x = x + camToGrip(1) + 223.0963;
+    y = y + camToGrip(2) + 884.6431;
+    box = [box; x, y];
 end
-camToGrip = conv.convertDirection(-20,163, pi/4);
-posX = box1(1,1) + camToGrip(1) + 223.0963
-posY = box2(1,2) + camToGrip(2) + 844.6431
+
 
 %% Box Detection - Step 2
 tcp = tcpclient("192.168.0.20", 1025);
-tcp.write(num2str(posX))
+for h = 1:height(box)
+    a = box(h,:)
+    tcp.write(num2str(box(h,1)))
+    pause(3)
+    tcp.write(num2str(box(h,2)))
+    while(1)
+        str = read(tcp);
+        if char(str) == "SendNext"
+            break
+        end
+        pause(0.5);
+    end
+end
+tcp.write("Out")
 pause(3)
-tcp.write(num2str(PosY))
+tcp.write("hi")
+clear tcp
+

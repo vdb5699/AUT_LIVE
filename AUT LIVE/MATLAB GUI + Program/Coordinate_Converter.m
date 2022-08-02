@@ -36,12 +36,11 @@ classdef Coordinate_Converter
         end
         
         function [newX, newY] = convertBox(obj, x, y)
-            newX = 1.8725*x + 940.3;
-            newY = (1.7749*y) +523.71; 
+            newX = 0.5331*x - 501.22;
+            newY = (-0.5632*y) +301.16; 
             newc = obj.convertDirection(newX, newY, pi/4);
             newX = newc(1);
             newY = newc(2);
-
         end
 
         function newCoord = convertDirection(obj, x, y, angle)

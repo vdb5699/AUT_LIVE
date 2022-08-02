@@ -637,3 +637,30 @@ if Letter == "E" % 6 points All Linear movement
     hold on;
     plot(R_Mid(2), R_Mid(3), '-o')
 end
+
+if Letter == "F" % 5 points All Linear movement
+    startPos = [currentCoords(1),currentCoords(2)-Centroid(1), currentCoords(3)+Centroid(2)]
+    L_Bott_Corner = [currentCoords(1), currentCoords(2)-Centroid(1), currentCoords(3)-Centroid(2)]
+    R_Top_Corner = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)+Centroid(2)]
+    L_Mid = [currentCoords(1), currentCoords(2)-Centroid(1), currentCoords(3)]
+    R_Mid = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)]
+    
+    startPos_ANS = [0,-Centroid(1)*-1, Centroid(2)]
+    L_Bott_Corner_ANS = [0, -Centroid(1)*-1, -Centroid(2)]
+    R_Top_Corner_ANS = [0, Centroid(1)*-1, Centroid(2)]
+    L_Mid_ANS = [0, -Centroid(1)*-1, 0]
+    R_Mid_ANS = [0, Centroid(1)*-1, 0]
+    
+    figure;
+    plot(currentCoords(2), currentCoords(3), '-x');
+    hold on;
+    plot(startPos(2), startPos(3), '-o')
+    hold on;
+    plot(L_Bott_Corner(2), L_Bott_Corner(3), '-o')
+    hold on;
+    plot(R_Top_Corner(2), R_Top_Corner(3), '-o')
+    hold on;
+    plot(L_Mid(2), L_Mid(3), '-o')
+    hold on;
+    plot(R_Mid(2), R_Mid(3), '-o')
+end

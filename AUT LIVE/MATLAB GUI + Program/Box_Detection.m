@@ -105,26 +105,30 @@ classdef Box_Detection
 
                     angle = 0;
                     if portrait == 1
-                        if dist2 < obj.pToEdge+10 && dist2 > obj.pToEdge-10
-                            z = 1;
-                        else
+%                         if dist2 < obj.pToEdge+5 && dist2 > obj.pToEdge-5
+%                             z = 1;
+%                         else
                             z = obj.pToEdge/dist2;
-                        end
+%                         end
                         angle = acos(z);
                         if isreal(angle) == false
-                            portrait = 0;
-                            angle = acos(obj.lToEdge/dist2)
+                            angle = acos(obj.pToEdge/dist2)
                         end
                     else
-                        if dist2 < obj.lToEdge+10 && dist2 > obj.lToEdge-10
-                            z = 1;
-                        else
-                            z = obj.lToEdge/dist2;
+%                         if dist2 < obj.lToEdge+5 && dist2 > obj.lToEdge-5
+%                             z = 1;
+%                         else
+                        z = obj.lToEdge/dist2;
+                        if abs(z) > 1
+                            z = dist2/obj.lToEdge;
                         end
+%                         end
                         angle = acos(z);
                     end
+                    angle
+                    tilt
                     smallAngle = false;
-                    if (abs(angle) < 0.11) && (portrait == 1)
+                    if (abs(angle) < 0.08) && (portrait == 1)
                         smallAngle = true;
                         nc = [cent(1)+100, cent(2)];
                         plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
@@ -139,7 +143,7 @@ classdef Box_Detection
                         nc6 = [cent(1)-100, cent(2)-200];
                         plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 
-                    elseif (abs(angle) < 0.11) && (portrait == 0)
+                    elseif (abs(angle) < 0.08) && (portrait == 0)
                         smallAngle = true;
                         nc = [cent(1), cent(2)+100];
                         plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
@@ -216,7 +220,7 @@ classdef Box_Detection
                     elseif (tilt == 0) && (portrait == 0)
                         %bottom side
                         opp = 100*tan(angle);
-                        nc = [cent(1)+opp-30, cent(2)+100-30];
+                        nc = [cent(1)+opp, cent(2)+100];
                         plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 
                         nc2 = obj.converter.convertDirection(220, 0, -1*((pi/2)-1.1071) + angle);
@@ -230,7 +234,7 @@ classdef Box_Detection
 
                         %%top side
 
-                        nc4 = [cent(1)-opp+30, cent(2)-100+30];
+                        nc4 = [cent(1)-opp, cent(2)-100];
                         plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
                         nc5 = obj.converter.convertDirection(220, 0, ((pi/2)-1.1071) + angle);
@@ -245,7 +249,7 @@ classdef Box_Detection
                     else
                         %bottom side
                         opp = 100*tan(angle);
-                        nc = [cent(1)-opp+30, cent(2)+100-30];
+                        nc = [cent(1)-opp, cent(2)+100];
                         plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 
                         nc2 = obj.converter.convertDirection(220, 0, -1*((pi/2)-1.1071) - angle);
@@ -259,7 +263,7 @@ classdef Box_Detection
 
                         %%top side
 
-                        nc4 = [cent(1)+opp-30, cent(2)-100+30];
+                        nc4 = [cent(1)+opp, cent(2)-100];
                         plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
                         nc5 = obj.converter.convertDirection(220, 0, ((pi/2)-1.1071) - angle);
@@ -272,12 +276,12 @@ classdef Box_Detection
                         nc6(2) = nc6(2)+cent(2);
                         plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
                     end
-                    nc
-                    nc2
-                    nc3
-                    nc4
-                    nc5
-                    nc6
+%                     nc
+%                     nc2
+%                     nc3
+%                     nc4
+%                     nc5
+%                     nc6
                     if smallAngle == true
                         boxes = [boxes; nc; nc2; nc3; nc4; nc5; nc6];
                     else
