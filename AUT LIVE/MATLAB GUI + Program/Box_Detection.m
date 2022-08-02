@@ -123,8 +123,9 @@ classdef Box_Detection
                         end
                         angle = acos(z);
                     end
-
+                    smallAngle = false;
                     if (abs(angle) < 0.125) && (portrait == 1)
+                        smallAngle = true;
                         nc = [cent(1)+100, cent(2)];
                         plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
                         nc2 = [cent(1)+100, cent(2)+200];
@@ -139,6 +140,7 @@ classdef Box_Detection
                         plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 
                     elseif (abs(angle) < 0.125) && (portrait == 0)
+                        smallAngle = true;
                         nc = [cent(1), cent(2)+100];
                         plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
                         nc2 = [cent(1)+200, cent(2)+100];
@@ -276,8 +278,11 @@ classdef Box_Detection
                     nc4
                     nc5
                     nc6
-        
-                    boxes = [boxes; nc; (nc2'); (nc3'); nc4; (nc5'); (nc6')];
+                    if smallAngle == true
+                        boxes = [boxes; nc; nc2; nc3; nc4; nc5; nc6];
+                    else
+                        boxes = [boxes; nc; (nc2'); (nc3'); nc4; (nc5'); (nc6')];
+                    end
                 end
             end
             return
