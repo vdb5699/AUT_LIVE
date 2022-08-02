@@ -159,10 +159,12 @@ classdef Box_Detection
                         plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 
                         nc2 = obj.converter.convertDirection(0, 220, ((pi/2)-1.1071) + angle);
-                        nc2 = nc2+cent;
+                        nc2(1) = nc2(1)+cent(1);
+                        nc2(2) = nc2(2)+cent(2);
                         plot(nc2(1), nc2(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
                         nc3 = obj.converter.convertDirection(0, -220, -1*((pi/2)-1.1071) + angle);
-                        nc3 = nc3+cent
+                        nc3(1) = nc3(1)+cent(1);
+                        nc3(2) = nc3(2)+cent(2);
                         plot(nc3(1), nc3(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
                         
                         %%left side
@@ -171,11 +173,13 @@ classdef Box_Detection
                         plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
                         nc5 = obj.converter.convertDirection(0, 220, -1*((pi/2)-1.1071) + angle);
-                        nc5 = nc5+cent;
+                        nc5(1) = nc5(1)+cent(1);
+                        nc5(2) = nc5(2)+cent(2);
                         plot(nc5(1), nc5(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
                         nc6 = obj.converter.convertDirection(0, -220, ((pi/2)-1.1071) + angle);
-                        nc6 = nc6+cent;
+                        nc6(1) = nc6(1)+cent(1);
+                        nc6(2) = nc6(2)+cent(2);
                         plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
                     elseif (tilt == 1) && (portrait == 1)
 
@@ -185,10 +189,12 @@ classdef Box_Detection
                         plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 
                         nc2 = obj.converter.convertDirection(0, 220, ((pi/2)-1.1071) - angle);
-                        nc2 = nc2+cent;
+                        nc2(1) = nc2(1)+cent(1);
+                        nc2(2) = nc2(2)+cent(2);
                         plot(nc2(1), nc2(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
                         nc3 = obj.converter.convertDirection(0, -220, -1*((pi/2)-1.1071) - angle);
-                        nc3 = nc3+cent;
+                        nc3(1) = nc3(1)+cent(1);
+                        nc3(2) = nc3(2)+cent(2);
                         plot(nc3(1), nc3(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
                         %%left side
@@ -197,11 +203,13 @@ classdef Box_Detection
                         plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
                         nc5 = obj.converter.convertDirection(0, 220, -1*((pi/2)-1.1071) - angle);
-                        nc5 = nc5+cent;
+                        nc5(1) = nc5(1)+cent(1);
+                        nc5(2) = nc5(2)+cent(2);
                         plot(nc5(1), nc5(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
                         nc6 = obj.converter.convertDirection(0, -220, ((pi/2)-1.1071) - angle);
-                        nc6 = nc6+cent;
+                        nc6(1) = nc6(1)+cent(1);
+                        nc6(2) = nc6(2)+cent(2);
                         plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
                     elseif (tilt == 0) && (portrait == 0)
                         %bottom side
@@ -210,10 +218,12 @@ classdef Box_Detection
                         plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 
                         nc2 = obj.converter.convertDirection(220, 0, -1*((pi/2)-1.1071) + angle);
-                        nc2 = nc2+cent;
+                        nc2(1) = nc2(1)+cent(1);
+                        nc2(2) = nc2(2)+cent(2);
                         plot(nc2(1), nc2(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
                         nc3 = obj.converter.convertDirection(-220, 0, ((pi/2)-1.1071) + angle);
-                        nc3 = nc3+cent;
+                        nc3(1) = nc3(1)+cent(1);
+                        nc3(2) = nc3(2)+cent(2);
                         plot(nc3(1), nc3(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
                         %%top side
@@ -222,11 +232,13 @@ classdef Box_Detection
                         plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
                         nc5 = obj.converter.convertDirection(220, 0, ((pi/2)-1.1071) + angle);
-                        nc5 = nc5+cent;
+                        nc5(1) = nc5(1)+cent(1);
+                        nc5(2) = nc5(2)+cent(2);
                         plot(nc5(1), nc5(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
                         nc6 = obj.converter.convertDirection(-220, 0, -1*((pi/2)-1.1071) + angle);
-                        nc6 = nc6+cent;
+                        nc6(1) = nc6(1)+cent(1);
+                        nc6(2) = nc6(2)+cent(2);
                         plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
                     else
                         %bottom side
@@ -235,10 +247,12 @@ classdef Box_Detection
                         plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 
                         nc2 = obj.converter.convertDirection(220, 0, -1*((pi/2)-1.1071) - angle);
-                        nc2 = nc2+cent;
+                        nc2(1) = nc2(1)+cent(1);
+                        nc2(2) = nc2(2)+cent(2);
                         plot(nc2(1), nc2(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
                         nc3 = obj.converter.convertDirection(-220, 0, ((pi/2)-1.1071) - angle);
-                        nc3 = nc3+cent;
+                        nc3(1) = nc3(1)+cent(1);
+                        nc3(2) = nc3(2)+cent(2);
                         plot(nc3(1), nc3(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
                         %%top side
@@ -247,13 +261,14 @@ classdef Box_Detection
                         plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
                         nc5 = obj.converter.convertDirection(220, 0, ((pi/2)-1.1071) - angle);
-                        nc5 = nc5+cent;
+                        nc5(1) = nc5(1)+cent(1);
+                        nc5(2) = nc5(2)+cent(2);
                         plot(nc5(1), nc5(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
                         nc6 = obj.converter.convertDirection(-220, 0, -1*((pi/2)-1.1071) - angle);
-                        nc6 = nc6+cent;
+                        nc6(1) = nc6(1)+cent(1);
+                        nc6(2) = nc6(2)+cent(2);
                         plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
-
                     end
                     nc
                     nc2
