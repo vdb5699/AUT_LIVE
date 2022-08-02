@@ -13,7 +13,15 @@ MODULE MainModule
     CONST robtarget WritePos:=[[1118.762959576,0,936.635523609],[0.701584454,0,0.712586314,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget Via:=[[1299.925263731,0,969.956556898],[0.295536241,0,0.955331529,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget WriteStart:=[[1336,0,1090],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    PERS robtarget A:=[[1336,0,1450],[0.706152,0,0.708061,0],[0,0,0,1],[9E+9,9E+9,9E+9,9E+9,9E+9,9E+9]];
+    PERS robtarget A:=[[1200,-25,1015],[0.706152,6E-9,0.708061,1.1E-8],[0,0,-1,1],[9E+9,9E+9,9E+9,9E+9,9E+9,9E+9]];
+    
+    CONST robtarget Centre:=[[1336.000068323,0,1090.000067718],[0.706151716,0,0.708060558,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget StartPos:=[[1336.000077935,0,1240.000023955],[0.706151706,0.000000003,0.708060568,0.000000003],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget R_Corner:=[[1336.000063563,-100.000004349,940.00009488],[0.706151705,0.00000002,0.70806057,0.000000015],[-1,-1,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget L_Corner:=[[1336.000063563,100.000004349,940.00009488],[0.706151705,0.000000006,0.70806057,0.000000011],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget R_Mid:=[[1336.00007495,-49.999997558,1090.000058219],[0.706151717,0,0.708060557,0.000000002],[-1,-1,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget L_Mid:=[[1336.000074936,49.999998053,1090.000053177],[0.706151696,0.000000009,0.708060578,0.00000001],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    
     !-----------New Positions END------------!
 	!-----------RobotWriting Alphabets Coords------------!
 	CONST robtarget A_Horizontal:= [[1018.612159322,-22.5,1327],[0.00197,-0.38293,0.92377,0.00290],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];     
@@ -30,7 +38,7 @@ MODULE MainModule
     VAR string y_coordinate;
     VAR bool posx;
     VAR bool posy;
-    VAR num X;
+    VAR num Z;
     VAR num Y;
     VAR num counter:=0;
     
@@ -43,32 +51,15 @@ MODULE MainModule
         
 !        MoveJ Home,v100,z100,tool0\WObj:=wobj0;
 !        MoveJ Via,v80,z100,tool0\WObj:=wobj0;
+
+        !!___________Test______________!!
         MoveJ WriteStart,v80,fine,tool0\WObj:=wobj0;
-!        WaitTime 2;
-!        Y:= 0 ;
-!        Y:= 1450;
-!         A := [[1336,X, Y],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-!!!        MoveL A,v80,fine,tool0\WObj:=wobj0;
-!        MoveL Offs(WriteStart,0,0,150), v80,fine,tool0\WObj:=wobj0;
-!        MoveL Offs(WriteStart,0,-100,-200), v80,fine,tool0\WObj:=wobj0;
-!        MoveL Offs(WriteStart,0,0,150), v80,fine,tool0\WObj:=wobj0;
-!        MoveL Offs(WriteStart,0,100,-200), v80,fine,tool0\WObj:=wobj0;
-        MoveL Offs(WriteStart,0,-50,-40), v80,fine,tool0\WObj:=wobj0;
-!        WaitTime 5;
-!        MoveJ WriteStart,v80,z100,tool0\WObj:=wobj0;
-!        WaitTime 5;
-!        MoveL Offs(WriteStart,0,100, -150), v80,fine,tool0\WObj:=wobj0;
-        !        A := [[1336,100,1150],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-!        MoveL A,v80,fine,tool0\WObj:=wobj0;
-!        A := [[1336,0-100,1150],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-!        MoveL A,v80,fine,tool0\WObj:=wobj0;
-!        A := [[1336,100,1150],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-!        MoveL A,v80,fine,tool0\WObj:=wobj0;
-!        A := [[1336,0+100,1300],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-!        MoveL A,v80,fine,tool0\WObj:=wobj0;
-!        A := [[1336,100,1150],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-!        MoveL A,v80,fine,tool0\WObj:=wobj0;
+
+        Y:= 0;
+        Z:= 150;
+!        WriteLetterA_Fixed;
         
+        !!_________Test End____________!!
         
 !        moveToHome;             ! Program always starts from Home Pos in case it was left in random pos
 !        receiveSignal;         ! Where robot will receive signals to do certain tasks
@@ -78,34 +69,35 @@ MODULE MainModule
 !    receiveSignal;
     ENDPROC
     
-    PROC receiveSignal()
-        !Create Socket
-        SocketCreate server;
-        SocketBind server,"192.168.125.1", 1025;
-        SocketListen server;
-        SocketAccept server,client, \Time:=WAIT_MAX;
-    WHILE counter <> 27 DO
-        !Receive Data
-        SocketReceive client,\Str :=data, \Time:=WAIT_MAX;
-        found1 := StrFind(data,1,",");
-        found2 := StrFind(data,found1+1,",");
-        x_coordinate := StrPart(data,found1+1,found2-found1-1);
-        y_coordinate := StrPart(data,found2+1,StrLen(data)-found2);
-        posx :=StrToVal(x_coordinate,X);
-        posy := StrToVal(y_coordinate,Y);
-         A := [[1336,100 + X, 1150 + Y],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-        MoveL A,v80,fine,tool0\WObj:=wobj0;
-        SocketSend client,\Str :="next";
-        counter:= counter +1;
-    ENDWHILE
+!    PROC receiveSignal()
+!        !Create Socket
+!        SocketCreate server;
+!        SocketBind server,"192.168.125.1", 1025;
+!        SocketListen server;
+!        SocketAccept server,client, \Time:=WAIT_MAX;
+!    WHILE counter <> 27 DO
+!        !Receive Data
+!        SocketReceive client,\Str :=data, \Time:=WAIT_MAX;
+!        found1 := StrFind(data,1,",");
+!        found2 := StrFind(data,found1+1,",");
+!        x_coordinate := StrPart(data,found1+1,found2-found1-1);
+!        y_coordinate := StrPart(data,found2+1,StrLen(data)-found2);
+!        posx :=StrToVal(x_coordinate,X);
+!        posy := StrToVal(y_coordinate,Y);
+!         A := [[1336,100 + X, 1150 + Y],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+!        MoveL A,v80,fine,tool0\WObj:=wobj0;
+!        SocketSend client,\Str :="next";
+!        counter:= counter +1;
+!    ENDWHILE
 
-    ENDPROC
+!    ENDPROC
 
     PROC robotWrite()
 		!---Writing A---!!
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
 !        moveToZeroPos;
 		moveToWritePos;
+        WriteLetterA;
 !		WaitTime 2;
 !		MoveL Offs (moveToWritePos, 0, -50, -200), v80, fine, tool0\WObj:=wobj0;
 !		moveToWritePos;
@@ -145,7 +137,7 @@ MODULE MainModule
     ENDPROC
     
 	PROC moveToWritePos()
-        MoveL WritePos,v80,fine,tool0\WObj:=wobj0;
+        MoveL WriteStart,v80,fine,tool0\WObj:=wobj0;
     ENDPROC
 	
 !    PROC moveAboveToCameraPos()
@@ -160,6 +152,36 @@ MODULE MainModule
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         MoveJ AboveBoxPos, v200, fine, tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
+    ENDPROC
+    
+    PROC WriteLetterA_Fixed()
+        MoveL Centre,v300,fine,tool0\WObj:=wobj0;
+        MoveL StartPos,v300,fine,tool0\WObj:=wobj0;
+        MoveL R_Corner,v300,fine,tool0\WObj:=wobj0;
+        MoveL StartPos,v300,fine,tool0\WObj:=wobj0;
+        MoveL L_Corner,v300,fine,tool0\WObj:=wobj0;
+        A:= [[1200,-25,1015],[0.706151705,0.000000006,0.70806057,0.000000011],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+        MoveJ A, v300,z100,tool0\WObj:=wobj0;
+        WaitTime 3;
+        MoveJ R_Mid, v300,fine,tool0\WObj:=wobj0;
+        MoveL L_Mid,v300,fine,tool0\WObj:=wobj0;
+    ENDPROC
+    
+    PROC WriteLetterA()
+        ! Start
+        MoveL Offs(WriteStart,0,0,150), v80,fine,tool0\WObj:=wobj0;
+        ! Right Corner
+        MoveL Offs(WriteStart,0,-100,-150), v80,fine,tool0\WObj:=wobj0;
+        ! Start
+        MoveL Offs(WriteStart,0,0,150), v80,fine,tool0\WObj:=wobj0;
+        ! Left Corner
+        MoveL Offs(WriteStart,0,100,-150), v80,fine,tool0\WObj:=wobj0;
+        ! Off Board
+        MoveL Offs(WriteStart,-100,-50,0), v80,z50,tool0\WObj:=wobj0;
+        ! Right Mid
+        MoveL Offs(WriteStart,0,-50,0), v80,fine,tool0\WObj:=wobj0;
+        ! Left Mid
+        MoveL Offs(WriteStart,0,50,0), v80,fine,tool0\WObj:=wobj0;
     ENDPROC
     
 !    PROC open_gripper()        
