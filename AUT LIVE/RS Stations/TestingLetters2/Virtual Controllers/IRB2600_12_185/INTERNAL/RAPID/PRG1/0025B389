@@ -217,22 +217,22 @@ MODULE MainModule
         Y:= 30;
         Z:= 40;
         ! Off Centre - Start
-        MoveL Offs(WriteStart,-X,-Y,Z), v80,z80,tool0\WObj:=wobj0;
-        MoveL Offs(WriteStart,0,-Y,Z), v80,fine,tool0\WObj:=wobj0;
+        MoveL Offs(WriteStart,-X,Y,Z), v80,z80,tool0\WObj:=wobj0;
+        MoveL Offs(WriteStart,0,Y,Z), v80,fine,tool0\WObj:=wobj0;
         ! Left Bott Corner
-        MoveL Offs(WriteStart,0,-Y,-Z), v80,fine,tool0\WObj:=wobj0;
-        ! Right Bott Corner
         MoveL Offs(WriteStart,0,Y,-Z), v80,fine,tool0\WObj:=wobj0;
+        ! Right Bott Corner
+        MoveL Offs(WriteStart,0,Y,Z), v80,fine,tool0\WObj:=wobj0;
         ! Off RB - LM
-        MoveL Offs(WriteStart,-X,-Y,0), v80,z80,tool0\WObj:=wobj0;
-        MoveL Offs(WriteStart,0,-Y,0), v80,fine,tool0\WObj:=wobj0;
-        ! Right Mid
+        MoveL Offs(WriteStart,-X,Y,0), v80,z80,tool0\WObj:=wobj0;
         MoveL Offs(WriteStart,0,Y,0), v80,fine,tool0\WObj:=wobj0;
-        ! Off RM - Top Left
+        ! Right Mid
+        MoveL Offs(WriteStart,0,-Y,0), v80,fine,tool0\WObj:=wobj0;
+        ! Off RM - Top Right
         MoveL Offs(WriteStart,-X,-Y,Z), v80,z80,tool0\WObj:=wobj0;
         MoveL Offs(WriteStart,0,-Y,Z), v80,fine,tool0\WObj:=wobj0;
         ! Top Right
-        MoveL Offs(WriteStart,0,Y,Z), v80,fine,tool0\WObj:=wobj0;
+        MoveL Offs(WriteStart,0,-Y,Z), v80,fine,tool0\WObj:=wobj0;
     ENDPROC
     
 !    PROC open_gripper()        
