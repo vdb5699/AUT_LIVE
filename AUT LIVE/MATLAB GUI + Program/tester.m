@@ -86,13 +86,14 @@ pause(3)
 tcp.write(num2str(bottlePosY))
 
 %% Box Detection - Step 1
+disp("newattempt")
 c = Camera();
 img = c.tempImageAcq(1,'l', '3840x1080', 8, 0, 8, 0, 1);
 % img = imread('testImage.png');
 bD = Box_Detection();
 coordinates = bD.detectBox(img);
 conv = Coordinate_Converter();
-box = []
+box = [];
 camToGrip = conv.convertDirection(-20,163, pi/4);
 for h = 1:height(coordinates)
     [x, y] = conv.convertBox(coordinates(h,1), coordinates(h,2));

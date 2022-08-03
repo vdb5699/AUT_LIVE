@@ -85,6 +85,10 @@ classdef Box_Detection
                     portrait = 1;
                     if dist2 <= obj.lToEdge+50
                         portrait = 0;
+                    elseif (yMaxCoord(2)-yMinCoord(2) > 560) && (yMaxCoord(2)-yMinCoord(2) < 610)
+                        portrait = 1;
+                    elseif ((yMaxCoord(2)-yMinCoord(2) < 445) && (yMaxCoord(2)-yMinCoord(2) > 395))
+                        portrait = 0;
                     else
                         if tilt == 1
                             if yMaxCoord(1) < pos(1)
@@ -105,7 +109,7 @@ classdef Box_Detection
 
                     angle = 0;
                     if portrait == 1
-                        if dist2 <= obj.pToEdge && dist2 > obj.pToEdge-10
+                        if (dist2 < obj.pToEdge+12 && dist2 > obj.pToEdge-12) && ((yMaxCoord(2)-yMinCoord(2) > 560) && (yMaxCoord(2)-yMinCoord(2) < 610))
                             z = 1;
                         else
                             z = obj.pToEdge/dist2;
@@ -115,15 +119,18 @@ classdef Box_Detection
                         end
                         angle = acos(z);
                     else
-                        if dist2 <= obj.lToEdge && dist2 > obj.lToEdge-10
+                        a = (dist2 < obj.lToEdge+12 && dist2 > obj.lToEdge-12)
+                        b = ((yMaxCoord(2)-yMinCoord(2) < 445) && (yMaxCoord(2)-yMinCoord(2) > 395))
+                        c=(yMaxCoord(2)-yMinCoord(2) < 445)
+                        if (dist2 < obj.lToEdge+12 && dist2 > obj.lToEdge-12) && ((yMaxCoord(2)-yMinCoord(2) < 445) && (yMaxCoord(2)-yMinCoord(2) > 395))
                             z = 1;
+
                         else
                             z = obj.lToEdge/dist2;
                             if abs(z) > 1
                                 z = dist2/obj.lToEdge;
                             end
                         end
-%                         end
                         angle = acos(z);
                     end
                     angle
