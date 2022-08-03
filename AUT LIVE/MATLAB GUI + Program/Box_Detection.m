@@ -10,7 +10,7 @@ classdef Box_Detection
 
     methods
         function obj = Box_Detection()
-            obj.pToEdge = 298;
+            obj.pToEdge = 295;
             obj.lToEdge = 205;
             obj.brightness = 50;
             obj.converter = Coordinate_Converter();
@@ -85,7 +85,7 @@ classdef Box_Detection
                     portrait = 1;
                     if dist2 <= obj.lToEdge+50
                         portrait = 0;
-                    elseif (yMaxCoord(2)-yMinCoord(2) > 560) && (yMaxCoord(2)-yMinCoord(2) < 610)
+                    elseif (yMaxCoord(2)-yMinCoord(2) > 555) && (yMaxCoord(2)-yMinCoord(2) < 610)
                         portrait = 1;
                     elseif ((yMaxCoord(2)-yMinCoord(2) < 445) && (yMaxCoord(2)-yMinCoord(2) > 395))
                         portrait = 0;
@@ -109,7 +109,7 @@ classdef Box_Detection
 
                     angle = 0;
                     if portrait == 1
-                        if (dist2 < obj.pToEdge+12 && dist2 > obj.pToEdge-12) && ((yMaxCoord(2)-yMinCoord(2) > 560) && (yMaxCoord(2)-yMinCoord(2) < 610))
+                        if (dist2 < obj.pToEdge+20 && dist2 > obj.pToEdge-20) && ((yMaxCoord(2)-yMinCoord(2) > 555) && (yMaxCoord(2)-yMinCoord(2) < 610))
                             z = 1;
                         else
                             z = obj.pToEdge/dist2;

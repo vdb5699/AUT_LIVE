@@ -38,7 +38,7 @@ classdef Coordinate_Converter
         function [newX, newY] = convertBox(obj, x, y)
             newX = 0.5331*x - 501.22;
             newY = (-0.5632*y) +301.16; 
-            newc = obj.convertDirection(newX, newY, pi/4);
+            newc = obj.convertDirection(newX, newY, (pi/4)-(pi/90));
             newX = newc(1);
             newY = newc(2);
         end

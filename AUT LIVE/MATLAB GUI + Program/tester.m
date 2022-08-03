@@ -94,9 +94,10 @@ bD = Box_Detection();
 coordinates = bD.detectBox(img);
 conv = Coordinate_Converter();
 box = [];
-camToGrip = conv.convertDirection(-20,163, pi/4);
+camToGrip = conv.convertDirection(-20,163, (pi/4)-(pi/90));
 for h = 1:height(coordinates)
     [x, y] = conv.convertBox(coordinates(h,1), coordinates(h,2));
+    
     x = x + camToGrip(1) + 223.0963;
     y = y + camToGrip(2) + 884.6431;
     box = [box; x, y];
@@ -107,9 +108,11 @@ end
 tcp = tcpclient("192.168.0.20", 1025);
 for h = 1:height(box)
     a = box(h,:)
-    tcp.write(num2str(box(h,1)))
+    tcp.write(num2str(0.95*a(1)))
+    disp("x sent")
     pause(3)
-    tcp.write(num2str(box(h,2)))
+    tcp.write(num2str(0.95*a(2)))
+    disp("y sent")
     while(1)
         str = read(tcp);
         if char(str) == "SendNext"
