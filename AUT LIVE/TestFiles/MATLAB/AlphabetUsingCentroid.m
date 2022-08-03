@@ -525,7 +525,7 @@ end
 
 % Letter= char(i)
 currentCoords = [1336,0,1090]
-Letter = "N";
+Letter = "F"
 Centroid = [30,40];
 
 if Letter == "A" % 5 Points all linear
@@ -639,11 +639,11 @@ if Letter == "E" % 6 points All Linear movement
 end
 
 if Letter == "F" % 5 points All Linear movement
-    startPos = [currentCoords(1),currentCoords(2)-Centroid(1), currentCoords(3)+Centroid(2)]
-    L_Bott_Corner = [currentCoords(1), currentCoords(2)-Centroid(1), currentCoords(3)-Centroid(2)]
-    R_Top_Corner = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)+Centroid(2)]
-    L_Mid = [currentCoords(1), currentCoords(2)-Centroid(1), currentCoords(3)]
-    R_Mid = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)]
+    startPos = [currentCoords(1),currentCoords(2)-Centroid(1), currentCoords(3)+Centroid(2)];
+    L_Bott_Corner = [currentCoords(1), currentCoords(2)-Centroid(1), currentCoords(3)-Centroid(2)];
+    R_Top_Corner = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)+Centroid(2)];
+    L_Mid = [currentCoords(1), currentCoords(2)-Centroid(1), currentCoords(3)];
+    R_Mid = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)];
     
     startPos_ANS = [0,-Centroid(1)*-1, Centroid(2)]
     L_Bott_Corner_ANS = [0, -Centroid(1)*-1, -Centroid(2)]
@@ -652,17 +652,17 @@ if Letter == "F" % 5 points All Linear movement
     R_Mid_ANS = [0, Centroid(1)*-1, 0]
     
     figure;
-    plot(currentCoords(2), currentCoords(3), '-x');
+    plot(0, 0, '-x')
     hold on;
-    plot(startPos(2), startPos(3), '-o')
+    plot(startPos_ANS(2), startPos_ANS(3), '-o')
     hold on;
-    plot(L_Bott_Corner(2), L_Bott_Corner(3), '-o')
+    plot(L_Bott_Corner_ANS(2), L_Bott_Corner_ANS(3), '-o')
     hold on;
-    plot(R_Top_Corner(2), R_Top_Corner(3), '-o')
+    plot(R_Top_Corner_ANS(2), R_Top_Corner_ANS(3), '-o')
     hold on;
-    plot(L_Mid(2), L_Mid(3), '-o')
+    plot(L_Mid_ANS(2), L_Mid_ANS(3), '-o')
     hold on;
-    plot(R_Mid(2), R_Mid(3), '-o')
+    plot(R_Mid_ANS(2), R_Mid_ANS(3), '-o')
 
 %     figure;
 %     plot(startPos_ANS(2), startPos_ANS(3), '-o')
@@ -845,21 +845,22 @@ end
 if Letter == "T" % 4 points All Linear movement
     % Start at top left
     startPos = [currentCoords(1),currentCoords(2)-Centroid(1), currentCoords(3)+Centroid(2)]
-
+    Top_Mid = [currentCoords(1), currentCoords(2), currentCoords(3)+Centroid(2)]
+    Bott_Mid = [currentCoords(1), currentCoords(2), currentCoords(3)-Centroid(2)]
     R_Top_Corner = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)+Centroid(2)]
-
+   
     startPos_ANS = [0,-Centroid(1), +Centroid(2)]
-    L_Bott_Corner_ANS = [0, -Centroid(1), -Centroid(2)]
-    R_Bott_Corner_ANS = [0, +Centroid(1), -Centroid(2)]
+    Top_Mid_ANS = [0, 0, +Centroid(2)]
+    Bott_Mid_ANS = [0, 0, -Centroid(2)]
     R_Top_Corner_ANS = [0, +Centroid(1), +Centroid(2)]
 
     Mid_ANS = [0,0,0]
     figure;
     plot(startPos_ANS(2), startPos_ANS(3), '-o')
     hold on;
-    plot(R_Bott_Corner_ANS(2), R_Bott_Corner_ANS(3), '-o')
+    plot(Top_Mid_ANS(2), Top_Mid_ANS(3), '-o')
     hold on;
-    plot(L_Bott_Corner_ANS(2), L_Bott_Corner_ANS(3), '-o')
+    plot(Bott_Mid_ANS(2), Bott_Mid_ANS(3), '-o')
     hold on;
     plot(R_Top_Corner_ANS(2), R_Top_Corner_ANS(3), '-o')
     hold on;
@@ -868,17 +869,20 @@ end
 
 if Letter == "V" % 5 points All Linear movement
     % Start at top left corner
-    startPos = [currentCoords(1),currentCoords(2)-Centroid(1), currentCoords(3)+Centroid(2)]
-    Bott_Mid = [currentCoords(1), currentCoords(2), currentCoords(3)-Centroid(2)]
-    R_Top_Corner = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)+Centroid(2)]
+    startPos = [currentCoords(1),currentCoords(2)-Centroid(1), currentCoords(3)+Centroid(2)];
+    Bott_Mid = [currentCoords(1), currentCoords(2), currentCoords(3)-Centroid(2)];
+    R_Top_Corner = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)+Centroid(2)];
+    
+    startPos_ANS = [0,-Centroid(1), +Centroid(2)]
+    Bott_Mid_ANS = [0, 0, -Centroid(2)]
+    R_Top_Corner_ANS = [0, +Centroid(1), +Centroid(2)]
+
     figure;
-    plot(currentCoords(2), currentCoords(3), '-x');
+    plot(startPos_ANS(2), startPos_ANS(3), '-o')
     hold on;
-    plot(startPos(2), startPos(3), '-o')
+    plot(R_Top_Corner_ANS(2), R_Top_Corner_ANS(3), '-o')
     hold on;
-    plot(R_Top_Corner(2), R_Top_Corner(3), '-o')
-    hold on;
-    plot(Bott_Mid(2), Bott_Mid(3), '-o')
+    plot(Bott_Mid_ANS(2), Bott_Mid_ANS(3), '-o')
 end
 
 if Letter == "W" % 5 points All Linear movement
@@ -887,26 +891,42 @@ if Letter == "W" % 5 points All Linear movement
     L_Bott = [currentCoords(1), currentCoords(2)-(Centroid(2)/2), currentCoords(3)-Centroid(2)]
     R_Bott = [currentCoords(1), currentCoords(2)+(Centroid(2)/2), currentCoords(3)-Centroid(2)]
     R_Top_Corner = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)+Centroid(2)]
+    Top_Mid = [currentCoords(1), currentCoords(2), currentCoords(3)+Centroid(2)]
     Mid = currentCoords;
+    
+    startPos_ANS = [0,-Centroid(1), +Centroid(2)]
+    L_Bott_ANS = [0, -(Centroid(2)/2), -Centroid(2)]
+    R_Bott_ANS = [0, +(Centroid(2)/2), -Centroid(2)]
+    R_Top_Corner_ANS = [0, +Centroid(1), +Centroid(2)]
+    Top_Mid_ANS = [0, 0, +Centroid(2)]
+
     figure;
-    plot(currentCoords(2), currentCoords(3), '-x');
+    plot(L_Bott_ANS(2), L_Bott_ANS(3), '-o')
     hold on;
-    plot(Mid(2), Mid(3), '-o')
+    plot(startPos_ANS(2), startPos_ANS(3), '-o')
     hold on;
-    plot(startPos(2), startPos(3), '-o')
+    plot(R_Top_Corner_ANS(2), R_Top_Corner_ANS(3), '-o')
     hold on;
-    plot(R_Top_Corner(2), R_Top_Corner(3), '-o')
+    plot(R_Bott_ANS(2), R_Bott_ANS(3), '-o')
     hold on;
-    plot(L_Bott(2), L_Bott(3), '-o')
-    hold on;
-    plot(R_Bott(2), R_Bott(3), '-o')
+    plot(Top_Mid_ANS(2), Top_Mid_ANS(3), '-o')
 end
 
 if Letter == "X" % 5 points All Linear movement
-    startPos = [currentCoords(1),currentCoords(2)-Centroid(1), currentCoords(3)+Centroid(2)]
-    L_Bott_Corner = [currentCoords(1), currentCoords(2)-Centroid(1), currentCoords(3)-Centroid(2)]
-    R_Bott_Corner = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)-Centroid(2)]
-    R_Top_Corner = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)+Centroid(2)]
+    startPos = [currentCoords(1),currentCoords(2)-Centroid(1), currentCoords(3)+Centroid(2)];
+    L_Bott_Corner = [currentCoords(1), currentCoords(2)-Centroid(1), currentCoords(3)-Centroid(2)];
+    R_Bott_Corner = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)-Centroid(2)];
+    R_Top_Corner = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)+Centroid(2)];
+    L_Mid = [currentCoords(1), currentCoords(2)-Centroid(1), currentCoords(3)];
+    R_Mid = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)];
+    
+    startPos_ANS = [0,-Centroid(1), Centroid(2)]
+    L_Bott_Corner_ANS = [0, -Centroid(1), -Centroid(2)]
+    R_Bott_Corner_ANS = [0, Centroid(1), -Centroid(2)]
+    R_Top_Corner_ANS = [0, Centroid(1), +Centroid(2)]
+    L_Mid_ANS = [0, -Centroid(1), 0]
+    R_Mid_ANS = [0, Centroid(1), 0]
+
     figure;
     plot(currentCoords(2), currentCoords(3), '-x');
     hold on;
@@ -921,11 +941,18 @@ end
 
 if Letter == "Y" % 5 points All Linear movement
     % Start as Left Top Corner
-    startPos = [currentCoords(1),currentCoords(2)-Centroid(1), currentCoords(3)+Centroid(2)]
-    R_Top_Corner = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)+Centroid(2)]
-    L_Top_Corner = [currentCoords(1),currentCoords(2)-Centroid(1), currentCoords(3)+Centroid(2)]
+    startPos = [currentCoords(1),currentCoords(2)-Centroid(1), currentCoords(3)+Centroid(2)];
+    R_Top_Corner = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)+Centroid(2)];
+    L_Top_Corner = [currentCoords(1),currentCoords(2)-Centroid(1), currentCoords(3)+Centroid(2)];
     Mid = currentCoords;
-    Bott_Mid = [currentCoords(1), currentCoords(2), currentCoords(3)-Centroid(2)]
+    Bott_Mid = [currentCoords(1), currentCoords(2), currentCoords(3)-Centroid(2)];
+
+    startPos_ANS = [0,+Centroid(1), +Centroid(2)]
+    R_Top_Corner_ANS = [0, -Centroid(1),+Centroid(2)]
+    L_Top_Corner_ANS = [0,+Centroid(1), +Centroid(2)]
+    Mid_ANS = [0,0,0];
+    Bott_Mid_ANS = [0, 0, -Centroid(2)]
+
     figure;
     plot(currentCoords(2), currentCoords(3), '-x');
     hold on;
@@ -942,10 +969,20 @@ end
 
 if Letter == "Z" % 4 points All Linear movement
     % Start at top left corner
-    startPos = [currentCoords(1),currentCoords(2)-Centroid(1), currentCoords(3)+Centroid(2)]
-    L_Bott_Corner = [currentCoords(1), currentCoords(2)-Centroid(1), currentCoords(3)-Centroid(2)]
-    R_Bott_Corner = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)-Centroid(2)]
-    R_Top_Corner = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)+Centroid(2)]
+    startPos = [currentCoords(1),currentCoords(2)-Centroid(1), currentCoords(3)+Centroid(2)];
+    L_Bott_Corner = [currentCoords(1), currentCoords(2)-Centroid(1), currentCoords(3)-Centroid(2)];
+    R_Bott_Corner = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)-Centroid(2)];
+    R_Top_Corner = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)+Centroid(2)];
+    L_Mid = [currentCoords(1), currentCoords(2)-Centroid(1), currentCoords(3)];
+    R_Mid = [currentCoords(1), currentCoords(2)+Centroid(1), currentCoords(3)];
+    
+    startPos_ANS = [0,-Centroid(1), Centroid(2)]
+    L_Bott_Corner_ANS = [0, -Centroid(1), -Centroid(2)]
+    R_Bott_Corner_ANS = [0, Centroid(1), -Centroid(2)]
+    R_Top_Corner_ANS = [0, Centroid(1), +Centroid(2)]
+    L_Mid_ANS = [0, -Centroid(1), 0]
+    R_Mid_ANS = [0, Centroid(1), 0]
+    
     figure;
     plot(currentCoords(2), currentCoords(3), '-x');
     hold on;
