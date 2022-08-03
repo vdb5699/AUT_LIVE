@@ -15,7 +15,6 @@ MODULE MainModule
     CONST robtarget WriteStart:=[[1336,0,1090],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget A:=[[1200,-25,1015],[0.706152,6E-9,0.708061,1.1E-8],[0,0,-1,1],[9E+9,9E+9,9E+9,9E+9,9E+9,9E+9]];
     
-    CONST robtarget Centre:=[[1336.000068323,0,1090.000067718],[0.706151716,0,0.708060558,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget StartPos:=[[1336.000077935,0,1240.000023955],[0.706151706,0.000000003,0.708060568,0.000000003],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget R_Corner:=[[1336.000063563,-100.000004349,940.00009488],[0.706151705,0.00000002,0.70806057,0.000000015],[-1,-1,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget L_Corner:=[[1336.000063563,100.000004349,940.00009488],[0.706151705,0.000000006,0.70806057,0.000000011],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -23,8 +22,20 @@ MODULE MainModule
     CONST robtarget L_Mid:=[[1336.000074936,49.999998053,1090.000053177],[0.706151696,0.000000009,0.708060578,0.00000001],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     
     !-----------New Positions END------------!
+    
+    
 	!-----------RobotWriting Alphabets Coords------------!
 	CONST robtarget A_Horizontal:= [[1018.612159322,-22.5,1327],[0.00197,-0.38293,0.92377,0.00290],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];     
+    
+    PERS robtarget BottLeftNew:=[[1335.999946186,29.999998495,1049.999996829],[0.70618058,0,0.708031771,-0.000000001],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget TopLeftNew:=[[1335.999940596,29.999998408,1130.000046425],[0.706180582,-0.000000002,0.708031768,-0.000000001],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget TopMidNew:=[[1335.999958569,0,1130.00001521],[0.706180572,0,0.708031779,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget TopRightNew:=[[1335.999940596,-29.999998408,1130.000046425],[0.706180582,0.000000002,0.708031768,0.000000001],[-1,-1,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget RightMidNew:=[[1335.999945541,-29.99999842,1090.000077422],[0.706180574,-0.000000001,0.708031776,-0.000000001],[-1,-1,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget Centre:=[[1336.000068323,0,1090.000067718],[0.706151716,0,0.708060558,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget LeftMidNew:=[[1335.999945541,29.99999842,1090.000077422],[0.706180574,0.000000001,0.708031776,0.000000001],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget RightBottNew:=[[1335.999946186,-29.999998495,1049.999996829],[0.70618058,0,0.708031771,0.000000001],[-1,-1,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget BottMidNew:=[[1335.999950892,0,1049.999988651],[0.706180578,0,0.708031773,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     !------------------Initialising Variables-----------------------!
     
     VAR	socketdev serverSocket;
@@ -56,35 +67,38 @@ MODULE MainModule
 
 !!        !!___________Test______________!!
         MoveJ WriteStart,v80,fine,tool0\WObj:=wobj0;
-        WriteLetterA;
-        WaitTime 1;
-        WriteLetterE;
-        WaitTime 1;
-        WriteLetterF;
-        WaitTime 1;
-        WriteLetterH;
-        WaitTime 1;
-        WriteLetterI;
-        WaitTime 1;
-        WriteLetterK;
-        WaitTime 1;
-        WriteLetterL;
-        WaitTime 1;
-        WriteLetterM;
-        WaitTime 1;
-        WriteLetterN;
-        WaitTime 1;
-        WriteLetterT;
-        WaitTime 1;
-        WriteLetterV;
-        WaitTime 1;
-        WriteLetterW;
-        WaitTime 1;
-        WriteLetterX;
-        WaitTime 1;
-        WriteLetterY;
-        WaitTime 1;
-        WriteLetterZ;
+!        WriteLetterB;
+!        WaitTime 1;
+        WriteLetterD;
+!        WriteLetterA;
+!        WaitTime 1;
+!        WriteLetterE;
+!        WaitTime 1;
+!        WriteLetterF;
+!        WaitTime 1;
+!        WriteLetterH;
+!        WaitTime 1;
+!        WriteLetterI;
+!        WaitTime 1;
+!        WriteLetterK;
+!        WaitTime 1;
+!        WriteLetterL;
+!        WaitTime 1;
+!        WriteLetterM;
+!        WaitTime 1;
+!        WriteLetterN;
+!        WaitTime 1;
+!        WriteLetterT;
+!        WaitTime 1;
+!        WriteLetterV;
+!        WaitTime 1;
+!        WriteLetterW;
+!        WaitTime 1;
+!        WriteLetterX;
+!        WaitTime 1;
+!        WriteLetterY;
+!        WaitTime 1;
+!        WriteLetterZ;
         
         
 !!        Y:= 0;
@@ -225,18 +239,57 @@ MODULE MainModule
         
         Y:= 30;
         Z:= 40;
-        ! Start
-        MoveL Offs(WriteStart,0,-Y,Z), v1000,fine,tool0\WObj:=wobj0;
+        ! Start Bott Left
+        MoveL Offs(WriteStart,-X,Y,-Z), v1000,fine,tool0\WObj:=wobj0;
+        MoveL Offs(WriteStart,0,Y,-Z), v1000,fine,tool0\WObj:=wobj0;
+        ! Left Top Corner
+        MoveL Offs(WriteStart,0,Y,Z), v1000,fine,tool0\WObj:=wobj0;
+        ! Right Top Corner
+        MoveL Offs(WriteStart,0,-Y,Z), v1000,z200,tool0\WObj:=wobj0;
+        ! Right Mid
+        MoveL Offs(WriteStart,0,-Y,0), v1000,z200,tool0\WObj:=wobj0;
+        ! Left Mid
+        MoveL Offs(WriteStart,0,Y,0), v1000,fine,tool0\WObj:=wobj0;
+        ! Right Mid
+        MoveL Offs(WriteStart,0,-Y,0), v1000,z200,tool0\WObj:=wobj0;
+        ! Right Bott Corner
+        MoveL Offs(WriteStart,0,-Y,-Z), v1000,z200,tool0\WObj:=wobj0;
         ! Left Bott Corner
-        MoveL Offs(WriteStart,0,-Y,-Z), v1000,fine,tool0\WObj:=wobj0;
-        ! Start
-        MoveL Offs(WriteStart,0,-Y,Z), v1000,fine,tool0\WObj:=wobj0;
+        MoveL Offs(WriteStart,0,Y,-Z), v1000,fine,tool0\WObj:=wobj0;   
+    ENDPROC
+    
+    PROC WriteLetterD()
+        X:= 40;
+        
+        Y:= 30;
+        Z:= 40;
+        ! Start Bott Left
+        MoveL Offs(WriteStart,-X,Y,-Z), v1000,fine,tool0\WObj:=wobj0;
+        MoveL Offs(WriteStart,0,Y,-Z), v1000,fine,tool0\WObj:=wobj0;
+        ! Left Top Corner
+        MoveL Offs(WriteStart,0,Y,Z), v1000,fine,tool0\WObj:=wobj0;
         ! Top Mid
-        MoveL Offs(WriteStart,0,0,Z), v1000,z50,tool0\WObj:=wobj0;
-!        ! Right Mid
-        MoveL Offs(WriteStart,0,Y,Z), v1000,z100,tool0\WObj:=wobj0;
-!        ! Left Mid
-!        MoveL Offs(WriteStart,0,Y,0), v1000,fine,tool0\WObj:=wobj0;
+        MoveL Offs(WriteStart,0,0,Z), v1000,z200,tool0\WObj:=wobj0;
+        ! Right Mid
+        MoveL Offs(WriteStart,0,-Y,0), v1000,z200,tool0\WObj:=wobj0;
+        ! Bott Mid
+        MoveL Offs(WriteStart,0,0,-Z), v1000,z200,tool0\WObj:=wobj0;
+        ! Left Bott Corner
+        MoveL Offs(WriteStart,0,Y,-Z), v1000,fine,tool0\WObj:=wobj0;   
+    ENDPROC
+    
+    PROC WriteB_Fixed()
+        MoveL BottLeftNew,v300,fine,tool0\WObj:=wobj0;
+        MoveL TopLeftNew,v300,fine,tool0\WObj:=wobj0;
+        MoveL TopMidNew,v300,fine,tool0\WObj:=wobj0;
+        MoveL TopRightNew,v300,z200,tool0\WObj:=wobj0;
+        MoveL RightMidNew,v300,z200,tool0\WObj:=wobj0;
+        MoveL Centre,v300,z200,tool0\WObj:=wobj0;
+        MoveL LeftMidNew,v300,fine,tool0\WObj:=wobj0;
+        MoveL RightMidNew,v300,z200,tool0\WObj:=wobj0;
+        MoveL RightBottNew,v300,z200,tool0\WObj:=wobj0;
+        MoveL BottMidNew,v300,z200,tool0\WObj:=wobj0;
+        MoveL BottLeftNew,v300,fine,tool0\WObj:=wobj0;
     ENDPROC
     
     PROC WriteLetterE()

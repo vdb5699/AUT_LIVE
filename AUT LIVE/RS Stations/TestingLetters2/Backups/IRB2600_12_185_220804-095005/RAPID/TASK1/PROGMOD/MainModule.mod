@@ -67,8 +67,8 @@ MODULE MainModule
 
 !!        !!___________Test______________!!
         MoveJ WriteStart,v80,fine,tool0\WObj:=wobj0;
-!        WriteLetterB;
-!        WaitTime 1;
+        WriteLetterB;
+        WaitTime 1;
         WriteLetterD;
 !        WriteLetterA;
 !        WaitTime 1;
@@ -269,13 +269,13 @@ MODULE MainModule
         ! Left Top Corner
         MoveL Offs(WriteStart,0,Y,Z), v1000,fine,tool0\WObj:=wobj0;
         ! Top Mid
-        MoveL Offs(WriteStart,0,0,Z), v1000,z200,tool0\WObj:=wobj0;
+        MoveL Offs(WriteStart,0,0,Z), v1000,fine,tool0\WObj:=wobj0;
         ! Right Mid
         MoveL Offs(WriteStart,0,-Y,0), v1000,z200,tool0\WObj:=wobj0;
         ! Bott Mid
-        MoveL Offs(WriteStart,0,0,-Z), v1000,z200,tool0\WObj:=wobj0;
+        MoveL Offs(WriteStart,0,0,-Z), v1000,fine,tool0\WObj:=wobj0;
         ! Left Bott Corner
-        MoveL Offs(WriteStart,0,Y,-Z), v1000,fine,tool0\WObj:=wobj0;   
+        MoveL Offs(WriteStart,0,Y,-Z), v1000,z200,tool0\WObj:=wobj0;   
     ENDPROC
     
     PROC WriteB_Fixed()
