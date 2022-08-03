@@ -1,6 +1,6 @@
 c = Camera();
-% img = c.tempImageAcq(1,'l', '3840x1080', 8, 0, 8, 0, 1);
-img = imread("testImage.png");
+img = c.tempImageAcq(1,'l', '3840x1080', 8, 0, 8, 0, 1);
+% img = imread("testImage.png");
 imshow(img)
 %%
 grey = rgb2gray(img);
@@ -73,7 +73,9 @@ for k = 1:length(B)
         plot(xMinCoord(1), xMinCoord(2),'bo', 'MarkerSize', 10, 'LineWidth',5);
         plot(yMaxCoord(1),yMaxCoord(2), 'bo', 'MarkerSize', 10, 'LineWidth',5);
         plot(yMinCoord(1), yMinCoord(2),'bo', 'MarkerSize', 10, 'LineWidth',5);
-        if xMinCoord(2) > xMaxCoord(2)
+        xMinCoord(2)
+        xMaxCoord(2)
+        if yMinCoord(1) < yMaxCoord(1)
             tilt = 1;
         end
         dist = [norm(yMaxCoord-xMaxCoord); norm(yMaxCoord-xMinCoord)];
@@ -108,14 +110,12 @@ for k = 1:length(B)
             if tilt == 1
                 if yMaxCoord(1) < pos(1)
                     portrait = 0;
-                    tilt = 0;
                 else
                     portrait = 1;
                 end
             else
                 if yMaxCoord(1) > pos(1)
                     portrait = 0;
-                    tilt = 1;
                 else
                     portrait = 1;
                 end

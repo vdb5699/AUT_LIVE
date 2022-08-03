@@ -105,28 +105,31 @@ classdef Box_Detection
 
                     angle = 0;
                     if portrait == 1
-%                         if dist2 < obj.pToEdge+5 && dist2 > obj.pToEdge-5
-%                             z = 1;
-%                         else
+                        if dist2 <= obj.pToEdge && dist2 > obj.pToEdge-10
+                            z = 1;
+                        else
                             z = obj.pToEdge/dist2;
-%                         end
-                        angle = acos(z);
-                        if isreal(angle) == false
-                            angle = acos(obj.pToEdge/dist2)
+                            if abs(z) > 1
+                                z = dist2/obj.pToEdge;
+                            end
                         end
+                        angle = acos(z);
                     else
-%                         if dist2 < obj.lToEdge+5 && dist2 > obj.lToEdge-5
-%                             z = 1;
-%                         else
-                        z = obj.lToEdge/dist2;
-                        if abs(z) > 1
-                            z = dist2/obj.lToEdge;
+                        if dist2 <= obj.lToEdge && dist2 > obj.lToEdge-10
+                            z = 1;
+                        else
+                            z = obj.lToEdge/dist2;
+                            if abs(z) > 1
+                                z = dist2/obj.lToEdge;
+                            end
                         end
 %                         end
                         angle = acos(z);
                     end
                     angle
                     tilt
+                    dist2
+                    portrait
                     smallAngle = false;
                     if (abs(angle) < 0.08) && (portrait == 1)
                         smallAngle = true;
