@@ -3,10 +3,10 @@ c = Camera();
 img = c.tempImageAcq(1,'l', '3840x1080', 4, 4, 4, 4, 5);
 figure(Visible="on")
 imshow(img);
-gray = rgb2gray(img);
- imshow(gray)
-bw = imbinarize(gray);
-imshow(bw)
+hold on
+for h = 1:height(coordinates)
+    plot(coordinates(h,1), coordinates(h,2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+end
 % c = c.changeSettings('3840x1080', 8,8,8,8,500);
 % imshow(c.imageAcq(1,'l'));
 % c = c.restoreDefault();
@@ -94,7 +94,7 @@ bD = Box_Detection();
 coordinates = bD.detectBox(img);
 conv = Coordinate_Converter();
 box = [];
-camToGrip = conv.convertDirection(-20,163, (pi/4)-(pi/90));
+camToGrip = conv.convertDirection(-5,163, (pi/4));
 for h = 1:height(coordinates)
     [x, y] = conv.convertBox(coordinates(h,1), coordinates(h,2));
     
