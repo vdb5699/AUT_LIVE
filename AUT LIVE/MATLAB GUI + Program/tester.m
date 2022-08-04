@@ -3,10 +3,10 @@ c = Camera();
 img = c.tempImageAcq(1,'l', '3840x1080', 4, 4, 4, 4, 5);
 figure(Visible="on")
 imshow(img);
-hold on
-for h = 1:height(coordinates)
-    plot(coordinates(h,1), coordinates(h,2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-end
+% hold on
+% for h = 1:height(coordinates)
+%     plot(coordinates(h,1), coordinates(h,2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
+% end
 % c = c.changeSettings('3840x1080', 8,8,8,8,500);
 % imshow(c.imageAcq(1,'l'));
 % c = c.restoreDefault();
@@ -136,3 +136,7 @@ for h = 1:height(arr)
     box = [box; x, y];
 end
 box
+
+%%
+conv = Coordinate_Converter();
+a = conv.convertBox(1621, 540);
