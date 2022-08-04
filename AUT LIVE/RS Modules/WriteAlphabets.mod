@@ -336,6 +336,28 @@ MODULE MainModule
         MoveL Offs(WriteStart,0,-Y,0), v1000,fine,tool0\WObj:=wobj0;
     ENDPROC
 
+	PROC WriteLetterG()
+        X:= 40;
+        
+        Y:= 30;
+        Z:= 40;
+        ! Start Top Right
+        MoveL Offs(WriteStart,-X,-Y,Z), v1000,fine,tool0\WObj:=wobj0;
+        MoveL Offs(WriteStart,0,-Y,Z), v1000,fine,tool0\WObj:=wobj0;
+        ! Left Top Corner
+        MoveL Offs(WriteStart,0,Y,Z), v1000,z200,tool0\WObj:=wobj0;
+        ! Left Mid
+        MoveL Offs(WriteStart,0,Y,0), v1000,z200,tool0\WObj:=wobj0;
+        ! Left Bott Corner
+        MoveL Offs(WriteStart,0,Y,-Z), v1000,fine,tool0\WObj:=wobj0;   
+		! Bott Mid
+        MoveL Offs(WriteStart,0,0,-Z), v1000,z200,tool0\WObj:=wobj0;
+		! Right Mid
+        MoveL Offs(WriteStart,0,-Y,0), v1000,z200,tool0\WObj:=wobj0;
+		! Centre 
+		MoveL WriteStart, v1000,z200,tool0\WObj:=wobj0;
+    ENDPROC
+
 	PROC WriteLetterH()
         X:= 40;
         
@@ -379,6 +401,22 @@ MODULE MainModule
         MoveL Offs(WriteStart,0,Y,-Z), v1000,fine,tool0\WObj:=wobj0;
         ! Right Bott Corner
         MoveL Offs(WriteStart,0,-Y,-Z), v1000,fine,tool0\WObj:=wobj0;
+    ENDPROC
+
+	PROC WriteLetterJ()
+        X:= 40;
+        
+        Y:= 30;
+        Z:= 40;
+        ! Off Centre - Start Top Mid
+        MoveL Offs(WriteStart,-X,0,Z), v1500,z80,tool0\WObj:=wobj0;
+        MoveL Offs(WriteStart,0,0,Z), v1000,fine,tool0\WObj:=wobj0;
+        ! Bott Mid
+        MoveL Offs(WriteStart,0,0,-Z), v1000,z200,tool0\WObj:=wobj0;
+        ! Left Bott Corner
+        MoveL Offs(WriteStart,0,Y,-Z), v1000,z200,tool0\WObj:=wobj0;
+		! Left Mid
+        MoveL Offs(WriteStart,0,Y,-Z), v1000,fine,tool0\WObj:=wobj0;
     ENDPROC
     
     	PROC WriteLetterK()
@@ -447,6 +485,91 @@ MODULE MainModule
         ! Right Top Corner
         MoveL Offs(WriteStart,0,-Y,Z), v1000,fine,tool0\WObj:=wobj0;
     ENDPROC
+
+	PROC WriteLetterO()
+        X:= 40;
+        
+        Y:= 30;
+        Z:= 40;
+        ! Off Centre - Start Top Mid
+        MoveL Offs(WriteStart,-X,Y,Z), v1500,z80,tool0\WObj:=wobj0;
+        MoveL Offs(WriteStart,0,Y,Z), v1000,fine,tool0\WObj:=wobj0;
+		! Right Top Corner
+        MoveL Offs(WriteStart,0,-Y,Z), v1000,z200,tool0\WObj:=wobj0;
+        ! Right Bott Corner
+        MoveL Offs(WriteStart,0,-Y,-Z), v1000,z200,tool0\WObj:=wobj0;
+        ! Left Bott Corner
+        MoveL Offs(WriteStart,0,Y,-Z), v1000,fine,tool0\WObj:=wobj0;
+		! Left Top Corner
+        MoveL Offs(WriteStart,0,Y,Z), v1000,z200,tool0\WObj:=wobj0;
+		! Top Mid
+		MoveL Offs(WriteStart,0,Y,Z), v1000,fine,tool0\WObj:=wobj0;
+    ENDPROC
+
+	PROC WriteLetterP()
+        X:= 40;
+        
+        Y:= 30;
+        Z:= 40;
+        ! Start Bott Left
+        MoveL Offs(WriteStart,-X,Y,-Z), v1000,fine,tool0\WObj:=wobj0;
+        MoveL Offs(WriteStart,0,Y,-Z), v1000,fine,tool0\WObj:=wobj0;
+        ! Left Top Corner
+        MoveL Offs(WriteStart,0,Y,Z), v1000,fine,tool0\WObj:=wobj0;
+        ! Right Top Corner
+        MoveL Offs(WriteStart,0,-Y,Z), v1000,z200,tool0\WObj:=wobj0;
+        ! Right Mid
+        MoveL Offs(WriteStart,0,-Y,0), v1000,z200,tool0\WObj:=wobj0;
+        ! Left Mid
+        MoveL Offs(WriteStart,0,Y,0), v1000,fine,tool0\WObj:=wobj0;
+    ENDPROC
+
+	PROC WriteLetterQ()
+        X:= 40;
+        
+        Y:= 30;
+        Z:= 40;
+        ! Off Centre - Start Top Mid
+        MoveL Offs(WriteStart,-X,Y,Z), v1500,z80,tool0\WObj:=wobj0;
+        MoveL Offs(WriteStart,0,Y,Z), v1000,fine,tool0\WObj:=wobj0;
+		! Right Top Corner
+        MoveL Offs(WriteStart,0,-Y,Z), v1000,z200,tool0\WObj:=wobj0;
+        ! Right Bott Corner
+        MoveL Offs(WriteStart,0,-Y,-Z), v1000,z200,tool0\WObj:=wobj0;
+        ! Left Bott Corner
+        MoveL Offs(WriteStart,0,Y,-Z), v1000,fine,tool0\WObj:=wobj0;
+		! Left Top Corner
+        MoveL Offs(WriteStart,0,Y,Z), v1000,z200,tool0\WObj:=wobj0;
+		! Top Mid
+		MoveL Offs(WriteStart,0,Y,Z), v1000,fine,tool0\WObj:=wobj0;
+		! Off Top Mid - Centre
+		MoveL Offs(WriteStart,-X,0,0), v1500,z80,tool0\WObj:=wobj0;
+		MoveL WriteStart, v1500,fine,tool0\WObj:=wobj0;
+		! Right Bott Corner
+        MoveL Offs(WriteStart,0,-Y,-Z), v1000,fine,tool0\WObj:=wobj0;
+    ENDPROC
+
+	PROC WriteLetterR()
+        X:= 40;
+        
+        Y:= 30;
+        Z:= 40;
+        ! Start Bott Left
+        MoveL Offs(WriteStart,-X,Y,-Z), v1000,fine,tool0\WObj:=wobj0;
+        MoveL Offs(WriteStart,0,Y,-Z), v1000,fine,tool0\WObj:=wobj0;
+        ! Left Top Corner
+        MoveL Offs(WriteStart,0,Y,Z), v1000,fine,tool0\WObj:=wobj0;
+        ! Right Top Corner
+        MoveL Offs(WriteStart,0,-Y,Z), v1000,z200,tool0\WObj:=wobj0;
+        ! Right Mid
+        MoveL Offs(WriteStart,0,-Y,0), v1000,z200,tool0\WObj:=wobj0;
+        ! Left Mid
+        MoveL Offs(WriteStart,0,Y,0), v1000,fine,tool0\WObj:=wobj0;
+		! Centre
+        ! MoveL WriteStart, v1000,z200,tool0\WObj:=wobj0;
+		! Right Bott Corner
+        MoveL Offs(WriteStart,0,-Y,-Z), v1000,z200,tool0\WObj:=wobj0;
+    ENDPROC
     
     PROC WriteLetterT()
         X:= 40;
@@ -463,6 +586,24 @@ MODULE MainModule
         MoveL Offs(WriteStart,0,0,Z), v1000,fine,tool0\WObj:=wobj0;
         ! Bott Mid
         MoveL Offs(WriteStart,0,0,-Z), v1000,fine,tool0\WObj:=wobj0;
+    ENDPROC
+
+	PROC WriteLetterU()
+        X:= 40;
+        
+        Y:= 30;
+        Z:= 40;
+        ! Off Centre - Start Left Top
+        MoveL Offs(WriteStart,-X,Y,Z), v1500,z80,tool0\WObj:=wobj0;
+        MoveL Offs(WriteStart,0,Y,Z), v1000,fine,tool0\WObj:=wobj0;
+        ! Left Bott Corner
+        MoveL Offs(WriteStart,0,Y,-Z), v1000,z200,tool0\WObj:=wobj0;
+		! Bott Mid
+        MoveL Offs(WriteStart,0,0,-Z), v1000,z200,tool0\WObj:=wobj0;
+		! Right Bott Corner
+        MoveL Offs(WriteStart,0,-Y,-Z), v1000,z200,tool0\WObj:=wobj0;
+		! Right Top Corner
+        MoveL Offs(WriteStart,0,-Y,Z), v1000,z200,tool0\WObj:=wobj0;
     ENDPROC
     
     PROC WriteLetterV()
@@ -497,7 +638,7 @@ MODULE MainModule
         MoveL Offs(WriteStart,0,-Y,Z), v1000,fine,tool0\WObj:=wobj0;
     ENDPROC
     
-        PROC WriteLetterX()
+    PROC WriteLetterX()
         X:= 40;
         
         Y:= 30;
