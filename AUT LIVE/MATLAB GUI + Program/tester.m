@@ -86,21 +86,35 @@ pause(3)
 tcp.write(num2str(bottlePosY))
 
 %% Box Detection - Step 1
-disp("newattempt")
-c = Camera();
-img = c.tempImageAcq(1,'l', '3840x1080', 8, 0, 8, 0, 1);
-% img = imread('testImage.png');
-bD = Box_Detection();
-coordinates = bD.detectBox(img);
+% disp("newattempt")
+% c = Camera();
+% img = c.tempImageAcq(1,'l', '3840x1080', 8, 0, 8, 0, 1);
+% % img = imread('testImage.png');
+% bD = Box_Detection();
+% coordinates = bD.detectBox(img);
+% conv = Coordinate_Converter();
+% box = [];
+% camToGrip = conv.convertDirection(25,113, (pi/4));
+% for h = 1:height(coordinates)
+%     [x, y] = conv.convertBox(coordinates(h,1), coordinates(h,2));
+%     
+%     x = x + camToGrip(1) + 223.0963;
+%     y = y + camToGrip(2) + 884.6431;
+%     box = [box; x, y];
+% end
 conv = Coordinate_Converter();
+angle = (pi/4)+((2/180)*pi);
+coords = [960, 540; 956, 321; 633, 318; 1238, 323];
+cam2Grip = conv.convertDirection(-1, 152.125 +6, angle);
 box = [];
-camToGrip = conv.convertDirection(25,113, (pi/4));
-for h = 1:height(coordinates)
-    [x, y] = conv.convertBox(coordinates(h,1), coordinates(h,2));
+for h = 1:height(coords)
+    [x, y] = conv.convertBox(coords(h,1), coords(h,2));
     
-    x = x + camToGrip(1) + 223.0963;
-    y = y + camToGrip(2) + 884.6431;
-    box = [box; x, y];
+%     x = x + cam2Grip(1) + 223.0963;
+    x = x + cam2Grip(1) + 211.5963;
+%     y = y + cam2Grip(2) + 884.6431;
+    y = y + cam2Grip(2) + 832.1431;
+    box = [box; x, y]
 end
 
 
@@ -109,9 +123,11 @@ tcp = tcpclient("192.168.0.20", 1025);
 for h = 1:height(box)
     a = box(h,:)
     tcp.write(num2str(a(1)))
+%     tcp.write(num2str(x))
     disp("x sent")
     pause(3)
     tcp.write(num2str(a(2)))
+%     tcp.write(num2str(y))
     disp("y sent")
     while(1)
         str = read(tcp);
@@ -122,7 +138,7 @@ for h = 1:height(box)
     end
 end
 tcp.write("Out")
-pause(3)
+pause(1)
 tcp.write("hi")
 clear tcp
 
@@ -139,4 +155,4 @@ box
 
 %%
 conv = Coordinate_Converter();
-a = conv.convertBox(1621, 540);
+a = conv.convertBox(635, 322);

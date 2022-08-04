@@ -50,7 +50,7 @@ classdef Camera
         end
 
         function image = imageAcq(obj, camID, side)
-            try
+%             try
                 camera = webcam(camID);
                 camera.Resolution = obj.res;
                 camera.Brightness = obj.bright;
@@ -73,16 +73,16 @@ classdef Camera
                 end
                 clear('camera')
                 return
-            catch ME
-                if (strcmp(ME.identifier, 'camera:inputError'))
-                    disp('Error Message: ')
-                    disp(ME.message);
-                else
-                    f = warndlg("Ensure that the camera is connected to PC and not used in other software.");
-                end
-                image = false;
-                return 
-            end
+%             catch ME
+%                 if (strcmp(ME.identifier, 'camera:inputError'))
+%                     disp('Error Message: ')
+%                     disp(ME.message);
+%                 else
+%                     f = warndlg("Ensure that the camera is connected to PC and not used in other software.");
+%                 end
+%                 image = false;
+%                 return 
+%             end
         end
 
         function image = tempImageAcq(obj, camID, side, res, bri, cont, sat, shar, gam)
