@@ -25,7 +25,7 @@ MODULE MainModule
     CONST robtarget NewCamPos:= [[215, -680.3, 1300],[0.00163,-0.38344,-0.92356,-0.00115],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget AboveBoxPos:= [[366.1, 366, 1588.4],[0.00192, -0.38294, 0.92377, 0.00293],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget BoxCamPos:=[[223.0963,844.6431,1550],[-0.000000007,-0.382683401,0.923879546,0],[0,0,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    PERS robtarget TemporaryCam:= [[575.788,986.066,1200],[-7E-09,-0.382683,0.92388,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget TemporaryCam:= [[262.483,922.902,1140],[-7E-09,-0.382683,0.92388,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     ! AboveBottleCoord robtarget x,y should change based on the bottle location
     PERS robtarget AboveBottleCoord:= [[301.544,-974.157, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget AboveTable:= [[550.3, -377.8, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -275,6 +275,7 @@ MODULE MainModule
         SocketBind server,"192.168.0.20", 1025;
         SocketListen server;
         SocketAccept server,client, \Time:=WAIT_MAX;
+        tcpX:= "IN";
         WHILE tcpX <> "Out" DO
             SocketReceive client,\Str :=tcpX, \Time:=WAIT_MAX;
             objects:=StrToVal(tcpX,tcpXValue);
@@ -283,14 +284,16 @@ MODULE MainModule
             
             TemporaryCam:= [[tcpXValue,tcpYValue,1300],[-0.000000007,-0.382683401,0.923879546,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
             PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
-            MoveL TemporaryCam,v100,fine,tool0\WObj:=wobj0;
-            TemporaryCam:= [[tcpXValue,tcpYValue,1200],[-0.000000007,-0.382683401,0.923879546,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+            MoveL TemporaryCam,v500,fine,tool0\WObj:=wobj0;
+            TemporaryCam:= [[tcpXValue,tcpYValue,1140],[-0.000000007,-0.382683401,0.923879546,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
             ! TemporaryCam:= [[tcpXValue,tcpYValue,1195],[0.001639386,-0.3834062,-0.9235777,-0.001139545],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+            WaitTime 1;
+            MoveL TemporaryCam,v200,fine,tool0\WObj:=wobj0;
             WaitTime 2;
-            MoveL TemporaryCam,v50,fine,tool0\WObj:=wobj0;
             SocketSend client,\Str :="SendNext";
             
             PathAccLim FALSE,FALSE;
+            
         ENDWHILE
         
 !        SocketSend client,\Str :="PickUp";
@@ -826,7 +829,7 @@ MODULE MainModule
     
     PROC moveToBoxCam()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL BoxCamPos,v200,fine,tool0\WObj:=wobj0;
+        MoveL BoxCamPos,v100,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
