@@ -10,7 +10,7 @@ MODULE MainModule
     PERS robtarget TestGripperToSyrupBottle:= [[301.544,-974.157, 1120],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget TestGripperToCokeBottleAbove:= [[412.693,-899.473,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget TestGripperToCokeBottle:= [[412.693,-899.473,1070],[0.00163976,-0.383409,-0.923576,-0.00114218],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    PERS robtarget TestingGUIPos:= [[351.838,-853.917,1588],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget TestingGUIPos:= [[366.114,-680.731,1300],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !    CONST robtarget CameraPos:=[[888.647981627,-3.101979233,1192.532782595],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !    CONST robtarget CameraPos:=[[595.6,-367-628.37,1192.532782595],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     
@@ -25,7 +25,7 @@ MODULE MainModule
     CONST robtarget NewCamPos:= [[215, -680.3, 1300],[0.00163,-0.38344,-0.92356,-0.00115],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget AboveBoxPos:= [[366.1, 366, 1588.4],[0.00192, -0.38294, 0.92377, 0.00293],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget BoxCamPos:=[[223.0963,844.6431,1550],[-0.000000007,-0.382683401,0.923879546,0],[0,0,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    PERS robtarget TemporaryCam:= [[262.483,922.902,1140],[-7E-09,-0.382683,0.92388,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget TemporaryCam:= [[277.14,1122.13,1125],[-7E-09,-0.382683,0.92388,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     ! AboveBottleCoord robtarget x,y should change based on the bottle location
     PERS robtarget AboveBottleCoord:= [[301.544,-974.157, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget AboveTable:= [[550.3, -377.8, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -125,6 +125,8 @@ MODULE MainModule
     VAR string num_objects;
     VAR string x_coordinate;
     VAR string y_coordinate;
+    VAR string Box_xCoordinate;
+    VAR string Box_yCoordinate;
     VAR string row;
     VAR string column;
     VAR string tcpX;
@@ -135,6 +137,8 @@ MODULE MainModule
     VAR num num_objs;
     VAR num X;
     VAR num Y;
+    VAR num Box_X;
+    VAR num Box_Y;
     VAR num sum;
     VAR num n_syrup:= 0;
     VAR num n_coke:= 0;
@@ -147,10 +151,14 @@ MODULE MainModule
     VAR bool coke;
     VAR bool posx;
     VAR bool posy;
+    VAR bool BoxPosXBool;
+    VAR bool BoxPosYBool;    
     PERS string socketArray{3,1}:=[[""], [""], [""]];
     PERS string socketArrayTest;
     VAR num found1;
     VAR num found2;
+    VAR num found3;
+    VAR num found4;
     VAR robtarget CurRobT2;
     
     PROC main()
@@ -158,8 +166,8 @@ MODULE MainModule
 !        syrup_counter:=0;
 !        open_gripper;
 !!        coke_counter:=0;
-!        moveToHome;             ! Program always starts from Home Pos in case it was left in random pos
-!        receiveSignal;         ! Where robot will receive signals to do certain tasks
+        moveToHome;             ! Program always starts from Home Pos in case it was left in random pos
+        receiveSignal;         ! Where robot will receive signals to do certain tasks
 !        moveToCameraPos;       ! New Cam Pos
 !!!        moveToCokeCoordOne;
 !!!!!!        testpos;
@@ -167,8 +175,8 @@ MODULE MainModule
 !!!!        moveToAboveBoxPos;
 !!!!        testingBoxCoords;
 !        moveToAboveBoxPos;
-        moveToBoxCam;
-        tcpipTempCam;
+!        moveToBoxCam;
+!        tcpipTempCam;
 !        close_gripper;
 !        open_gripper;
 !!!        tcpipBottle;
@@ -254,17 +262,27 @@ MODULE MainModule
                     colour := StrPart(data,1,1);
                     found1 := StrFind(data,1,",");
                     found2 := StrFind(data,found1+1,",");
+                    found3 := StrFind(data,found2+1,",");
+                    found4 := StrFind(data,found3+1,",");
                     x_coordinate := StrPart(data,found1+1,found2-found1-1);
-                    y_coordinate := StrPart(data,found2+1,StrLen(data)-found2);
-                    posx :=StrToVal(x_coordinate,X);
-                    posy := StrToVal(y_coordinate,Y);
+                    y_coordinate := StrPart(data,found2+1,found3-found2-1);
+                    Box_xCoordinate := StrPart(data,found3+1,found4-found3-1);
+                    Box_ycoordinate := StrPart(data,found4+1,StrLen(data)-found4);
+                    objects :=StrToVal(x_coordinate,X);
+                    objects := StrToVal(y_coordinate,Y);
+                    objects:= StrToVal(Box_xCoordinate,Box_X);
+                    objects:= StrToVal(Box_ycoordinate,Box_Y);
                     PickUpBottles;
                !     TestPos:= [[552.8+X, -553.6+Y, 1306.2],[0.02936,-0.38320,-0.92311,-0.01261],[-1,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !                    moveToTestPos;
                     SocketSend client,\Str :="SendNext";
                     SocketReceive client,\Str :=data, \Time:=WAIT_MAX;
                 ENDWHILE
-                receiveSignal;                
+                receiveSignal;   
+            ELSEIF signal = "4" THEN
+                moveToBoxCam;
+                SocketSend client,\Str :="AtBox";
+                receiveSignal;
             ENDIF
         ENDWHILE
         moveToHome;
@@ -284,12 +302,12 @@ MODULE MainModule
             
             TemporaryCam:= [[tcpXValue,tcpYValue,1300],[-0.000000007,-0.382683401,0.923879546,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
             PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
-            MoveL TemporaryCam,v500,fine,tool0\WObj:=wobj0;
+            MoveL TemporaryCam,v400,fine,tool0\WObj:=wobj0;
             TemporaryCam:= [[tcpXValue,tcpYValue,1140],[-0.000000007,-0.382683401,0.923879546,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
             ! TemporaryCam:= [[tcpXValue,tcpYValue,1195],[0.001639386,-0.3834062,-0.9235777,-0.001139545],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
             WaitTime 1;
             MoveL TemporaryCam,v200,fine,tool0\WObj:=wobj0;
-            WaitTime 2;
+            WaitTime 1;
             SocketSend client,\Str :="SendNext";
             
             PathAccLim FALSE,FALSE;
@@ -378,35 +396,88 @@ MODULE MainModule
     PROC PickUpBottles()
         IF colour = "B" THEN
             TestingGUIPos:= [[X,Y,1300],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-            MoveL TestingGUIPos,v1000,fine,tool0\WObj:=wobj0;
+            MoveL TestingGUIPos,v200,fine,tool0\WObj:=wobj0;
             TestingGUIPos:= [[X,Y,1125],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-            MoveL TestingGUIPos,v1000,fine,tool0\WObj:=wobj0;
+            MoveL TestingGUIPos,v200,fine,tool0\WObj:=wobj0;
             close_gripper;
             TestingGUIPos:= [[X,Y,1588],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-            MoveL TestingGUIPos,v1000,fine,tool0\WObj:=wobj0;
+            MoveL TestingGUIPos,v200,fine,tool0\WObj:=wobj0;
             n_syrup:= n_syrup + 1;
             PutBottlesDown;
         ELSE
             TestingGUIPos:= [[X,Y,1300],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-            MoveL TestingGUIPos,v1000,fine,tool0\WObj:=wobj0;
+            MoveL TestingGUIPos,v200,fine,tool0\WObj:=wobj0;
             TestingGUIPos:= [[X,Y,1070],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-            MoveL TestingGUIPos,v1000,fine,tool0\WObj:=wobj0;
+            MoveL TestingGUIPos,v200,fine,tool0\WObj:=wobj0;
             close_gripper;
             TestingGUIPos:= [[X,Y,1588],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-            MoveL TestingGUIPos,v1000,fine,tool0\WObj:=wobj0;
+            MoveL TestingGUIPos,v200,fine,tool0\WObj:=wobj0;
             WaitTime 1;
             TestingGUIPos:= [[X,Y,1070],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-            MoveL TestingGUIPos,v1000,fine,tool0\WObj:=wobj0;
+            MoveL TestingGUIPos,v200,fine,tool0\WObj:=wobj0;
             open_gripper;
             
             n_coke:= n_coke + 1;
             TestingGUIPos:= [[X,Y,1588],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-            MoveL TestingGUIPos,v1000,fine,tool0\WObj:=wobj0;
+            MoveL TestingGUIPos,v200,fine,tool0\WObj:=wobj0;
         ENDIF
         
     ENDPROC
     
     PROC PutBottlesDown()
+        IF n_syrup = 1 THEN
+            moveToAboveBoxPos;
+            TemporaryCam:= [[Box_X,Box_Y,1558],[-0.000000007,-0.382683401,0.923879546,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+            PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
+            MoveL TemporaryCam,v300,fine,tool0\WObj:=wobj0;
+            TemporaryCam:= [[Box_X,Box_Y,1125],[-0.000000007,-0.382683401,0.923879546,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+            MoveL TemporaryCam,v300,fine,tool0\WObj:=wobj0;
+            open_gripper;
+            PathAccLim FALSE, FALSE;            
+!        ELSEIF n_syrup = 2 THEN
+!            moveToAboveBoxPos;
+!            MoveL AboveBoxCoordTwo,v300,fine,tool0\WObj:=wobj0;
+!            moveToBoxCoordTwo;
+!            open_gripper;
+!            MoveL AboveBoxCoordTwo,v300,fine,tool0\WObj:=wobj0;
+!            MoveL ViaPoint,v500,z200,tool0\WObj:=wobj0;
+!            moveToCameraPosFast;
+!        ELSEIF n_syrup = 3 THEN
+!            moveToAboveBoxPos;
+!            MoveL AboveBoxCoordThree,v300,fine,tool0\WObj:=wobj0;
+!            moveToBoxCoordThree;
+!            open_gripper;
+!            MoveL AboveBoxCoordThree,v300,fine,tool0\WObj:=wobj0;
+!            MoveL ViaPoint,v500,z200,tool0\WObj:=wobj0;
+!            moveToCameraPosFast;
+!        ELSEIF n_syrup = 4 THEN
+!            moveToAboveBoxPos;
+!            MoveL AboveBoxCoordFour,v300,fine,tool0\WObj:=wobj0;
+!            moveToBoxCoordFour;
+!            open_gripper;
+!            MoveL AboveBoxCoordFour,v300,fine,tool0\WObj:=wobj0;
+!            MoveL ViaPoint,v500,z200,tool0\WObj:=wobj0;
+!            moveToCameraPosFast;
+!        ELSEIF n_syrup = 5 THEN
+!            moveToAboveBoxPos;
+!            MoveL AboveBoxCoordFive,v300,fine,tool0\WObj:=wobj0;
+!            moveToBoxCoordFive;
+!            open_gripper;
+!            MoveL AboveBoxCoordFive,v300,fine,tool0\WObj:=wobj0;
+!            MoveL ViaPoint,v500,z200,tool0\WObj:=wobj0;
+!            moveToCameraPosFast;
+!        ELSEIF n_syrup = 6 THEN
+!            moveToAboveBoxPos;
+!            MoveL AboveBoxCoordSix,v300,fine,tool0\WObj:=wobj0;
+!            moveToBoxCoordSix;
+!            open_gripper;
+!            MoveL AboveBoxCoordSix,v300,fine,tool0\WObj:=wobj0;
+!            MoveL ViaPoint,v500,z200,tool0\WObj:=wobj0;
+!            moveToCameraPosFast;
+        ENDIF
+    ENDPROC
+    
+    PROC PutBottlesDownFixed()
         IF n_syrup = 1 THEN
             moveToAboveBoxPos;
             MoveL AboveBoxCoordOne,v300,fine,tool0\WObj:=wobj0;
@@ -829,7 +900,7 @@ MODULE MainModule
     
     PROC moveToBoxCam()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL BoxCamPos,v100,fine,tool0\WObj:=wobj0;
+        MoveJ BoxCamPos,v300,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
