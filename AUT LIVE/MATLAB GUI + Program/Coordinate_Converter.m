@@ -38,12 +38,17 @@ classdef Coordinate_Converter
         function [newX, newY] = convertBox(obj, x, y)
             newX = 0.5649*x-545.74 + 3.4360;
             newY = (-0.5632*y) +301.16 + 2.9680;
+            newX 
+            newY
             newc = obj.convertDirection(newX, newY, (pi/4)+((2/180)*pi));
-%             extrax = (1e-6)*newX*newX*newX - 0.0001*newX*newX - 0.0252*x;
-%             extray = (1e-6)*newX*newX*newX - 0.0005*newX*newX - 0.0587*x;
-%             extra = obj.convertDirection(extrax, extray, (pi/4));
-            newX = newc(1); %- 5.3655 + extra(1);
-            newY = newc(2); %+ 9.5629 + extra(2);
+            extrax = (-7e-5)*newX*newX - 0.0125*newX + 0.1236;
+            if newY < 0
+                extrax = extrax + 0.065*newY - 0.14;
+            end
+            extray = -0.0573*newX - 4.3147;
+            extra = obj.convertDirection(extrax, extray, (pi/4)+((2/180)*pi));
+            newX = newc(1) + extra(1);
+            newY = newc(2) + extra(2);
         end
 
         function newCoord = convertDirection(obj, x, y, angle)

@@ -104,7 +104,7 @@ tcp.write(num2str(bottlePosY))
 % end
 conv = Coordinate_Converter();
 angle = (pi/4)+((2/180)*pi);
-coords = [960, 540; 956, 321; 633, 318; 1238, 323];
+coords = [480 208; 750 376; 708 103; 1457 682; 1491 440; 1750 497];
 cam2Grip = conv.convertDirection(-1, 152.125 +6, angle);
 box = [];
 for h = 1:height(coords)
@@ -155,4 +155,4 @@ box
 
 %%
 conv = Coordinate_Converter();
-a = conv.convertBox(635, 322);
+a = conv.convertBox(960, 534);
