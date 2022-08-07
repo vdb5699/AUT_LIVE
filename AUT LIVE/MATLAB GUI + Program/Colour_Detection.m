@@ -126,6 +126,8 @@ classdef Colour_Detection
                 for h = 1:width(capList)
                         str = capList(h).toString();
                         C = strsplit(str,", ");
+                        [r, g, b] = obj.getColour(image, capList(h).x, capList(h).y);
+                        str = str + newline + "R: " + num2str(r) + ", G: " + num2str(g) + ", B: " + num2str(b); 
                         plot(str2double(C(1)), str2double(C(2)), 'bo', 'MarkerSize', capList(h).radius, 'LineWidth',5);
                         text(str2double(C(1)), str2double(C(2)), str, Color=[0 1 0], FontSize=16, FontWeight="bold");
                 end
