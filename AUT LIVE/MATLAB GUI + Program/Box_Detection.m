@@ -3,16 +3,26 @@ classdef Box_Detection
         pToEdge;
         lToEdge;
         brightness;
+        edgeConnecter;
     end
     properties(Access = private)
         converter
+        defp
+        defl
+        defb
+        defe
     end
 
     methods
         function obj = Box_Detection()
             obj.pToEdge = 295;
+            obj.defp = obj.pToEdge;
             obj.lToEdge = 205;
+            obj.defl = obj.lToEdge;
             obj.brightness = 50;
+            obj.defb = obj.brightness;
+            obj.edgeConnecter = 8;
+            obj.defe = obj.edgeConnecter;
             obj.converter = Coordinate_Converter();
         end
 
@@ -20,11 +30,11 @@ classdef Box_Detection
             boxes = [];
             %% noise deletion
             bw = rgb2gray(image) > obj.brightness;
-            se = strel('square', 8);
+            se = strel('square', obj.edgeConnecter);
             bw = imclose(bw, se);
             bw = (bw == false);
 
-            se = strel('square', 5);
+            se = strel('square', obj.edgeConnecter);
             bw = imclose(bw, se);
             bw = bwareaopen(imfill(bw, 'holes'),50);
             %% edge detection
@@ -299,11 +309,22 @@ classdef Box_Detection
             return
         end
 
-        function obj = setParam(pValue, lValue)
+        function obj = setParam(pValue, lValue, bValue, eValue)
             obj.pToEdge = pValue;
             obj.lToEdge = lValue;
+            obj.brightness = bValue;
+            obj.edgeConnecter = eValue;
             return
         end
+        
+        function [p, l, b, e] = getDefaultVal(obj)
+            p = obj.defp;
+            l = obj.defl;
+            b = obj.defb;
+            e = obj.defe;
+            return
+        end
+
 
     end
 
