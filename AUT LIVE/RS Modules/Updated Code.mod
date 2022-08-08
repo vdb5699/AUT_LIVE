@@ -171,7 +171,7 @@ MODULE MainModule
 !        open_gripper;
 !!        coke_counter:=0;
 !        moveToQuartenionTest;
-        moveToBoxCam;
+!        moveToBoxCam;
 !        moveToAboveBoxPos;
 !        moveToHome;             ! Program always starts from Home Pos in case it was left in random pos
 !        receiveSignal;         ! Where robot will receive signals to do certain tasks
@@ -339,67 +339,6 @@ MODULE MainModule
 !        SocketSend client,\Str :="PickUp";
         SocketClose server;
         SocketClose client;
-    ENDPROC
-    
-    PROC tcpipBottle()
-        open_gripper;
-        SocketReceive client,\Str :=tcpX,\Time:=WAIT_MAX;
-        objects:=StrToVal(tcpX,tcpXValue);
-        SocketReceive client,\Str :=tcpY\Time:=WAIT_MAX;
-        objects:=StrToVal(tcpY,tcpYValue);
-        AboveBottleCoord:= [[tcpXValue,tcpYValue, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-!        moveCoke;
-        
-        
-        moveSyrup;
-        
-        SocketClose server;
-        SocketClose client;
-    ENDPROC
-    
-    PROC moveCoke()
-		TestGripperToCokeBottleAbove:= [[tcpXValue,tcpYValue,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-        TestGripperToCokeBottle:= [[tcpXValue,tcpYValue,1070],[0.001639765,-0.3834093,-0.9235764,-0.00114218],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-		
-		! Introducing Max Acceleration to see if it removes jolts
-		PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL TestGripperToCokeBottleAbove,v100,fine,tool0\WObj:=wobj0;
-        WaitTime 1;
-        MoveL TestGripperToCokeBottle,v50,fine,tool0\WObj:=wobj0;
-!        close_gripper;
-!        moveToAboveBottleCoord;
-!        moveToAboveTable;
-!        moveToAboveBoxPos;
-!        WaitTime 2;
-!        moveToAboveTable;
-!		PathAccLim FALSE, FALSE;
-!        moveToAboveBottleCoord;
-!        MoveL TestGripperToCokeBottle,v100,fine,tool0\WObj:=wobj0;
-!        open_gripper;
-    ENDPROC
-    
-    PROC moveSyrup()
-		TestGripperToSyrupBottleAbove:= [[tcpXValue,tcpYValue,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-        TestGripperToSyrupBottle:= [[tcpXValue,tcpYValue,1120],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-		
-		PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
-        MoveL TestGripperToSyrupBottleAbove,v200,fine,tool0\WObj:=wobj0;
-        WaitTime 1;
-        MoveL TestGripperToSyrupBottle,v50,fine,tool0\WObj:=wobj0;
-!        close_gripper;
-!        moveToAboveBottleCoord;
-!        moveToAboveTable;
-!        moveToAboveBoxPos;
-!        placeBottleInBox;
-!        moveToAboveBoxPos;
-!        moveToAboveTable;
-!        moveToCameraPos;
-!        WaitTime 2;
-!        moveToAboveTable;
-!        moveToAboveBottleCoord;
-!        MoveL TestGripperToSyrupBottle,v200,fine,tool0\WObj:=wobj0;
-!        open_gripper;
-		PathAccLim FALSE, FALSE;
     ENDPROC
     
 !    PROC robotWrite()
@@ -616,111 +555,6 @@ MODULE MainModule
             MoveL TemporaryCam,v300,fine,tool0\WObj:=wobj0;
             PathAccLim FALSE, FALSE;   
         ENDIF
-    ENDPROC
-    
-    PROC Demo()
-!        moveToAboveSyrupBottle1;
-!        AboveSyrupBottle1:= [[315, -712.5, 1588],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-        
-!       ! Syrup
-        AboveSyrupBottle1:= [[315, -712.5, 1300],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-        open_gripper;
-        moveToAboveSyrupBottle1;
-        moveToSyrupBottle1;
-        close_gripper;
-        AboveSyrupBottle1:= [[315, -712.5, 1588],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-        moveToAboveSyrupBottle1;
-        moveToAboveBoxPos;
-        moveToAboveBox1;
-        moveToBoxCoordOne;
-        open_gripper;
-        moveToAboveBoxPos;
-        moveToCameraPos;
-        
-        AboveSyrupBottle2:= [[545.9, -701.3, 1300],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-        moveToAboveSyrupBottle2;
-        moveToSyrupBottle2;
-        close_gripper;
-        AboveSyrupBottle2:= [[545.9, -701.3, 1588],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-        moveToAboveSyrupBottle2;
-        moveToAboveBoxPos;
-        moveToAboveBox1;
-        moveToBoxCoordTwo;
-        open_gripper;
-        moveToAboveBoxPos;
-        moveToCameraPos;
-        
-        AboveSyrupBottle3:= [[519, -561.7, 1300],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-        moveToAboveSyrupBottle3;
-        moveToSyrupBottle3;
-        close_gripper;
-        AboveSyrupBottle3:= [[519, -561.7, 1588],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-        moveToAboveSyrupBottle3;
-        moveToAboveBoxPos;
-        moveToAboveBox1;
-        moveToBoxCoordFive;
-        open_gripper;
-        moveToAboveBoxPos;
-        moveToCameraPos;
-        
-        AboveSyrupBottle4:= [[399.7, -831.4, 1300],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-        moveToAboveSyrupBottle4;
-        moveToSyrupBottle4;
-        close_gripper;
-        AboveSyrupBottle4:= [[399.7, -831.4,  1588],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-        moveToAboveSyrupBottle4;
-        moveToAboveBoxPos;
-        moveToAboveBox1;
-        moveToBoxCoordSix;
-        open_gripper;
-        moveToAboveBoxPos;
-        moveToCameraPos;
-
-        moveToAboveBoxPos;
-        moveToAboveBox1;
-        moveToAboveBoxCoordOne;
-        moveToBoxCoordOne;
-        close_gripper;
-        moveToAboveBox1;
-        moveToAboveBoxPos;
-        moveToAboveSyrupBottle1;
-        moveToSyrupBottle1;
-        open_gripper;
-        moveToAboveSyrupBottle1;
-        
-        moveToAboveBoxPos;
-        moveToAboveBox1;
-        moveToBoxCoordTwo;
-        close_gripper;
-        moveToAboveBox1;
-        moveToAboveBoxPos;
-        moveToAboveSyrupBottle2;
-        moveToSyrupBottle2;
-        open_gripper;
-        moveToAboveSyrupBottle2;
-        
-        moveToAboveBoxPos;
-        moveToAboveBox1;
-        moveToBoxCoordFive;
-        close_gripper;
-        moveToAboveBox1;
-        moveToAboveBoxPos;
-        moveToAboveSyrupBottle3;
-        moveToSyrupBottle3;
-        open_gripper;
-        moveToAboveSyrupBottle3;
-        
-        moveToAboveBoxPos;
-        moveToAboveBox1;
-        moveToBoxCoordSix;
-        close_gripper;
-        moveToAboveBox1;
-        moveToAboveBoxPos;
-        moveToAboveSyrupBottle4;
-        moveToSyrupBottle4;
-        open_gripper;
-        moveToAboveSyrupBottle4;
-        
     ENDPROC
 
 !    PROC stackBox()
@@ -999,58 +833,6 @@ MODULE MainModule
         PathAccLim FALSE,FALSE;
     ENDPROC
     
-    PROC placeBottleInBox()
-         moveToAboveBoxCoordOne;
-         moveToBoxCoordOne;
-         open_gripper;
-         WaitTime 1;
-         moveToAboveBoxCoordOne;
-         
-!        IF colour = "B" THEN
-!            IF syrup_counter = 1 THEN
-!                MoveL abovesryupMoveToBoxPos1,v200,fine,tool0\WObj:=wobj0;
-!                MoveL sryupMoveToBoxPos1,v100,fine,tool0\WObj:=wobj0;
-!            ELSEIF syrup_counter =2 THEN
-!                MoveL abovesryupMoveToBoxPos2,v200,fine,tool0\WObj:=wobj0;
-!                MoveL sryupMoveToBoxPos2,v100,fine,tool0\WObj:=wobj0;
-!            ELSEIF syrup_counter =3 THEN
-!                MoveL abovesryupMoveToBoxPos3,v200,fine,tool0\WObj:=wobj0;
-!                MoveL sryupMoveToBoxPos3,v100,fine,tool0\WObj:=wobj0;
-!            ELSEIF syrup_counter =4 THEN
-!                MoveL abovesryupMoveToBoxPos4,v200,fine,tool0\WObj:=wobj0;
-!                MoveL sryupMoveToBoxPos4,v100,fine,tool0\WObj:=wobj0;
-!            ELSEIF syrup_counter =5 THEN
-!                MoveL abovesryupMoveToBoxPos5,v200,fine,tool0\WObj:=wobj0;
-!                MoveL sryupMoveToBoxPos5,v100,fine,tool0\WObj:=wobj0;
-!            ELSEIF syrup_counter =6 THEN
-!                MoveL abovesryupMoveToBoxPos6,v200,fine,tool0\WObj:=wobj0;
-!                MoveL sryupMoveToBoxPos6,v100,fine,tool0\WObj:=wobj0;
-!            ENDIF
-!        ENDIF
-        IF colour = "R" THEN
-            IF coke_counter = 1 THEN
-                MoveL abovecokeMoveToBoxPos1,v200,fine,tool0\WObj:=wobj0;
-                MoveL cokeMoveToBoxPos1,v100,fine,tool0\WObj:=wobj0;
-            ELSEIF coke_counter =2 THEN
-                MoveL abovecokeMoveToBoxPos2,v200,fine,tool0\WObj:=wobj0;
-                MoveL cokeMoveToBoxPos2,v100,fine,tool0\WObj:=wobj0;
-            ELSEIF coke_counter =3 THEN
-                MoveL abovecokeMoveToBoxPos3,v200,fine,tool0\WObj:=wobj0;
-                MoveL cokeMoveToBoxPos3,v100,fine,tool0\WObj:=wobj0;
-            ELSEIF coke_counter =4 THEN
-                MoveL abovecokeMoveToBoxPos4,v200,fine,tool0\WObj:=wobj0;
-                MoveL cokeMoveToBoxPos4,v100,fine,tool0\WObj:=wobj0;
-            ELSEIF coke_counter =5 THEN
-                MoveL abovecokeMoveToBoxPos5,v200,fine,tool0\WObj:=wobj0;
-                MoveL cokeMoveToBoxPos5,v100,fine,tool0\WObj:=wobj0;
-            ELSEIF coke_counter =6 THEN
-                MoveL abovecokeMoveToBoxPos6,v200,fine,tool0\WObj:=wobj0;
-                MoveL cokeMoveToBoxPos6,v100,fine,tool0\WObj:=wobj0;
-            ENDIF
-        ENDIF
-            
-    ENDPROC
-    
     PROC open_gripper()        
         SetDO D_652_10_OUT0, 0;
         WaitTime 1;
@@ -1065,47 +847,4 @@ MODULE MainModule
         WaitTime 1;
     ENDPROC
     
-    PROC testingBoxCoords()
-        moveToAboveBoxCoordOne;
-        WaitTime 2;
-        moveToBoxCoordOne;
-        WaitTime 2;
-        moveToBoxCoordTwo;
-!        WaitTime 2;
-!        moveToBoxCoordThree;
-!        WaitTime 2;
-!        moveToBoxCoordFour;
-        WaitTime 2;
-        moveToBoxCoordFive;
-        WaitTime 2;
-        moveToBoxCoordSix;
-        
-    ENDPROC
-    
-    
-!        Testing Position 
-    PROC testpos()
-!!        MoveL NewGripperPosManual,v100,fine,tool0\WObj:=wobj0;
-!        MoveL NewCamPos,v100,fine,tool0\WObj:=wobj0;
-!!        Waittime 1;
-!        MoveL TestGripperToCamLow,v100,fine,tool0\WObj:=wobj0;
-        MoveL TemporaryCam,v100,fine,tool0\WObj:=wobj0;
-!        MoveL TestGripperToSyrupBottleAbove,v100,fine,tool0\WObj:=wobj0;
-!        Waittime 1;
-!        MoveL TestGripperToSyrupBottle,v100,fine,tool0\WObj:=wobj0;
-!        Waittime 2;
-!        close_gripper;
-!        MoveL TestGripperToSyrupBottleAbove,v100,fine,tool0\WObj:=wobj0;
-!        MoveL AboveBottleCoord,v100,fine,tool0\WObj:=wobj0;
-!        MoveL AboveTable,v100,fine,tool0\WObj:=wobj0;
-!!        MoveL AboveBoxPos,v100,fine,tool0\WObj:=wobj0;
-!!!        MoveL AboveBoxCoordOne,v100,fine,tool0\WObj:=wobj0;
-!        MoveL TestGripperToCokeBottleAbove,v100,fine,tool0\WObj:=wobj0;
-!        WaitTime 2;
-!        MoveL TestGripperToCokeBottle,v100,fine,tool0\WObj:=wobj0;
-!!!!!!        !MoveL TestGripperToCokeBottle,v50,fine,tool0\WObj:=wobj0;
-!        ObjAbovePos:=[[1042.647981627+104.36,-18.60197923+135.6461,1192.532782595],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-!        GrabSyrupPos:=[[1042.647981627+104.36,-18.60197923+135.6461,1135],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-!        grabCokePos:=[[1042.647981627+8.85,-18.60197923+203.099,1080],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    ENDPROC
 ENDMODULE
