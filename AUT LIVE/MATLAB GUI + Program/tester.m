@@ -144,11 +144,14 @@ clear tcp
 
 %%
 box = []
+arr = [1319 437; 1489 437; 1319 252; 1489 252; 1319 622; 1489 622]
+conv = Coordinate_Converter();
+cam2Grip = conv.convertDirection(-1, 158.125, (pi/4)+((2/180)*pi));
 for h = 1:height(arr)
     [x, y] = conv.convertBox(arr(h,1), arr(h,2));
     
-    x = x + camToGrip(1) + 223.0963;
-    y = y + camToGrip(2) + 884.6431;
+    x = x + cam2Grip(1) + 223.0963;
+    y = y + cam2Grip(2) + 884.6431;
     box = [box; x, y];
 end
 box
