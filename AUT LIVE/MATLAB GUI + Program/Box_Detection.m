@@ -309,7 +309,7 @@ classdef Box_Detection
             return
         end
 
-        function obj = setParam(pValue, lValue, bValue, eValue)
+        function obj = setParam(obj, pValue, lValue, bValue, eValue)
             obj.pToEdge = pValue;
             obj.lToEdge = lValue;
             obj.brightness = bValue;
