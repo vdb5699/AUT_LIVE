@@ -8,7 +8,7 @@ eulBoxCam = quat2eul(BoxCamPos);
 eulBoxCamDeg = rad2deg(eulBoxCam)
 
 %% Testing Output values - Degrees and Rads give same output
-eulCamPos = [ 2.3546   -0.0039    3.1407];
+eulCamPos = [ 2.3546 -0.0039  3.1407];
 % eulCamPos= deg2rad(eulCamPos)
 qCam = eul2quat(eulCamPos)
 
