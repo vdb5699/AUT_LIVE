@@ -90,11 +90,14 @@ MODULE MainModule
 		AccSet 20,30;           ! Max Acceleration set to 20mm/s^2 and ramping is 20
 !        syrup_counter:=0;
 !        open_gripper;
+!        WaitTime 2;
+!        close_gripper;
 !!        coke_counter:=0;
 !        moveToQuartenionTest;
 !        moveToBoxCam;
 !        moveToAboveBoxPos;
-        moveToHome;             ! Program always starts from Home Pos in case it was left in random pos
+!         moveToWritePos;
+!        moveToHome;             ! Program always starts from Home Pos in case it was left in random pos
         receiveSignal;         ! Where robot will receive signals to do certain tasks
 !!        moveToCameraPos;       ! New Cam Pos
 !!!        moveToCokeCoordOne;
@@ -226,7 +229,7 @@ MODULE MainModule
                     ELSEIF Letter="B" THEN
                         WriteLetterB;
                     ELSEIF Letter="C" THEN
-!                        WriteLetterC;
+                        WriteLetterC;
                     ELSEIF Letter="D" THEN
                         WriteLetterD;
                     ELSEIF Letter="E" THEN
@@ -411,6 +414,23 @@ MODULE MainModule
         ! Left Bott Corner
         MoveL Offs(WriteStart,0,Y,-Z), v1000,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
+    ENDPROC
+    
+    PROC WriteLetterC()
+        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
+        X:= 40;
+        
+        Y:= 30;
+        Z:= 40;
+        ! Off Centre - Start Top Right
+        MoveL Offs(WriteStart,-X,-Y,Z), v1500,z80,tool0\WObj:=wobj0;
+        MoveL Offs(WriteStart,0,-Y,Z), v1000,fine,tool0\WObj:=wobj0;
+        ! Left Top Corner
+        MoveL Offs(WriteStart,0,Y,Z), v1000,z200,tool0\WObj:=wobj0;
+        ! Left Bott Corner
+        MoveL Offs(WriteStart,0,Y,-Z), v1000,z200,tool0\WObj:=wobj0;
+		! Bott Left
+        MoveL Offs(WriteStart,0,-Y,-Z), v1000,fine,tool0\WObj:=wobj0;
     ENDPROC
     
     PROC WriteLetterD()
@@ -775,7 +795,7 @@ MODULE MainModule
 		! Right Bott Corner
         MoveL Offs(WriteStart,0,-Y,-Z), v1000,z200,tool0\WObj:=wobj0;
 		! Right Top Corner
-        MoveL Offs(WriteStart,0,-Y,Z), v1000,z200,tool0\WObj:=wobj0;
+        MoveL Offs(WriteStart,0,-Y,Z), v1000,fine,tool0\WObj:=wobj0;
     ENDPROC
     
     PROC WriteLetterV()
