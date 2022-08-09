@@ -177,8 +177,8 @@ MODULE MainModule
 !        moveToQuartenionTest;
 !        moveToBoxCam;
 !        moveToAboveBoxPos;
-        moveToHome;             ! Program always starts from Home Pos in case it was left in random pos
-        receiveSignal;         ! Where robot will receive signals to do certain tasks
+!        moveToHome;             ! Program always starts from Home Pos in case it was left in random pos
+!        receiveSignal;         ! Where robot will receive signals to do certain tasks
 !!        moveToCameraPos;       ! New Cam Pos
 !!!        moveToCokeCoordOne;
 !!!!!!        testpos;
@@ -283,7 +283,7 @@ MODULE MainModule
                     y_coordinate := StrPart(data,found2+1,found3-found2-1);
                     Box_xCoordinate := StrPart(data,found3+1,found4-found3-1);
                     Box_ycoordinate := StrPart(data,found4+1,found5-found4-1);
-                    ang := StrPart(data,found4+1,StrLen(data)-found5);
+                    ang := StrPart(data,found5+1,StrLen(data)-found5);
                     objects :=StrToVal(ang,angle);
                     objects :=StrToVal(x_coordinate,X);
                     objects := StrToVal(y_coordinate,Y);
@@ -354,6 +354,15 @@ MODULE MainModule
 !        SocketSend client,\Str :="PickUp";
         SocketClose server;
         SocketClose client;
+    ENDPROC
+    
+    PROC JointSixRot()
+        angle:=-33;
+        IF ((-1*angle) + 90) < 100 THEN
+            MoveL RelTool (BoxCamPos, 0, 0, 450 \Rz:= 90+angle), vTest, z50, tool0\WObj:=wobj0;
+        ELSE
+            MoveL RelTool (BoxCamPos, 0, 0, 0\Rz:= -90+angle), vTest, z50, tool0\WObj:=wobj0;
+        ENDIF
     ENDPROC
     
 !    PROC robotWrite()
@@ -837,7 +846,7 @@ MODULE MainModule
     
     PROC moveToBoxCam()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveJ BoxCamPos,v800,fine,tool0\WObj:=wobj0;
+        MoveJ BoxCamPos,vTest,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
