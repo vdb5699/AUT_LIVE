@@ -1,16 +1,16 @@
-MODULE MainModule
+MODULE Write
 	!Constant positions (Please Do not Change it)
     !-----------New Positions START-----------!
-    CONST robtarget Home:=[[1018.612159322,0,1417.5],[0.5,0,0.866025404,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    CONST robtarget ZeroPos:=[[1030, 0, 1460],[0.70706, 0, 0.70715,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    CONST robtarget NewGripperPosManual:= [[369.6, -766.5, 1214.4],[0.00164,-0.38341,-0.92358,-0.00114],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    CONST robtarget OldOldCameraPos:= [[552.8, -553.6, 1306.2],[0.02936,-0.38320,-0.92311,-0.01261],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    CONST robtarget OldCamPos:= [[556.4, -557.2, 1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    CONST robtarget OldNewCamPos:= [[326.9438,-581.9982,1300],[0.00164,-0.38341,-0.92358,-0.00114],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    CONST robtarget NewCamPos:= [[215, -680.3, 1300],[0.00163,-0.38344,-0.92356,-0.00115],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    CONST robtarget AboveBoxPos:= [[366.1, 366, 1588.4],[0.00192, -0.38294, 0.92377, 0.00293],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    PERS robtarget TemporaryCam:= [[315.629,-721.49,1160],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    CONST robtarget WritePos:=[[1118.762959576,0,936.635523609],[0.701584454,0,0.712586314,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+!    CONST robtarget Home:=[[1018.612159322,0,1417.5],[0.5,0,0.866025404,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+!    CONST robtarget ZeroPos:=[[1030, 0, 1460],[0.70706, 0, 0.70715,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+!    CONST robtarget NewGripperPosManual:= [[369.6, -766.5, 1214.4],[0.00164,-0.38341,-0.92358,-0.00114],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+!    CONST robtarget OldOldCameraPos:= [[552.8, -553.6, 1306.2],[0.02936,-0.38320,-0.92311,-0.01261],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+!    CONST robtarget OldCamPos:= [[556.4, -557.2, 1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+!    CONST robtarget OldNewCamPos:= [[326.9438,-581.9982,1300],[0.00164,-0.38341,-0.92358,-0.00114],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+!    CONST robtarget NewCamPos:= [[215, -680.3, 1300],[0.00163,-0.38344,-0.92356,-0.00115],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+!    CONST robtarget AboveBoxPos:= [[366.1, 366, 1588.4],[0.00192, -0.38294, 0.92377, 0.00293],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+!    PERS robtarget TemporaryCam:= [[315.629,-721.49,1160],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+!    CONST robtarget WritePos:=[[1118.762959576,0,936.635523609],[0.701584454,0,0.712586314,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget Via:=[[1299.925263731,0,969.956556898],[0.295536241,0,0.955331529,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget WriteStart:=[[1336,0,1090],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget A:=[[1200,-25,1015],[0.706152,6E-9,0.708061,1.1E-8],[0,0,-1,1],[9E+9,9E+9,9E+9,9E+9,9E+9,9E+9]];
@@ -25,7 +25,7 @@ MODULE MainModule
     
     
 	!-----------RobotWriting Alphabets Coords------------!
-	CONST robtarget A_Horizontal:= [[1018.612159322,-22.5,1327],[0.00197,-0.38293,0.92377,0.00290],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];     
+!	CONST robtarget A_Horizontal:= [[1018.612159322,-22.5,1327],[0.00197,-0.38293,0.92377,0.00290],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];     
     
     PERS robtarget BottLeftNew:=[[1335.999946186,29.999998495,1049.999996829],[0.70618058,0,0.708031771,-0.000000001],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget TopLeftNew:=[[1335.999940596,29.999998408,1130.000046425],[0.706180582,-0.000000002,0.708031768,-0.000000001],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -38,264 +38,94 @@ MODULE MainModule
     PERS robtarget BottMidNew:=[[1335.999950892,0,1049.999988651],[0.706180578,0,0.708031773,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     !------------------Initialising Variables-----------------------!
     
-    VAR	socketdev serverSocket;
-	VAR	socketdev clientSocket;
-	VAR	string data;
-    VAR socketdev server;
-    VAR socketdev client;
-    VAR string num_objects;
-    VAR string x_coordinate;
-    VAR string y_coordinate;
-    VAR string Box_xCoordinate;
-    VAR string Box_yCoordinate;
-    VAR string row;
-    VAR string column;
-    VAR string tcpX;
-    VAR string tcpY;
-    VAR string colour;
-    VAR string signal;
-    VAR string Letter;
-    VAR num retry_no;
-    VAR num num_objs;
-    VAR num X;
-    VAR num Y;
+
     VAR num Z;
-    VAR num Box_X;
-    VAR num Box_Y;
-    VAR num sum;
-    VAR num number;
-    VAR num n_syrup:= 0;
-    VAR num n_coke:= 0;
-    VAR num syrup_counter;
-    VAR num coke_counter;
-    VAR num tcpXValue;
-    VAR num tcpYValue;
-    VAR bool objects;
-    VAR bool syrup;
-    VAR bool coke;
-    VAR bool posx;
-    VAR bool posy;
-    VAR bool BoxPosXBool;
-    VAR bool BoxPosYBool;    
-    PERS string socketArray{3,1}:=[[""], [""], [""]];
-    PERS string socketArrayTest;
-    VAR num found1;
-    VAR num found2;
-    VAR num found3;
-    VAR num found4;
-    VAR robtarget CurRobT2;
-    VAR speeddata vTest := [100, 45, 200, 15 ];
+ 
+    VAR num counter:=0;
     
-    PROC main()
-		AccSet 20,30;           ! Max Acceleration set to 20mm/s^2 and ramping is 20
-!        syrup_counter:=0;
+    PROC WriteMain()
+		AccSet 20,20;           ! Max Acceleration set to 20mm/s^2 and ramping is 20
+!        close_gripper;
+!!        syrup_counter:=0;
 !        open_gripper;
 !!        coke_counter:=0;
-!        moveToQuartenionTest;
-!        moveToBoxCam;
-!        moveToAboveBoxPos;
-        moveToHome;             ! Program always starts from Home Pos in case it was left in random pos
-        receiveSignal;         ! Where robot will receive signals to do certain tasks
-!!        moveToCameraPos;       ! New Cam Pos
-!!!        moveToCokeCoordOne;
-!!!!!!        testpos;
-!        Waittime 10;
-!!!        moveToQuartenionTest;
-!!!!        moveToAboveBoxPos;
-!!!!        testingBoxCoords;
-!        moveToAboveBoxPos;
-!        moveToBoxCam;
-!        tcpipTempCam;
-!        close_gripper;
-!        open_gripper;
-!!!        tcpipBottle;
-!        moveToAboveBoxPos;
-!        moveToHome;
-!        Waittime 3;
-!        WHILE sum<num_objs DO
-!            !Move to object
-!            receiveData;
-!            !Gripper function
-!            close_gripper;
-!            moveAboveToCameraPos;
-!            boxAbvpos;+
-!            !Place bottle into box
-!            placeBottle2box;
-!            open_gripper;
-!            boxAbvpos;
-!            moveToCameraPos;
-!            SocketSend client,\Str :="Y";
-!            sum:=sum+1;
-!        ENDWHILE
-!        stackBox;
-!        moveToHome;
-!        SocketClose server;
-!        SocketClose client;
-!    robotWrite;
-    ENDPROC
-    
-    ! The "receiveSignal" function is where the GUI and RS are 
-    ! connected via TCP. 
-    ! WaitTime is Max for all socket communication tasks.
-    ! This function calls the "signalInstruction" method.
-    
-    PROC receiveSignal()
-        !Close Socket
-        SocketClose server;
-        SocketClose client;
-        !Create Socket
-        SocketCreate server;
-        SocketBind server,"192.168.0.20", 1025;
-        SocketListen server;
-        SocketAccept server,client, \Time:=WAIT_MAX;
-        !Receive Data
-        SocketReceive client,\Str :=signal, \Time:=WAIT_MAX;
-        WaitTime 1;
-        SocketSend client,\Str :="RSConnected";
-        SocketReceive client,\Str :=signal, \Time:=WAIT_MAX;
+        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         
-        !Move robot based on Signal
-        signalInstruction;
+        MoveJ Home,v100,fine,tool0\WObj:=wobj0;
+!!!        MoveJ Via,v80,z100,tool0\WObj:=wobj0;
 
-        ! Error Handling
-        ERROR
-            IF ERRNO=ERR_SOCK_CLOSED THEN   ! Close sockets and retry connecting if sockets closed
-                SocketClose server;
-                SocketClose client;
-                SocketCreate server;
-                SocketBind server,"192.168.0.20", 1025;
-                SocketListen server;
-                SocketAccept server,client, \Time:=WAIT_MAX;
-                RETRY;
-            ELSE
-                stop;
-            ENDIF
+!!        !!___________Test______________!!
+!        MoveJ WriteStart,v80,fine,tool0\WObj:=wobj0;
+!!        WriteLetterB;
+!!        WaitTime 1;
+!        WriteLetterD;
+!        WriteLetterA;
+!        WaitTime 1;
+!        WriteLetterE;
+!        WaitTime 1;
+!        WriteLetterF;
+!        WaitTime 1;
+!        WriteLetterH;
+!        WaitTime 1;
+!        WriteLetterI;
+!        WaitTime 1;
+!        WriteLetterK;
+!        WaitTime 1;
+!        WriteLetterL;
+!        WaitTime 1;
+!        WriteLetterM;
+!        WaitTime 1;
+!        WriteLetterN;
+!        WaitTime 1;
+!        WriteLetterT;
+!        WaitTime 1;
+!        WriteLetterV;
+!        WaitTime 1;
+!        WriteLetterW;
+!        WaitTime 1;
+!        WriteLetterX;
+!        WaitTime 1;
+!        WriteLetterY;
+!        WaitTime 1;
+!        WriteLetterZ;
+        
+        
+!!        Y:= 0;
+!!        Z:= 150;
+!!        WriteLetterA_Fixed;
+        
+!!        !_________Test End____________!!
+        
+!!        moveToHome;             ! Program always starts from Home Pos in case it was left in random pos
+!!        receiveSignal;         ! Where robot will receive signals to do certain tasks
+!!        moveToCameraPos;       ! New Cam Pos
+!!    robotWrite;
+        PathAccLim FALSE,FALSE;
+!!    receiveSignal;
     ENDPROC
     
-    ! The "signalInstruction" function is where the robot  
-    ! does tasks based on the signal sent by GUI.
-    ! Signal 1 = CamPos
-    ! Signal 2 = Move to bottle
-    ! Signal 3 = End of sending Coords
-	! Signal 4 = Move to BoxCamPos
-    ! This function calls "receiveSignal" method after
-    ! each signal task is completed
-    PROC signalInstruction()        
-        WHILE signal <> "0" DO
-            IF signal = "1" THEN
-                moveToCameraPos;
-                SocketSend client,\Str :="CamPos";
-                receiveSignal;
-            ELSEIF signal = "2" THEN
-                SocketReceive client,\Str :=data, \Time:=WAIT_MAX;
-                WHILE data <> "3" DO
-!                    colour := StrPart(data,1,1);
-!                    found1 := StrFind(data,1,",");
-!                    found2 := StrFind(data,found1+1,",");
-!                    found3 := StrFind(data,found2+1,",");
-!                    found4 := StrFind(data,found3+1,",");
-!                    x_coordinate := StrPart(data,found1+1,found2-found1-1);
-!                    y_coordinate := StrPart(data,found2+1,found3-found2-1);
-!                    Box_xCoordinate := StrPart(data,found3+1,found4-found3-1);
-!                    Box_ycoordinate := StrPart(data,found4+1,StrLen(data)-found4);
-!                    objects :=StrToVal(x_coordinate,X);
-!                    objects := StrToVal(y_coordinate,Y);
-!                    objects:= StrToVal(Box_xCoordinate,Box_X);
-!                    objects:= StrToVal(Box_ycoordinate,Box_Y);
-!                    PickUpBottles;
-!               !     TestPos:= [[552.8+X, -553.6+Y, 1306.2],[0.02936,-0.38320,-0.92311,-0.01261],[-1,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-!!                    moveToTestPos;
-!                    SocketSend client,\Str :="SendNext";
-!                    SocketReceive client,\Str :=data, \Time:=WAIT_MAX;
-                ENDWHILE
-                receiveSignal;   
-            ELSEIF signal = "4" THEN
-!                moveToBoxCam;
-!                SocketSend client,\Str :="AtBox";
-!                receiveSignal;
-            ELSEIF signal = "5" THEN
-                moveToWritePos;
-                SocketSend client,\Str :="InFive";
-                SocketReceive client,\Str :=data, \Time:=WAIT_MAX;
-!                number:=1;
-                FOR number FROM 1 TO StrLen(data) DO
-                    Letter := StrPart(data,number,1);
-                    PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-                    IF Letter="A" THEN
-                        WriteLetterA;
-                    ELSEIF Letter="B" THEN
-                        WriteLetterB;
-                    ELSEIF Letter="C" THEN
-!                        WriteLetterC;
-                    ELSEIF Letter="D" THEN
-                        WriteLetterD;
-                    ELSEIF Letter="E" THEN
-                        WriteLetterE;
-                    ELSEIF Letter="F" THEN
-                        WriteLetterF;
-                    ELSEIF Letter="G" THEN
-                        WriteLetterG;
-                    ELSEIF Letter="H" THEN
-                        WriteLetterH;
-                    ELSEIF Letter="I" THEN
-                        WriteLetterI;
-                    ELSEIF Letter="J" THEN
-                        WriteLetterJ;
-                    ELSEIF Letter="K" THEN
-                        WriteLetterK;
-                    ELSEIF Letter="L" THEN
-                        WriteLetterL;
-                    ELSEIF Letter="M" THEN
-                        WriteLetterM;
-                    ELSEIF Letter="N" THEN
-                        WriteLetterN;
-                    ELSEIF Letter="O" THEN
-                        WriteLetterO;
-                    ELSEIF Letter="P" THEN
-                        WriteLetterP;
-                    ELSEIF Letter="Q" THEN
-                        WriteLetterQ;
-                    ELSEIF Letter="R" THEN
-                        WriteLetterR;
-                    ELSEIF Letter="S" THEN
-!                        WriteLetterS;
-                    ELSEIF Letter="T" THEN
-                        WriteLetterT;
-                    ELSEIF Letter="U" THEN
-                        WriteLetterU;
-                    ELSEIF Letter="V" THEN
-                        WriteLetterV;
-                    ELSEIF Letter="W" THEN
-                        WriteLetterW;
-                    ELSEIF Letter="X" THEN
-                        WriteLetterX;
-                    ELSEIF Letter="Y" THEN
-                        WriteLetterY;
-                    ELSEIF Letter="Z" THEN
-                        WriteLetterZ;
-                    PathAccLim FALSE,FALSE;
-                    ENDIF
-                ENDFOR
-                SocketSend client,\Str :="WriteFinished";
-                receiveSignal;
-            ENDIF
-        ENDWHILE
-        moveToHome;
-        
-        ! Error Handling
-        ERROR
-            IF ERRNO=ERR_SOCK_CLOSED THEN   ! Close sockets and retry connecting if sockets closed
-                SocketClose server;
-                SocketClose client;
-                SocketCreate server;
-                SocketBind server,"192.168.0.20", 1025;
-                SocketListen server;
-                SocketAccept server,client, \Time:=WAIT_MAX;
-                RETRY;
-            ELSE
-                stop;
-            ENDIF
-    ENDPROC
+!    PROC receiveSignal()
+!        !Create Socket
+!        SocketCreate server;
+!        SocketBind server,"192.168.125.1", 1025;
+!        SocketListen server;
+!        SocketAccept server,client, \Time:=WAIT_MAX;
+!    WHILE counter <> 27 DO
+!        !Receive Data
+!        SocketReceive client,\Str :=data, \Time:=WAIT_MAX;
+!        found1 := StrFind(data,1,",");
+!        found2 := StrFind(data,found1+1,",");
+!        x_coordinate := StrPart(data,found1+1,found2-found1-1);
+!        y_coordinate := StrPart(data,found2+1,StrLen(data)-found2);
+!        posx :=StrToVal(x_coordinate,X);
+!        posy := StrToVal(y_coordinate,Y);
+!         A := [[1336,100 + X, 1150 + Y],[0.706151696,0,0.708060578,0],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+!        MoveL A,v80,fine,tool0\WObj:=wobj0;
+!        SocketSend client,\Str :="next";
+!        counter:= counter +1;
+!    ENDWHILE
+
+!    ENDPROC
 
     PROC robotWrite()
 		!---Writing A---!!
@@ -314,42 +144,19 @@ MODULE MainModule
         PathAccLim FALSE,FALSE;
     ENDPROC
     
-    PROC moveToHome()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveJ Home,v200,fine,tool0\WObj:=wobj0;
-        PathAccLim FALSE,FALSE;
-    ENDPROC
-    
-    PROC moveToCameraPos()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveJ NewCamPos,v200,fine,tool0\WObj:=wobj0;
-        PathAccLim FALSE,FALSE;
-    ENDPROC
-    
-    PROC moveToZeroPos()
-!        ! get the current location
-!        CurRobT2:=CRobT();
-!        IF RobtToRobtDist(Location,CurRobT2) THEN            
-!        ENDIF
-
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL ZeroPos,v50,fine,tool0\WObj:=wobj0;
-        PathAccLim FALSE,FALSE;
-    ENDPROC
-	
-	PROC moveToA_Horizontal()
-        MoveL A_Horizontal,v80,fine,tool0\WObj:=wobj0;
-    ENDPROC
     
 	PROC moveToWritePos()
-        MoveJ WriteStart,v200,fine,tool0\WObj:=wobj0;
+        MoveL WriteStart,v80,fine,tool0\WObj:=wobj0;
     ENDPROC
+	
+!    PROC moveAboveToCameraPos()
+!        MoveL aboveCameraPos,v1000,fine,tool0\WObj:=wobj0;
+!    ENDPROC
     
-    PROC moveToAboveBoxPos()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveJ AboveBoxPos, v200, fine, tool0\WObj:=wobj0;
-        PathAccLim FALSE,FALSE;
-    ENDPROC
+!    PROC moveGipperToCameraPos()
+!        MoveL GripperInitPos,v100,fine,tool0\WObj:=wobj0;
+!    ENDPROC
+    
     
     PROC WriteLetterA_Fixed()
         MoveL Centre,v1000,fine,tool0\WObj:=wobj0;
@@ -365,7 +172,6 @@ MODULE MainModule
     ENDPROC
     
     PROC WriteLetterA()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         X:= 40;
         Y:= 30;
         Z:= 40;
@@ -384,11 +190,9 @@ MODULE MainModule
         MoveL Offs(WriteStart,0,-Y,0), v1000,fine,tool0\WObj:=wobj0;
         ! Left Mid
         MoveL Offs(WriteStart,0,Y,0), v1000,fine,tool0\WObj:=wobj0;
-        PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC WriteLetterB()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         X:= 40;
         
         Y:= 30;
@@ -409,12 +213,10 @@ MODULE MainModule
         ! Right Bott Corner
         MoveL Offs(WriteStart,0,-Y,-Z), v1000,z200,tool0\WObj:=wobj0;
         ! Left Bott Corner
-        MoveL Offs(WriteStart,0,Y,-Z), v1000,fine,tool0\WObj:=wobj0;
-        PathAccLim FALSE,FALSE;
+        MoveL Offs(WriteStart,0,Y,-Z), v1000,fine,tool0\WObj:=wobj0;   
     ENDPROC
     
     PROC WriteLetterD()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         X:= 40;
         
         Y:= 30;
@@ -449,7 +251,6 @@ MODULE MainModule
     ENDPROC
     
     PROC WriteLetterE()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         X:= 40;
         
         Y:= 30;
@@ -475,7 +276,6 @@ MODULE MainModule
 
 	    
     PROC WriteLetterF()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         X:= 40;
         
         Y:= 30;
@@ -495,7 +295,6 @@ MODULE MainModule
     ENDPROC
 
 	PROC WriteLetterG()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         X:= 40;
         
         Y:= 30;
@@ -518,7 +317,6 @@ MODULE MainModule
     ENDPROC
 
 	PROC WriteLetterH()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         X:= 40;
         
         Y:= 30;
@@ -542,7 +340,6 @@ MODULE MainModule
 
 
 	PROC WriteLetterI()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         X:= 40;
         
         Y:= 30;
@@ -565,7 +362,6 @@ MODULE MainModule
     ENDPROC
 
 	PROC WriteLetterJ()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         X:= 40;
         
         Y:= 30;
@@ -581,8 +377,7 @@ MODULE MainModule
         MoveL Offs(WriteStart,0,Y,-Z), v1000,fine,tool0\WObj:=wobj0;
     ENDPROC
     
-    PROC WriteLetterK()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
+    	PROC WriteLetterK()
         X:= 40;
         
         Y:= 30;
@@ -602,7 +397,6 @@ MODULE MainModule
     ENDPROC
     
     PROC WriteLetterL()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         X:= 40;
         
         Y:= 30;
@@ -617,7 +411,6 @@ MODULE MainModule
     ENDPROC
     
     PROC WriteLetterM()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         X:= 40;
         
         Y:= 30;
@@ -635,8 +428,7 @@ MODULE MainModule
         MoveL Offs(WriteStart,0,-Y,-Z), v1000,fine,tool0\WObj:=wobj0;
     ENDPROC
     
-    PROC WriteLetterN()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
+        PROC WriteLetterN()
         X:= 40;
         
         Y:= 30;
@@ -653,7 +445,6 @@ MODULE MainModule
     ENDPROC
 
 	PROC WriteLetterO()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         X:= 40;
         
         Y:= 30;
@@ -674,7 +465,6 @@ MODULE MainModule
     ENDPROC
 
 	PROC WriteLetterP()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         X:= 40;
         
         Y:= 30;
@@ -693,7 +483,6 @@ MODULE MainModule
     ENDPROC
 
 	PROC WriteLetterQ()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         X:= 40;
         
         Y:= 30;
@@ -719,7 +508,6 @@ MODULE MainModule
     ENDPROC
 
 	PROC WriteLetterR()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         X:= 40;
         
         Y:= 30;
@@ -742,7 +530,6 @@ MODULE MainModule
     ENDPROC
     
     PROC WriteLetterT()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         X:= 40;
         
         Y:= 30;
@@ -760,7 +547,6 @@ MODULE MainModule
     ENDPROC
 
 	PROC WriteLetterU()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         X:= 40;
         
         Y:= 30;
@@ -779,7 +565,6 @@ MODULE MainModule
     ENDPROC
     
     PROC WriteLetterV()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         X:= 40;
         
         Y:= 30;
@@ -794,7 +579,6 @@ MODULE MainModule
     ENDPROC
     
     PROC WriteLetterW()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         X:= 40;
         
         Y:= 30;
@@ -813,7 +597,6 @@ MODULE MainModule
     ENDPROC
     
     PROC WriteLetterX()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         X:= 40;
         
         Y:= 30;
@@ -831,7 +614,6 @@ MODULE MainModule
     ENDPROC
     
     PROC WriteLetterY()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         X:= 40;
         
         Y:= 30;
@@ -851,7 +633,6 @@ MODULE MainModule
     ENDPROC
     
     PROC WriteLetterZ()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         X:= 40;
         
         Y:= 30;
@@ -867,18 +648,17 @@ MODULE MainModule
         MoveL Offs(WriteStart,0,-Y,-Z), v1000,fine,tool0\WObj:=wobj0;
     ENDPROC
     
-    PROC open_gripper()        
-        SetDO D_652_10_OUT0, 0;
-        WaitTime 1;
-        SetDO D_652_10_OUT1, 1;
-        WaitTime 1;
-     ENDPROC
+!    PROC open_gripper()        
+!        SetDO D_652_10_OUT0, 0;
+!        WaitTime 1;
+!        SetDO D_652_10_OUT1, 1;
+!        WaitTime 1;
+!     ENDPROC
 
-    PROC close_gripper()       
-        SetDO D_652_10_OUT0, 1;
-        WaitTime 1;
-        SetDO D_652_10_OUT1, 0;
-        WaitTime 1;
-    ENDPROC    
-
+!    PROC close_gripper()       
+!        SetDO D_652_10_OUT0, 1;
+!        WaitTime 1;
+!        SetDO D_652_10_OUT1, 0;
+!        WaitTime 1;
+!    ENDPROC    
 ENDMODULE
