@@ -147,166 +147,182 @@ classdef Box_Detection
                     smallAngle = false;
                     if (abs(angle) < 0.08) && (portrait == 1)
                         smallAngle = true;
-                        nc = [cent(1)+85, cent(2), 0];
+                        nc = [cent(1)+85, cent(2), 0, 1];
                         plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-                        nc2 = [cent(1)+85, cent(2)+185, 0];
+                        nc2 = [cent(1)+85, cent(2)+185, 0, 1];
                         plot(nc2(1), nc2(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-                        nc3 = [cent(1)+85, cent(2)-185, 0];
+                        nc3 = [cent(1)+85, cent(2)-185, 0, 1];
                         plot(nc3(1), nc3(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-                        nc4 = [cent(1)-85, cent(2), 0];
+                        nc4 = [cent(1)-85, cent(2), 0, 1];
                         plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-                        nc5 = [cent(1)-85, cent(2)+185, 0];
+                        nc5 = [cent(1)-85, cent(2)+185, 0, 1];
                         plot(nc5(1), nc5(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-                        nc6 = [cent(1)-85, cent(2)-185, 0];
+                        nc6 = [cent(1)-85, cent(2)-185, 0, 1];
                         plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 
                     elseif (abs(angle) < 0.08) && (portrait == 0)
                         smallAngle = true;
-                        nc = [cent(1), cent(2)+85, 0];
+                        nc = [cent(1), cent(2)+85, 0, 0];
                         plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-                        nc2 = [cent(1)+185, cent(2)+85, 0];
+                        nc2 = [cent(1)+185, cent(2)+85, 0, 0];
                         plot(nc2(1), nc2(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-                        nc3 = [cent(1)-185, cent(2)+85, 0];
+                        nc3 = [cent(1)-185, cent(2)+85, 0, 0];
                         plot(nc3(1), nc3(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-                        nc4 = [cent(1), cent(2)-85, 0];
+                        nc4 = [cent(1), cent(2)-85, 0, 0];
                         plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-                        nc5 = [cent(1)+185, cent(2)-85, 0];
+                        nc5 = [cent(1)+185, cent(2)-85, 0, 0];
                         plot(nc5(1), nc5(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
-                        nc6 = [cent(1)-185, cent(2)-85, 0];
+                        nc6 = [cent(1)-185, cent(2)-85, 0, 0];
                         plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
                     elseif (tilt == 0) && (portrait == 1)
                         %%% PATTERN ONE
                         %right side
                         opp = 85*tan(angle);
-                        nc = [cent(1)+80, cent(2)-opp, angle];
+                        nc = [cent(1)+80, cent(2)-opp, angle, 1];
                         plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 
                         nc2 = obj.converter.convertDirection(0, 200, ((pi/2)-1.1071) + angle);
                         nc2(1) = nc2(1)+cent(1);
                         nc2(2) = nc2(2)+cent(2);
                         nc2(3) = angle;
+                        nc2(4) = 1;
                         plot(nc2(1), nc2(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
                         nc3 = obj.converter.convertDirection(0, -200, -1*((pi/2)-1.1071) + angle);
                         nc3(1) = nc3(1)+cent(1);
                         nc3(2) = nc3(2)+cent(2);
                         nc3(3) = angle;
+                        nc3(4) = 1;
                         plot(nc3(1), nc3(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
                         
                         %%left side
 
-                        nc4 = [cent(1)-80, cent(2)+opp, angle];
+                        nc4 = [cent(1)-80, cent(2)+opp, angle, 1];
                         plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
                         nc5 = obj.converter.convertDirection(0, 200, -1*((pi/2)-1.1071) + angle);
                         nc5(1) = nc5(1)+cent(1);
                         nc5(2) = nc5(2)+cent(2);
                         nc5(3) = angle;
+                        nc5(4) = 1;
                         plot(nc5(1), nc5(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
                         nc6 = obj.converter.convertDirection(0, -200, ((pi/2)-1.1071) + angle);
                         nc6(1) = nc6(1)+cent(1);
                         nc6(2) = nc6(2)+cent(2);
                         nc6(3) = angle;
+                        nc6(4) = 1;
                         plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
                     elseif (tilt == 1) && (portrait == 1)
 
                         %%%%%% PATTERN TWO
                         opp = 80*tan(angle);
-                        nc = [cent(1)+80, cent(2)+opp, -angle];
+                        nc = [cent(1)+80, cent(2)+opp, -angle, 1];
                         plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 
                         nc2 = obj.converter.convertDirection(0, 200, ((pi/2)-1.1071) - angle);
                         nc2(1) = nc2(1)+cent(1);
                         nc2(2) = nc2(2)+cent(2);
                         nc2(3) = -angle;
+                        nc2(4) = 1;
                         plot(nc2(1), nc2(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
                         nc3 = obj.converter.convertDirection(0, -200, -1*((pi/2)-1.1071) - angle);
                         nc3(1) = nc3(1)+cent(1);
                         nc3(2) = nc3(2)+cent(2);
                         nc3(3) = -angle;
+                        nc3(4) = 1;
                         plot(nc3(1), nc3(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
                         %%left side
 
-                        nc4 = [cent(1)-80, cent(2)-opp, -angle];
+                        nc4 = [cent(1)-80, cent(2)-opp, -angle, 1];
                         plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
                         nc5 = obj.converter.convertDirection(0, 200, -1*((pi/2)-1.1071) - angle);
                         nc5(1) = nc5(1)+cent(1);
                         nc5(2) = nc5(2)+cent(2);
                         nc5(3) = -angle;
+                        nc5(4) = 1;
                         plot(nc5(1), nc5(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
                         nc6 = obj.converter.convertDirection(0, -200, ((pi/2)-1.1071) - angle);
                         nc6(1) = nc6(1)+cent(1);
                         nc6(2) = nc6(2)+cent(2);
                         nc6(3) = -angle;
+                        nc6(4) = 1;
                         plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
                     elseif (tilt == 0) && (portrait == 0)
                         %bottom side
                         opp = 80*tan(angle);
-                        nc = [cent(1)+opp, cent(2)+80, angle];
+                        nc = [cent(1)+opp, cent(2)+80, angle, 0];
                         plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 
                         nc2 = obj.converter.convertDirection(200, 0, -1*((pi/2)-1.1071) + angle);
                         nc2(1) = nc2(1)+cent(1);
                         nc2(2) = nc2(2)+cent(2);
                         nc2(3) = angle;
+                        nc2(4) = 0;
                         plot(nc2(1), nc2(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
                         nc3 = obj.converter.convertDirection(-200, 0, ((pi/2)-1.1071) + angle);
                         nc3(1) = nc3(1)+cent(1);
                         nc3(2) = nc3(2)+cent(2);
                         nc3(3) = angle;
+                        nc3(4) = 0;
                         plot(nc3(1), nc3(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
                         %%top side
 
-                        nc4 = [cent(1)-opp, cent(2)-80, angle];
+                        nc4 = [cent(1)-opp, cent(2)-80, angle, 0];
                         plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
                         nc5 = obj.converter.convertDirection(200, 0, ((pi/2)-1.1071) + angle);
                         nc5(1) = nc5(1)+cent(1);
                         nc5(2) = nc5(2)+cent(2);
                         nc5(3) = angle;
+                        nc5(4) = 0;
                         plot(nc5(1), nc5(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
                         nc6 = obj.converter.convertDirection(-200, 0, -1*((pi/2)-1.1071) + angle);
                         nc6(1) = nc6(1)+cent(1);
                         nc6(2) = nc6(2)+cent(2);
                         nc6(3) = angle;
+                        nc6(4) = 0;
                         plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
                     else
                         %bottom side
                         opp = 80*tan(angle);
-                        nc = [cent(1)-opp, cent(2)+80, -angle];
+                        nc = [cent(1)-opp, cent(2)+80, -angle, 0];
                         plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 
                         nc2 = obj.converter.convertDirection(200, 0, -1*((pi/2)-1.1071) - angle);
                         nc2(1) = nc2(1)+cent(1);
                         nc2(2) = nc2(2)+cent(2);
                         nc2(3) = -angle;
+                        nc2(4) = 0;
                         plot(nc2(1), nc2(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
                         nc3 = obj.converter.convertDirection(-200, 0, ((pi/2)-1.1071) - angle);
                         nc3(1) = nc3(1)+cent(1);
                         nc3(2) = nc3(2)+cent(2);
                         nc3(3) = -angle;
+                        nc3(4) = 0;
                         plot(nc3(1), nc3(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
                         %%top side
 
-                        nc4 = [cent(1)+opp, cent(2)-80, -angle];
+                        nc4 = [cent(1)+opp, cent(2)-80, -angle, 0];
                         plot(nc4(1), nc4(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
                         nc5 = obj.converter.convertDirection(200, 0, ((pi/2)-1.1071) - angle);
                         nc5(1) = nc5(1)+cent(1);
                         nc5(2) = nc5(2)+cent(2);
                         nc5(3) = -angle;
+                        nc5(4) = 0;
                         plot(nc5(1), nc5(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
 
                         nc6 = obj.converter.convertDirection(-200, 0, -1*((pi/2)-1.1071) - angle);
                         nc6(1) = nc6(1)+cent(1);
                         nc6(2) = nc6(2)+cent(2);
                         nc6(3) = -angle;
+                        nc6(4) = 0;
                         plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
                     end
 %                     nc
