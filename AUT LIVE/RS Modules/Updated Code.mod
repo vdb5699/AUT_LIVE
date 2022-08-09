@@ -78,8 +78,7 @@ MODULE MainModule
     CONST robtarget CokeBoxCoordSix:= [[303.7944,919.1169,1065],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
 	!-----------Sarat Demo Positions END------------!
 	!-----------RobotWriting Alphabets Coords------------!
-	CONST robtarget WriteStart:=[[1336,0,1090],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    CONST robtarget A_Horizontal:= [[1018.612159322,-22.5,1327],[0.00197,-0.38293,0.92377,0.00290],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+	CONST robtarget A_Horizontal:= [[1018.612159322,-22.5,1327],[0.00197,-0.38293,0.92377,0.00290],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
     !---------Old Robtargets - replace with new coords-----------!       
     CONST robtarget BoxEdgeAbove:=[[-330,780,1375],[-0.000000048,1,0.00000002,-0.000000013],[1,0,-2,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget BoxEdge:=[[-330,780,695],[-0.000000048,1,0.00000002,-0.000000013],[1,0,-2,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -145,7 +144,6 @@ MODULE MainModule
     VAR num Y;
     VAR num Box_X;
     VAR num Box_Y;
-    VAR num Z;
     VAR num sum;
     VAR num n_syrup:= 0;
     VAR num n_coke:= 0;
@@ -170,7 +168,6 @@ MODULE MainModule
     VAR num angle;
     VAR robtarget CurRobT2;
     VAR speeddata vTest := [100, 45, 200, 15 ];
-    VAR string Letter;
     
     PROC main()
 		AccSet 20,30;           ! Max Acceleration set to 20mm/s^2 and ramping is 20
@@ -218,19 +215,7 @@ MODULE MainModule
 !        SocketClose server;
 !        SocketClose client;
 !    robotWrite;
-!            angle:=-33;
-!            IF ((-1*angle) + 90) < 100 THEN
-!                MoveL RelTool (BoxCamPos, 0, 0, 450 \Rz:= 90  +angle), vTest, z50, tool0\WObj:=wobj0;
-!            ELSE
-!                MoveL RelTool (BoxCamPos, 0, 0, 0\Rz:= 0), vTest, z50, tool0\WObj:=wobj0;
-!            MoveL RelTool (BoxCamPos, 0, 0, 0 \Rz:= angle), vTest, z50, tool0\WObj:=wobj0;
-!            MoveL RelTool (BoxCamPos, 0, 0, (1558-1060)\Rz:= 90), vTest, z50, tool0\WObj:=wobj0;
-!            MoveL RelTool (BoxCamPos, 0, 0,(1558-1060) \Rz:= 90+20), vTest, fine, tool0\WObj:=wobj0;
-!            open_gripper;
-!            MoveL RelTool (BoxCamPos, 0, 0, (1558-1350) \Rz:= 0), vTest, z50, tool0\WObj:=wobj0;
-!            MoveL RelTool (BoxCamPos, 0, 0, 0 \Rz:= 0), vTest, z10, tool0\WObj:=wobj0;
-        moveToWritePos;
-        WriteLetterA;
+            
     ENDPROC
     
     ! The "receiveSignal" function is where the GUI and RS are 
@@ -293,15 +278,18 @@ MODULE MainModule
                     found2 := StrFind(data,found1+1,",");
                     found3 := StrFind(data,found2+1,",");
                     found4 := StrFind(data,found3+1,",");
+                    found5 := StrFind(data,found4+1,",");
                     x_coordinate := StrPart(data,found1+1,found2-found1-1);
                     y_coordinate := StrPart(data,found2+1,found3-found2-1);
                     Box_xCoordinate := StrPart(data,found3+1,found4-found3-1);
-                    Box_ycoordinate := StrPart(data,found4+1,StrLen(data)-found4);
+                    Box_ycoordinate := StrPart(data,found4+1,found5-found4-1);
+                    ang := StrPart(data,found5+1,StrLen(data)-found5);
+                    objects :=StrToVal(ang,angle);
                     objects :=StrToVal(x_coordinate,X);
                     objects := StrToVal(y_coordinate,Y);
                     objects:= StrToVal(Box_xCoordinate,Box_X);
                     objects:= StrToVal(Box_ycoordinate,Box_Y);
-                    PickUpBottles;
+!                    PickUpBottles;
                !     TestPos:= [[552.8+X, -553.6+Y, 1306.2],[0.02936,-0.38320,-0.92311,-0.01261],[-1,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !                    moveToTestPos;
                     SocketSend client,\Str :="SendNext";
@@ -313,68 +301,10 @@ MODULE MainModule
                 SocketSend client,\Str :="AtBox";
                 receiveSignal;
             ELSEIF signal = "5" THEN
-                moveToWritePos;
+                moveToBoxCam;
                 SocketSend client,\Str :="InFive";
                 SocketReceive client,\Str :=data, \Time:=WAIT_MAX;
-                FOR number FROM 1 TO StrLen(data) DO
-                    Letter := StrPart(data,number,1);
-                    PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-                    IF Letter="A" THEN
-                        WriteLetterA;
-                    ELSEIF Letter="B" THEN
-                        WriteLetterB;
-                    ELSEIF Letter="C" THEN
-                        WriteLetterC;
-                    ELSEIF Letter="D" THEN
-                        WriteLetterD;
-                    ELSEIF Letter="E" THEN
-                        WriteLetterE;
-                    ELSEIF Letter="F" THEN
-                        WriteLetterF;
-                    ELSEIF Letter="G" THEN
-                        WriteLetterG;
-                    ELSEIF Letter="H" THEN
-                        WriteLetterH;
-                    ELSEIF Letter="I" THEN
-                        WriteLetterI;
-                    ELSEIF Letter="J" THEN
-                        WriteLetterJ;
-                    ELSEIF Letter="K" THEN
-                        WriteLetterK;
-                    ELSEIF Letter="L" THEN
-                        WriteLetterL;
-                    ELSEIF Letter="M" THEN
-                        WriteLetterM;
-                    ELSEIF Letter="N" THEN
-                        WriteLetterN;
-                    ELSEIF Letter="O" THEN
-                        WriteLetterO;
-                    ELSEIF Letter="P" THEN
-                        WriteLetterP;
-                    ELSEIF Letter="Q" THEN
-                        WriteLetterQ;
-                    ELSEIF Letter="R" THEN
-                        WriteLetterR;
-                    ELSEIF Letter="S" THEN
-!                        WriteLetterS;
-                    ELSEIF Letter="T" THEN
-                        WriteLetterT;
-                    ELSEIF Letter="U" THEN
-                        WriteLetterU;
-                    ELSEIF Letter="V" THEN
-                        WriteLetterV;
-                    ELSEIF Letter="W" THEN
-                        WriteLetterW;
-                    ELSEIF Letter="X" THEN
-                        WriteLetterX;
-                    ELSEIF Letter="Y" THEN
-                        WriteLetterY;
-                    ELSEIF Letter="Z" THEN
-                        WriteLetterZ;
-                    PathAccLim FALSE,FALSE;
-                    ENDIF
-                ENDFOR
-                SocketSend client,\Str :="WriteFinished";
+                
                 receiveSignal;
             ENDIF
         ENDWHILE
@@ -388,7 +318,7 @@ MODULE MainModule
                 SocketCreate server;
                 SocketBind server,"192.168.0.20", 1025;
                 SocketListen server;
-                SocketAccept server,client, \Time:=WAIT_MAX;
+                SocketAccept server, client, \Time:=WAIT_MAX;
                 RETRY;
             ELSE
                 stop;
@@ -424,6 +354,15 @@ MODULE MainModule
 !        SocketSend client,\Str :="PickUp";
         SocketClose server;
         SocketClose client;
+    ENDPROC
+    
+    PROC JointSixRot()
+        angle:=-33;
+        IF ((-1*angle) + 90) < 100 THEN
+            MoveL RelTool (BoxCamPos, 0, 0, 450 \Rz:= 90+angle), vTest, z50, tool0\WObj:=wobj0;
+        ELSE
+            MoveL RelTool (BoxCamPos, 0, 0, 0\Rz:= -90+angle), vTest, z50, tool0\WObj:=wobj0;
+        ENDIF
     ENDPROC
     
 !    PROC robotWrite()
@@ -909,10 +848,6 @@ MODULE MainModule
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         MoveJ BoxCamPos,vTest,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
-    ENDPROC
-    
-    PROC moveToWritePos()
-        MoveJ WriteStart,v200,fine,tool0\WObj:=wobj0;
     ENDPROC
     
     PROC open_gripper()        
