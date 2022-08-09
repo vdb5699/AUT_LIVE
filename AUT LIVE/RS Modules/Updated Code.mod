@@ -136,6 +136,7 @@ MODULE MainModule
     VAR string tcpX;
     VAR string tcpY;
     VAR string colour;
+    VAR string ang;
     VAR string signal;
     VAR num retry_no;
     VAR num num_objs;
@@ -163,6 +164,8 @@ MODULE MainModule
     VAR num found2;
     VAR num found3;
     VAR num found4;
+    VAR num found5;
+    VAR num angle;
     VAR robtarget CurRobT2;
     VAR speeddata vTest := [100, 45, 200, 15 ];
     
@@ -174,8 +177,8 @@ MODULE MainModule
 !        moveToQuartenionTest;
 !        moveToBoxCam;
 !        moveToAboveBoxPos;
-!        moveToHome;             ! Program always starts from Home Pos in case it was left in random pos
-!        receiveSignal;         ! Where robot will receive signals to do certain tasks
+        moveToHome;             ! Program always starts from Home Pos in case it was left in random pos
+        receiveSignal;         ! Where robot will receive signals to do certain tasks
 !!        moveToCameraPos;       ! New Cam Pos
 !!!        moveToCokeCoordOne;
 !!!!!!        testpos;
@@ -246,7 +249,7 @@ MODULE MainModule
                 SocketCreate server;
                 SocketBind server,"192.168.0.20", 1025;
                 SocketListen server;
-                SocketAccept serverSocket, clientSocket, \Time:=WAIT_MAX;
+                SocketAccept server, client, \Time:=WAIT_MAX;
                 RETRY;
             ELSE
                 stop;
@@ -275,15 +278,18 @@ MODULE MainModule
                     found2 := StrFind(data,found1+1,",");
                     found3 := StrFind(data,found2+1,",");
                     found4 := StrFind(data,found3+1,",");
+                    found5 := StrFind(data,found4+1,",");
                     x_coordinate := StrPart(data,found1+1,found2-found1-1);
                     y_coordinate := StrPart(data,found2+1,found3-found2-1);
                     Box_xCoordinate := StrPart(data,found3+1,found4-found3-1);
-                    Box_ycoordinate := StrPart(data,found4+1,StrLen(data)-found4);
+                    Box_ycoordinate := StrPart(data,found4+1,found5-found4-1);
+                    ang := StrPart(data,found4+1,StrLen(data)-found5);
+                    objects :=StrToVal(ang,angle);
                     objects :=StrToVal(x_coordinate,X);
                     objects := StrToVal(y_coordinate,Y);
                     objects:= StrToVal(Box_xCoordinate,Box_X);
                     objects:= StrToVal(Box_ycoordinate,Box_Y);
-                    PickUpBottles;
+!                    PickUpBottles;
                !     TestPos:= [[552.8+X, -553.6+Y, 1306.2],[0.02936,-0.38320,-0.92311,-0.01261],[-1,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !                    moveToTestPos;
                     SocketSend client,\Str :="SendNext";
@@ -312,7 +318,7 @@ MODULE MainModule
                 SocketCreate server;
                 SocketBind server,"192.168.0.20", 1025;
                 SocketListen server;
-                SocketAccept serverSocket, clientSocket, \Time:=WAIT_MAX;
+                SocketAccept server, client, \Time:=WAIT_MAX;
                 RETRY;
             ELSE
                 stop;
