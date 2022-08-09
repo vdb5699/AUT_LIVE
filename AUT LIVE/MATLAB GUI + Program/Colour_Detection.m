@@ -59,7 +59,7 @@ classdef Colour_Detection
 
         function newCapList = eliminateDuplicate(obj, capList, range)
             centre = [960 540];
-            if width(capList) < 1
+            if width(capList) == 1
                 newCapList = [];
                 return
             else

@@ -35,7 +35,8 @@ classdef Cap_Detection
         end
         
         function img = visualiseCaps(obj, image, caps)
-            if height(caps) < 0
+            caps
+            if height(caps) == 0
                 img = image;
                 return
             else
