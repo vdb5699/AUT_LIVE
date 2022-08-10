@@ -78,8 +78,12 @@ MODULE MainModule
     CONST robtarget CokeBoxCoordSix:= [[303.7944,919.1169,1065],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
 	!-----------Sarat Demo Positions END------------!
 	!-----------RobotWriting Alphabets Coords------------!
-	CONST robtarget WriteStart:=[[1336,0,1090],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+	CONST robtarget WriteStartLeft:=[[1336,600,1090],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget WriteStart:=[[1336,0,1090],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget WriteStartRight:=[[1336,-600,1090],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget A_Horizontal:= [[1018.612159322,-22.5,1327],[0.00197,-0.38293,0.92377,0.00290],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
+    CONST robtarget SafeWritePos:=[[1219.955689697,0,1197.415659316],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget SafeWritePosRight:=[[1219.955689697,-1100,1197.415659316],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     !---------Old Robtargets - replace with new coords-----------!       
     CONST robtarget BoxEdgeAbove:=[[-330,780,1375],[-0.000000048,1,0.00000002,-0.000000013],[1,0,-2,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget BoxEdge:=[[-330,780,695],[-0.000000048,1,0.00000002,-0.000000013],[1,0,-2,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -174,6 +178,14 @@ MODULE MainModule
     VAR robtarget CurRobT2;
     VAR speeddata vTest := [500, 70, 200, 15 ]; !1st = LinV (mm/s), 2nd = RotV (deg/s), 3rd,4th = external axes
     
+    
+    PROC SafeWrite()
+        MoveJ Home,v10,fine,tool0\WObj:=wobj0;
+!        MoveJ SafeWritePos,v50,fine,tool0\WObj:=wobj0;
+!        WaitTime 2;
+!        MoveL SafeWritePosRight,v50,fine,tool0\WObj:=wobj0;
+    ENDPROC
+    
     PROC main()
 		AccSet 20,30;           ! Max Acceleration set to 20mm/s^2 and ramping is 20
 !        syrup_counter:=0;
@@ -184,7 +196,7 @@ MODULE MainModule
 !        moveToAboveBoxPos;
 !        moveToHome;             ! Program always starts from Home Pos in case it was left in random pos
 !        receiveSignal;         ! Where robot will receive signals to do certain tasks
-        moveToCameraPos;       ! New Cam Pos
+!        moveToCameraPos;       ! New Cam Pos
 !!!        moveToCokeCoordOne;
 !!!!!!        testpos;
 !        Waittime 10;
@@ -219,8 +231,10 @@ MODULE MainModule
 !        moveToHome;
 !        SocketClose server;
 !        SocketClose client;
+!            calibrateWrite;
 !            moveToWritePos;
 !            WriteLetterS;
+        SafeWrite;
     ENDPROC
     
     ! The "receiveSignal" function is where the GUI and RS are 
@@ -593,7 +607,7 @@ MODULE MainModule
     
     PROC moveToHome()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveJ Home,v500,fine,tool0\WObj:=wobj0;
+        MoveJ Home,v300,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
@@ -862,8 +876,16 @@ MODULE MainModule
         PathAccLim FALSE,FALSE;
     ENDPROC
     
+    PROC calibrateWrite()
+        MoveJ WriteStartLeft,v200,fine,tool0\WObj:=wobj0;
+        WaitTime 2;
+        MoveJ WriteStart,v200,fine,tool0\WObj:=wobj0;
+        WaitTime 2;
+        MoveJ WriteStartRight,v200,fine,tool0\WObj:=wobj0;
+    ENDPROC
+    
     PROC moveToWritePos()
-        MoveJ Offs(WriteStart,-50,0,0), v1500,fine,tool0\WObj:=wobj0; 
+        MoveJ Offs(WriteStart,-50,0,0), v300,fine,tool0\WObj:=wobj0; 
         MoveJ WriteStart,v200,fine,tool0\WObj:=wobj0;
     ENDPROC
     
