@@ -208,3 +208,26 @@ for w = 1:height(str)
     end
 end
 newStr      
+
+%%
+img = rgb2gray(imread("testImage.png"));
+img = imbinarize(img);
+rgb = [];
+for x = 1:height(img)
+    for y = 1:width(img)
+        if img(x,y) == 0
+            rgb(x,y,1) = 0;
+            rgb(x,y,2) = 0;
+            rgb(x,y,3) = 0;
+        else
+            rgb(x,y,1) = 255;
+            rgb(x,y,2) = 255;
+            rgb(x,y,3) = 255;
+        end
+
+    end
+end
+imshow(img);
+figure
+imshow(rgb);
+return
