@@ -159,3 +159,52 @@ box
 %%
 conv = Coordinate_Converter();
 a = conv.convertBox(960, 534);
+%%
+%still a bug, need to fix
+str = "The only fruit I hate isfv bkc bcejcbej passionfruit";
+str = split(str)
+letterCount = 0;
+newStr = strings(1, 10);
+newStrIndex = 1;
+startingIndex = 1;
+small = false;
+for w = 1:height(str)
+    letterCount = letterCount+ 1 + strlength(str(w));
+    if letterCount-1 > 10 && w == startingIndex
+        newStr(newStrIndex) = str(w);
+        startingIndex = w+1;
+        letterCount = 0;
+    elseif letterCount-1 > 10 && w ~= height(str) 
+        for a = startingIndex:w-1
+            if a == w-1
+                newStr(newStrIndex) = newStr(newStrIndex) + str(a);
+            else
+                newStr(newStrIndex) = newStr(newStrIndex) + str(a) + " ";
+            end
+        end
+        newStrIndex = newStrIndex + 1;
+        letterCount = strlength(str(w));
+        startingIndex = w;
+    elseif letterCount-1 == 10 && w ~= height(str)
+         for a = startingIndex:w
+            if a == w
+                newStr(newStrIndex) = newStr(newStrIndex) + str(a);
+            else
+                newStr(newStrIndex) = newStr(newStrIndex) + str(a) + " ";
+            end
+        end
+        newStrIndex = newStrIndex + 1;
+        letterCount = 0;
+        startingIndex = w+1;
+    end
+    if w == height(str)
+        for a = startingIndex:w
+            if a == w
+                newStr(newStrIndex) = newStr(newStrIndex) + str(a);
+            else
+                newStr(newStrIndex) = newStr(newStrIndex) + str(a) + " ";
+            end
+        end
+    end
+end
+newStr      
