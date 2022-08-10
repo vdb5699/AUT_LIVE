@@ -341,10 +341,14 @@ classdef Box_Detection
             return
         end
 
-        function boxes = tempDetectBox(obj, image, pE, lE, brig, eC)
+        function boxes = tempDetectBox(obj, image, pE, lE, brig, eC, mode)
             boxes = [];
             %% noise deletion
             bw = rgb2gray(image) > brig;
+            if mode == 1
+                boxes = bw;
+                return
+            end
             se = strel('square', eC);
             bw = imclose(bw, se);
             bw = (bw == false);
@@ -352,6 +356,10 @@ classdef Box_Detection
             se = strel('square', eC);
             bw = imclose(bw, se);
             bw = bwareaopen(imfill(bw, 'holes'),50);
+            if mode == 2
+                boxes = bw;
+                return
+            end
             %% edge detection
             [B,L] = bwboundaries(bw,'noholes');
             stats = regionprops(L,'Area','Centroid');
