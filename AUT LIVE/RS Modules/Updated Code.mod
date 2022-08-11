@@ -82,8 +82,8 @@ MODULE MainModule
     CONST robtarget WriteStart:=[[1336,0,1090],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget WriteStartRight:=[[1336,-600,1090],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget A_Horizontal:= [[1018.612159322,-22.5,1327],[0.00197,-0.38293,0.92377,0.00290],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-    PERS robtarget SafeWritePos:=[[1219.96,0,1197.42],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    CONST robtarget SafeWritePosRight:=[[1219.955689697,-750,1310],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget SafeWritePos:=[[1219.96,-70,-90],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget SafeWritePosRight:=[[1219.955689697,-750,1360],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget SafeWritePosTop:=[[1219.955689697,0,1400],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget SafeWritePosBottom:=[[1219.955689697,0,950],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     !---------Old Robtargets - replace with new coords-----------!       
@@ -146,6 +146,7 @@ MODULE MainModule
     VAR string ang;
     VAR string signal;
     VAR string Letter;
+    VAR string Font;
     VAR num retry_no;
     VAR num num_objs;
     VAR num X;
@@ -176,6 +177,8 @@ MODULE MainModule
     VAR num found5;
     VAR num found6;
     VAR num angle;
+    VAR num gap;
+    VAR num ZLine;
     VAR num boardYPos;
     VAR num boardZPos;
     VAR num VertORLand;
@@ -329,25 +332,49 @@ MODULE MainModule
                 SocketSend client,\Str :="AtBox";
                 receiveSignal;
             ELSEIF signal = "5" THEN
+                SafeWritePos:= [[1219.955689697,0,1360],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
                 moveToWritePos;
-                boardYPos:=0;
-                boardZPos:=1310;
+                
                 SocketSend client,\Str :="InFive";
                 SocketReceive client,\Str :=data, \Time:=WAIT_MAX;
-                FOR number FROM 1 TO StrLen(data) DO
+                Font := StrPart(data,1,1);
+                IF Font="S" THEN
+                        X:= 40;
+                        Y:= 15;
+                        Z:= 20;
+                        gap:= 40;
+                        ZLine:= 50;
+                    ELSEIF Font="M" THEN
+                        X:= 40;
+                        Y:= 30;
+                        Z:= 40;
+                        gap:= 70;
+                        ZLine:= 90;
+                    ELSE
+                        X:= 40;
+                        Y:= 60;
+                        Z:= 80;
+                        gap:= 130;
+                        ZLine:= 170;
+                    ENDIF
+                boardYPos:=0;
+                boardZPos:=1360;
+                FOR number FROM 2 TO StrLen(data) DO
                     Letter := StrPart(data,number,1);
                     robotWrite;
-                    boardYPos := boardYPos-70;
+                    boardYPos := boardYPos-gap;
+                            ! Font Size
+                    WaitTime 5;
                     IF boardYPos <= -710 THEN
                         boardYPos:= 0;
-                        IF boardZPos <= 960 THEN
+                        IF boardZPos <= 990 THEN
                             break;
                         ELSE
-                            boardZPos:= boardZPos - 90;
+                            boardZPos:= boardZPos - ZLine;
                         ENDIF
                     ENDIF
                 ENDFOR
-                SafeWritePos:= [[1219.955689697,0,1197.415659316],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+                
                 SocketSend client,\Str :="WriteFinished";
                 receiveSignal;
             ENDIF
@@ -922,6 +949,10 @@ MODULE MainModule
     PROC moveToWritePos()
         MoveL Offs(SafeWritePos,-200,0,0), v100,fine,tool0\WObj:=wobj0; 
         MoveL SafeWritePos,v100,fine,tool0\WObj:=wobj0;
+    ENDPROC
+    
+    PROC moveToWritePosStart()
+        MoveL Offs(SafeWritePos,-200,0,0), v100,fine,tool0\WObj:=wobj0; 
     ENDPROC
     
     PROC open_gripper()        

@@ -15,9 +15,13 @@ MODULE Write
 !    ENDPROC
 
     PROC robotWrite()
+        
+
+        
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         SafeWritePos:= [[1219.955689697,boardYPos,boardZPos],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-        moveToWritePos;
+        WaitTime 5;
+        moveToWritePosStart;
         IF Letter="A" THEN
             WriteLetterA;
         ELSEIF Letter="B" THEN
@@ -70,7 +74,10 @@ MODULE Write
             WriteLetterY;
         ELSEIF Letter="Z" THEN
             WriteLetterZ;
-        
+        ELSEIF Letter=" " THEN
+            boardYPos := boardYPos-gap;
+        ELSEIF Letter="," THEN
+            boardZPos := boardYPos-ZLine;
         PathAccLim FALSE,FALSE;
         ENDIF
         
@@ -78,9 +85,6 @@ MODULE Write
     
     PROC WriteLetterA()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        Y:= 30;
-        Z:= 40;
         ! Start
         MoveL Offs(SafeWritePos,-X,0,Z), v200,fine,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,0,Z), v100,fine,tool0\WObj:=wobj0;
@@ -101,9 +105,6 @@ MODULE Write
     
     PROC WriteLetterB()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        Y:= 30;
-        Z:= 40;
         ! Start Bott Left
         MoveL Offs(SafeWritePos,-X,Y,-Z), v200,fine,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,Y,-Z), v100,fine,tool0\WObj:=wobj0;
@@ -126,10 +127,6 @@ MODULE Write
     
     PROC WriteLetterC()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        
-        Y:= 30;
-        Z:= 40;
         ! Off Centre - Start Top Right
         MoveL Offs(SafeWritePos,-X,-Y,Z), v200,z80,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,-Y,Z), v100,fine,tool0\WObj:=wobj0;
@@ -143,23 +140,19 @@ MODULE Write
     
     PROC WriteLetterD()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        
-        Y:= 30;
-        Z:= 40;
-        ! Start Bott Left
-        MoveL Offs(SafeWritePos,-X,Y,-Z), v200,fine,tool0\WObj:=wobj0;
-        MoveL Offs(SafeWritePos,0,Y,-Z), v100,fine,tool0\WObj:=wobj0;
-        ! Left Top Corner
+        ! Off Centre - Start Top Mid
+        MoveL Offs(SafeWritePos,-X,Y,Z), v200,z80,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,Y,Z), v100,fine,tool0\WObj:=wobj0;
-        ! Top Mid
-        MoveL Offs(SafeWritePos,0,0,Z), v100,z200,tool0\WObj:=wobj0;
-        ! Right Mid
-        MoveL Offs(SafeWritePos,0,-Y,0), v100,z200,tool0\WObj:=wobj0;
-        ! Bott Mid
-        MoveL Offs(SafeWritePos,0,0,-Z), v100,z200,tool0\WObj:=wobj0;
+		! Right Top Corner
+        MoveL Offs(SafeWritePos,0,-Y,Z), v100,z200,tool0\WObj:=wobj0;
+        ! Right Bott Corner
+        MoveL Offs(SafeWritePos,0,-Y,-Z), v100,z200,tool0\WObj:=wobj0;
         ! Left Bott Corner
-        MoveL Offs(SafeWritePos,0,Y,-Z), v100,fine,tool0\WObj:=wobj0;   
+        MoveL Offs(SafeWritePos,0,Y,-Z), v100,fine,tool0\WObj:=wobj0;
+		! Left Top Corner
+        MoveL Offs(SafeWritePos,0,Y,Z), v100,z200,tool0\WObj:=wobj0;
+		! Top Mid
+		MoveL Offs(SafeWritePos,0,Y,Z), v100,fine,tool0\WObj:=wobj0;
     ENDPROC
     
 !    PROC WriteB_Fixed()
@@ -178,10 +171,6 @@ MODULE Write
     
     PROC WriteLetterE()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        
-        Y:= 30;
-        Z:= 40;
         ! Off Centre - Start Top Left
         MoveL Offs(SafeWritePos,-X,Y,Z), v200,z80,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,Y,Z), v100,fine,tool0\WObj:=wobj0;
@@ -204,10 +193,6 @@ MODULE Write
 	    
     PROC WriteLetterF()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        
-        Y:= 30;
-        Z:= 40;
         ! Off Centre - Start Bottom Left
         MoveL Offs(SafeWritePos,-X,Y,-Z), v200,z80,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,Y,-Z), v100,fine,tool0\WObj:=wobj0;
@@ -224,10 +209,6 @@ MODULE Write
 
 	PROC WriteLetterG()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        
-        Y:= 30;
-        Z:= 40;
         ! Start Top Right
         MoveL Offs(SafeWritePos,-X,-Y,Z), v200,fine,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,-Y,Z), v100,fine,tool0\WObj:=wobj0;
@@ -249,10 +230,6 @@ MODULE Write
 
 	PROC WriteLetterH()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        
-        Y:= 30;
-        Z:= 40;
         ! Off Centre - Start Top Left
         MoveL Offs(SafeWritePos,-X,Y,Z), v200,z80,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,Y,Z), v100,fine,tool0\WObj:=wobj0;
@@ -273,10 +250,6 @@ MODULE Write
 
 	PROC WriteLetterI()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        
-        Y:= 30;
-        Z:= 40;
         ! Off Centre - Start Top Left
         MoveL Offs(SafeWritePos,-X,Y,Z), v200,z80,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,Y,Z), v100,fine,tool0\WObj:=wobj0;
@@ -296,10 +269,6 @@ MODULE Write
 
 	PROC WriteLetterJ()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        
-        Y:= 30;
-        Z:= 40;
         ! Off Centre - Start Top Mid
         MoveL Offs(SafeWritePos,-X,0,Z), v200,z80,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,0,Z), v100,fine,tool0\WObj:=wobj0;
@@ -313,10 +282,6 @@ MODULE Write
     
     PROC WriteLetterK()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        
-        Y:= 30;
-        Z:= 40;
         ! Off Centre - Start Top Left
         MoveL Offs(SafeWritePos,-X,Y,Z), v200,z80,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,Y,Z), v100,fine,tool0\WObj:=wobj0;
@@ -333,10 +298,6 @@ MODULE Write
     
     PROC WriteLetterL()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        
-        Y:= 30;
-        Z:= 40;
         ! Off Centre - Start Top Left
         MoveL Offs(SafeWritePos,-X,Y,Z), v200,z80,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,Y,Z), v100,fine,tool0\WObj:=wobj0;
@@ -348,10 +309,6 @@ MODULE Write
     
     PROC WriteLetterM()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        
-        Y:= 30;
-        Z:= 40;
         ! Off Centre - Start Bott Left
         MoveL Offs(SafeWritePos,-X,Y,-Z), v200,z80,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,Y,-Z), v100,fine,tool0\WObj:=wobj0;
@@ -367,10 +324,6 @@ MODULE Write
     
     PROC WriteLetterN()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        
-        Y:= 30;
-        Z:= 40;
         ! Off Centre - Start Bott Left
         MoveL Offs(SafeWritePos,-X,Y,-Z), v200,z80,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,Y,-Z), v100,fine,tool0\WObj:=wobj0;
@@ -384,10 +337,6 @@ MODULE Write
 
 	PROC WriteLetterO()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        
-        Y:= 30;
-        Z:= 40;
         ! Off Centre - Start Top Mid
         MoveL Offs(SafeWritePos,-X,Y,Z), v200,z80,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,Y,Z), v100,fine,tool0\WObj:=wobj0;
@@ -396,7 +345,7 @@ MODULE Write
         ! Right Bott Corner
         MoveL Offs(SafeWritePos,0,-Y,-Z), v100,z200,tool0\WObj:=wobj0;
         ! Left Bott Corner
-        MoveL Offs(SafeWritePos,0,Y,-Z), v100,fine,tool0\WObj:=wobj0;
+        MoveL Offs(SafeWritePos,0,Y,-Z), v100,z200,tool0\WObj:=wobj0;
 		! Left Top Corner
         MoveL Offs(SafeWritePos,0,Y,Z), v100,z200,tool0\WObj:=wobj0;
 		! Top Mid
@@ -405,10 +354,6 @@ MODULE Write
 
 	PROC WriteLetterP()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        
-        Y:= 30;
-        Z:= 40;
         ! Start Bott Left
         MoveL Offs(SafeWritePos,-X,Y,-Z), v200,fine,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,Y,-Z), v100,fine,tool0\WObj:=wobj0;
@@ -424,10 +369,6 @@ MODULE Write
 
 	PROC WriteLetterQ()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        
-        Y:= 30;
-        Z:= 40;
         ! Off Centre - Start Top Mid
         MoveL Offs(SafeWritePos,-X,Y,Z), v200,z80,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,Y,Z), v100,fine,tool0\WObj:=wobj0;
@@ -436,7 +377,7 @@ MODULE Write
         ! Right Bott Corner
         MoveL Offs(SafeWritePos,0,-Y,-Z), v100,z200,tool0\WObj:=wobj0;
         ! Left Bott Corner
-        MoveL Offs(SafeWritePos,0,Y,-Z), v100,fine,tool0\WObj:=wobj0;
+        MoveL Offs(SafeWritePos,0,Y,-Z), v100,z200,tool0\WObj:=wobj0;
 		! Left Top Corner
         MoveL Offs(SafeWritePos,0,Y,Z), v100,z200,tool0\WObj:=wobj0;
 		! Top Mid
@@ -450,10 +391,6 @@ MODULE Write
 
 	PROC WriteLetterR()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        
-        Y:= 30;
-        Z:= 40;
         ! Start Bott Left
         MoveL Offs(SafeWritePos,-X,Y,-Z), v200,fine,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,Y,-Z), v100,fine,tool0\WObj:=wobj0;
@@ -468,15 +405,11 @@ MODULE Write
 		! Centre
         ! MoveL SafeWritePos, v100,z200,tool0\WObj:=wobj0;
 		! Right Bott Corner
-        MoveL Offs(SafeWritePos,0,-Y,-Z), v100,z200,tool0\WObj:=wobj0;
+        MoveL Offs(SafeWritePos,0,-Y,-Z), v100,fine,tool0\WObj:=wobj0;
     ENDPROC
     
     PROC WriteLetterS()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        
-        Y:= 30;
-        Z:= 40;
         ! Off Centre - Start Top Right
         MoveL Offs(SafeWritePos,-X,-Y,Z), v200,z80,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,-Y,Z), v100,fine,tool0\WObj:=wobj0;
@@ -494,10 +427,6 @@ MODULE Write
     
     PROC WriteLetterT()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        
-        Y:= 30;
-        Z:= 40;
         ! Off Centre - Start Top Left
         MoveL Offs(SafeWritePos,-X,Y,Z), v200,z80,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,Y,Z), v100,fine,tool0\WObj:=wobj0;
@@ -512,10 +441,6 @@ MODULE Write
 
 	PROC WriteLetterU()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        
-        Y:= 30;
-        Z:= 40;
         ! Off Centre - Start Left Top
         MoveL Offs(SafeWritePos,-X,Y,Z), v200,z80,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,Y,Z), v100,fine,tool0\WObj:=wobj0;
@@ -531,10 +456,6 @@ MODULE Write
     
     PROC WriteLetterV()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        
-        Y:= 30;
-        Z:= 40;
         ! Off Centre - Start Top Left
         MoveL Offs(SafeWritePos,-X,Y,Z), v200,z80,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,Y,Z), v100,fine,tool0\WObj:=wobj0;
@@ -546,10 +467,6 @@ MODULE Write
     
     PROC WriteLetterW()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        
-        Y:= 30;
-        Z:= 40;
         ! Off Centre - Start Top Left
         MoveL Offs(SafeWritePos,-X,Y,Z), v200,z80,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,Y,Z), v100,fine,tool0\WObj:=wobj0;
@@ -565,10 +482,6 @@ MODULE Write
     
     PROC WriteLetterX()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        
-        Y:= 30;
-        Z:= 40;
         ! Off Centre - Start Top Left
         MoveL Offs(SafeWritePos,-X,Y,Z), v200,z80,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,Y,Z), v100,fine,tool0\WObj:=wobj0;
@@ -583,10 +496,6 @@ MODULE Write
     
     PROC WriteLetterY()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        
-        Y:= 30;
-        Z:= 40;
         ! Off Centre - Start Top Left
         MoveL Offs(SafeWritePos,-X,Y,Z), v200,z80,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,Y,Z), v100,fine,tool0\WObj:=wobj0;
@@ -603,10 +512,6 @@ MODULE Write
     
     PROC WriteLetterZ()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        X:= 40;
-        
-        Y:= 30;
-        Z:= 40;
         ! Off Centre - Start Top Left
         MoveL Offs(SafeWritePos,-X,Y,Z), v200,z80,tool0\WObj:=wobj0;
         MoveL Offs(SafeWritePos,0,Y,Z), v100,fine,tool0\WObj:=wobj0;
