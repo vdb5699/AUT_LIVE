@@ -239,3 +239,6 @@ imshow(img);
 figure
 imshow(rgb);
 return
+%% 
+str= ["A", "B"];
+str = str(:) + ","
