@@ -161,7 +161,7 @@ conv = Coordinate_Converter();
 a = conv.convertBox(960, 534);
 %%
 %still a bug, need to fix
-str = "The only fruit I hate isfv bkc bcejcbejdsfdsffe passion";
+str = "The only fruit I hate isfv bkc bcejcbejds passion";
 str = split(str)
 letterCount = 0;
 newStr = strings(1, 10);
@@ -169,19 +169,49 @@ newStrIndex = 1;
 startingIndex = 1;
 limit = 10;
 small = false;
-for h = 1:height(str)
+firstTime = true;
+h = 1;
+while h <= height(str)
     curStr = str(h);
     letterCount = letterCount + strlength(curStr) + 1;
     if letterCount-1 < limit
-        continue
+        if h == height(str)
+            newStr(newStrIndex) = newStr(newStrIndex) + curStr;
+        else
+            newStr(newStrIndex) = newStr(newStrIndex) + curStr + " ";
+            firstTime = true;
+        end
+        h = h+1;
+    else
+        if firstTime
+            letterCount = 0;
+            newStrIndex = newStrIndex +1;
+            firstTime = false;
+            if h > 1
+                c = char(newStr(newStrIndex-1));
+                newStr(newStrIndex-1) = string(c(1:end - 1));
+                newStr(newStrIndex-1) = newStr(newStrIndex-1) + ",";
+            end
+        else
+            if newStr(newStrIndex-1) == ""
+                newStrIndex = newStrIndex-1;
+            end
+            newStr(newStrIndex) = curStr + ",";    
+            letterCount = 0;
+            newStrIndex = newStrIndex +1;
+            firstTime = true;
+            if letterCount > limit
+                small = true;
+            end
+            h = h + 1;
+        end
     end
-
 end
-
-
-
-newStr      
-small
+newStr
+%limit 4 lines
+%if newStr has more than 4 lines, re-calculate the str with bigger limit
+stra = join(newStr,"");
+finalS = "m," + stra
 %%
 str = [1 1 1 0 1 1 1 1 0 1 1 1 1 1];
 wordCount = nnz(~str)+1;
