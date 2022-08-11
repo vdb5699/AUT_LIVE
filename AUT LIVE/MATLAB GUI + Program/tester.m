@@ -161,53 +161,31 @@ conv = Coordinate_Converter();
 a = conv.convertBox(960, 534);
 %%
 %still a bug, need to fix
-str = "The only fruit I hate isfv bkc bcejcbej passionfruit";
+str = "The only fruit I hate isfv bkc bcejcbejdsfdsffe passion";
 str = split(str)
 letterCount = 0;
 newStr = strings(1, 10);
 newStrIndex = 1;
 startingIndex = 1;
+limit = 10;
 small = false;
-for w = 1:height(str)
-    letterCount = letterCount+ 1 + strlength(str(w));
-    if letterCount-1 > 10 && w == startingIndex
-        newStr(newStrIndex) = str(w);
-        startingIndex = w+1;
-        letterCount = 0;
-    elseif letterCount-1 > 10 && w ~= height(str) 
-        for a = startingIndex:w-1
-            if a == w-1
-                newStr(newStrIndex) = newStr(newStrIndex) + str(a);
-            else
-                newStr(newStrIndex) = newStr(newStrIndex) + str(a) + " ";
-            end
-        end
-        newStrIndex = newStrIndex + 1;
-        letterCount = strlength(str(w));
-        startingIndex = w;
-    elseif letterCount-1 == 10 && w ~= height(str)
-         for a = startingIndex:w
-            if a == w
-                newStr(newStrIndex) = newStr(newStrIndex) + str(a);
-            else
-                newStr(newStrIndex) = newStr(newStrIndex) + str(a) + " ";
-            end
-        end
-        newStrIndex = newStrIndex + 1;
-        letterCount = 0;
-        startingIndex = w+1;
+for h = 1:height(str)
+    curStr = str(h);
+    letterCount = letterCount + strlength(curStr) + 1;
+    if letterCount-1 < limit
+        continue
     end
-    if w == height(str)
-        for a = startingIndex:w
-            if a == w
-                newStr(newStrIndex) = newStr(newStrIndex) + str(a);
-            else
-                newStr(newStrIndex) = newStr(newStrIndex) + str(a) + " ";
-            end
-        end
-    end
+
 end
+
+
+
 newStr      
+small
+%%
+str = [1 1 1 0 1 1 1 1 0 1 1 1 1 1];
+wordCount = nnz(~str)+1;
+
 
 %%
 img = rgb2gray(imread("testImage.png"));
