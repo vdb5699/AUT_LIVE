@@ -82,7 +82,7 @@ MODULE MainModule
     CONST robtarget WriteStart:=[[1336,0,1090],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget WriteStartRight:=[[1336,-600,1090],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget A_Horizontal:= [[1018.612159322,-22.5,1327],[0.00197,-0.38293,0.92377,0.00290],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-    PERS robtarget SafeWritePos:=[[1219.96,-140,1160],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget SafeWritePos:=[[1219.96,-260,1340],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget SafeWritePosRight:=[[1219.955689697,-750,1340],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget SafeWritePosTop:=[[1219.955689697,0,1400],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget SafeWritePosBottom:=[[1219.955689697,0,950],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -195,7 +195,7 @@ MODULE MainModule
     
     PROC main()
 		AccSet 20,30;           ! Max Acceleration set to 20mm/s^2 and ramping is 20
-        WaitTime 10;
+!        WaitTime 10;
         !syrup_counter:=0;
 !        open_gripper;
 !!        coke_counter:=0;
@@ -339,6 +339,7 @@ MODULE MainModule
                 SocketSend client,\Str :="InFive";
                 SocketReceive client,\Str :=data, \Time:=WAIT_MAX;
                 Font := StrPart(data,1,1);
+                ! Font Size
                 IF Font="S" THEN
                         X:= 40;
                         Y:= 15;
@@ -363,14 +364,11 @@ MODULE MainModule
                 FOR number FROM 3 TO StrLen(data) DO
                     Letter := StrPart(data,number,1);
                     robotWrite;
-                    
-                            ! Font Size
                     IF boardYPos <= -710 THEN
                         boardYPos:= 0;
                         IF boardZPos <= 990 THEN
                             break;
                         ELSE
-                            WaitTime 10;
                             boardZPos:= boardZPos - ZLine;
                         ENDIF
                     ENDIF
@@ -669,11 +667,6 @@ MODULE MainModule
         PathAccLim FALSE,FALSE;
     ENDPROC
     
-    PROC moveToQuartenionTest()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveJ TestOrientation,v80,fine,tool0\WObj:=wobj0;
-        PathAccLim FALSE,FALSE;
-    ENDPROC
     
     PROC moveToZeroPos()
 !        ! get the current location
