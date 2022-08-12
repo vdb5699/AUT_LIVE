@@ -61,6 +61,7 @@ classdef Cap_Detection
                     fig = figure("Name", "draw a line to determine the diameter of caps");
                     imshow(image)
                     hold on
+                    text(1,1,"draw a line to determine the diameter of caps", "Color",[0 1 0], "FontWeight","bold");
                     d = drawline;
                     pos = d.Position;
                 catch
