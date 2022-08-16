@@ -10,7 +10,7 @@ MODULE MainModule
     PERS robtarget TestGripperToSyrupBottle:= [[301.544,-974.157, 1120],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget TestGripperToCokeBottleAbove:= [[412.693,-899.473,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget TestGripperToCokeBottle:= [[412.693,-899.473,1070],[0.00163976,-0.383409,-0.923576,-0.00114218],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    PERS robtarget TestingGUIPos:= [[442.347,-752.991,1588],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget TestingGUIPos:= [[443.874,-778.398,1588],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !    CONST robtarget CameraPos:=[[888.647981627,-3.101979233,1192.532782595],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !    CONST robtarget CameraPos:=[[595.6,-367-628.37,1192.532782595],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     
@@ -28,7 +28,7 @@ MODULE MainModule
     CONST robtarget BoxCamPos:=[[223.0963,844.6431,1550],[-0.000000007,-0.382683401,0.923879546,0],[0,0,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !    Test
     !CONST robtarget BoxCamPos:=[[223.0963,844.6431,1550],[0,0.923879546,-0.382683401,0],[0,0,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    PERS robtarget TemporaryCam:= [[642.597,823.638,1558],[-7E-09,-0.382683,0.92388,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget TemporaryCam:= [[439.638,804.298,1558],[-7E-09,-0.382683,0.92388,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     ! AboveBottleCoord robtarget x,y should change based on the bottle location
     PERS robtarget AboveBottleCoord:= [[301.544,-974.157, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget AboveTable:= [[550.3, -377.8, 1500],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -50,6 +50,9 @@ MODULE MainModule
     CONST robtarget TestCokePos2:= [[141.1598, 742.3402, 1060.7],[0.00191, -0.34877, 0.93720,  0.00298],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget ViaPoint:=[[800.591357786,-502.074175633,1375],[0,0.276417599,0.961037622,0],[-1,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget TestOrientation:=[[223.0963,844.6431,1550],[-0, 0.3827, 0.9239,0],[0,0,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget AudienceCam:=[[-108.392054445,404.524654327,1593.865850606],[0.306068712,-0.601521785,0.556041018,0.48508955],[1,-1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget HomeAudience:=[[-100.362523078,374.558223054,1553.37723237],[0.160813199,-0.7001828,0.647242369,0.254873454],[1,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget AudienceViapoint:=[[586.472283508,126.846671607,1503.046845036],[0.572111865,-0.33163658,0.740341252,-0.120830555],[0,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     !-----------New Positions END------------!
     !-----------Sarat Demo Positions------------!
     CONST robtarget AboveCokeBox:= [[258.5, 819.8, 1454.6],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
@@ -209,7 +212,7 @@ MODULE MainModule
 !        moveToQuartenionTest;
 !        moveToBoxCam;
 !        moveToAboveBoxPos;
-!        moveToHomeSlow;             ! Program always starts from Home Pos in case it was left in random pos
+        moveToHomeSlow;             ! Program always starts from Home Pos in case it was left in random pos
         receiveSignal;         ! Where robot will receive signals to do certain tasks
 !        moveToCameraPos;       ! New Cam Pos
 !!!        moveToCokeCoordOne;
@@ -254,9 +257,10 @@ MODULE MainModule
 !        SafeWrite;
 !        GrabDuster;
 !        Erase;
-        PutAwayDuster;
+!        PutAwayDuster;
 !    GrabPen;
 !    PutAwayPen;
+!    AudienceCamPath;
     ENDPROC
     
     PROC GrabDuster()
@@ -451,7 +455,12 @@ MODULE MainModule
                 Erase;
                 PutAwayDuster;
                 receiveSignal;
+            ELSEIF signal = "7" THEN
+                AudienceCamPath;
+                SocketSend client,\Str :="InSeven";
+                receiveSignal;
             ENDIF
+            
         ENDWHILE
         moveToHomeSlow;
         
@@ -468,6 +477,12 @@ MODULE MainModule
             ELSE
                 stop;
             ENDIF
+    ENDPROC
+    
+    PROC AudienceCamPath()
+        MoveJ Home,v200,fine,tool0\WObj:=wobj0;
+        MoveL BoxCamPos,v200,z100,tool0\WObj:=wobj0;
+        MoveJ AudienceCam,v200,fine,tool0\WObj:=wobj0;
     ENDPROC
     
     PROC JointSixRot()
@@ -731,7 +746,7 @@ MODULE MainModule
     PROC moveToCameraPos()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
 !        MoveJ NewCamPos,v2000,fine, \Inpos := inpos20, tool0\WObj:=wobj0;
-        MoveJ NewCamPos,v100,fine, tool0\WObj:=wobj0;
+        MoveJ NewCamPos,v2000,fine, tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
@@ -773,7 +788,7 @@ MODULE MainModule
     
     PROC moveToAboveBoxPos()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveJ AboveBoxPos, v2000, z200, tool0\WObj:=wobj0;
+        MoveJ AboveBoxPos, v2000, z100, tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
