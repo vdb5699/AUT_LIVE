@@ -246,10 +246,9 @@ classdef Colour_Detection
                             if (radius > radRange(1) && radius < radRange(2))
                                 red = red + 1;
                             else 
-                                maybe = maybe + 1;
+                                maybe = maybe + 0.5;
                             end
-                        % estimated values, make them general later
-                        elseif (r <= 160 && r >= 95) && (g <= 100 && g >= 50) && (b >= 40 && b <= 85) && (radius > radRange(1) && radius < radRange(2))   
+                        elseif (r <= rr(2)-95 && r >= rr(2)-60) && (g <= gr(2) && g >= gr(1)+50) && (b >= br(1)+40 && b <= br(2)+75) && (radius > radRange(1) && radius < radRange(2))   
                             maybe = maybe + 0.5;
                         else
                             notRed = notRed + 1;
