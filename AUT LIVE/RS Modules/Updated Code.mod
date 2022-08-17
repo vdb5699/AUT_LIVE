@@ -89,7 +89,7 @@ MODULE MainModule
     CONST robtarget WriteStart:=[[1336,0,1090],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget WriteStartRight:=[[1336,-600,1090],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget A_Horizontal:= [[1018.612159322,-22.5,1327],[0.00197,-0.38293,0.92377,0.00290],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-    PERS robtarget SafeWritePos:=[[1374.96,0,1340],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget SafeWritePos:=[[1374.96,0,1390],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget SafeWritePosRight:=[[1219.955689697,-750,1340],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget SafeWritePosTop:=[[1219.955689697,0,1400],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget SafeWritePosBottom:=[[1219.955689697,0,950],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -189,6 +189,7 @@ MODULE MainModule
     VAR num found6;
     VAR num angle;
     VAR num gap;
+    VAR num line;
     VAR num ZLine;
     VAR num boardYPos;
     VAR num boardZPos;
@@ -196,7 +197,7 @@ MODULE MainModule
     VAR num num_of_letters;
     VAR robtarget CurRobT2;
     VAR speeddata vTest := [500, 85, 200, 15 ]; !1st = LinV (mm/s), 2nd = RotV (deg/s), 3rd,4th = external axes
-    VAR speeddata vWrite := [100, 45, 200, 15 ]; !1st = LinV (mm/s), 2nd = RotV (deg/s), 3rd,4th = external axes
+    VAR speeddata vWrite := [200, 45, 200, 15 ]; !1st = LinV (mm/s), 2nd = RotV (deg/s), 3rd,4th = external axes
     VAR robtarget testWritePos;
     VAR robtarget testCamPos;
     
@@ -216,7 +217,8 @@ MODULE MainModule
 !        moveToQuartenionTest;
 !        moveToBoxCam;
 !        moveToAboveBoxPos;
-        moveToHomeSlow;             ! Program always starts from Home Pos in case it was left in random pos
+!        moveToHomeSlow;             ! Program always starts from Home Pos in case it was left in random pos
+        calibrate;
         receiveSignal;         ! Where robot will receive signals to do certain tasks
 !        moveToCameraPos;       ! New Cam Pos
 !!!        moveToCokeCoordOne;
@@ -254,8 +256,7 @@ MODULE MainModule
 !        SocketClose server;
 !        SocketClose client;
 !GrabPen;
-!            calibrateWriteHorizontal;
-!            calibrateWriteVertical;
+            
 !            moveToWritePos;
 !            moveToHomeSlow;
 !            WriteLetterS;
@@ -271,37 +272,40 @@ MODULE MainModule
     ENDPROC
     
     PROC GrabDuster()
+        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         moveToHomeSlow;
         MoveJ AboveDuster,v300,fine,tool0\WObj:=wobj0;
         MoveL Duster,v300,fine,tool0\WObj:=wobj0;
         close_gripper;
         MoveL AboveDuster,v300,fine,tool0\WObj:=wobj0;
+        PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC Erase()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        SafeWritePos:=[[1374.96,0,1340],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+        SafeWritePos:=[[1374.96,0,1390],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
         moveToHomeSlow;
         moveToWritePosStart;
+        !boardZPos:=1290;
         Y:=750;
         X:= 0;
         IF Font="L" THEN
-            sum:=1340;
-            WHILE sum > 990 DO
+            sum:=1390;
+            WHILE sum > boardZPos DO
                 MoveL RelTool(SafeWritePos,-X,Y,0),vWrite,fine,tool0\WObj:=wobj0;
                 X:=X+80;
                 MoveL RelTool(SafeWritePos,-X,Y,0),vWrite,fine,tool0\WObj:=wobj0;
                 MoveL RelTool(SafeWritePos,-X,0,0),vWrite,fine,tool0\WObj:=wobj0;
-                sum:=1340-X;
+                sum:=1390-X;
             ENDWHILE
         ELSE
-            sum:=1340;
-            WHILE sum > 990 DO
+            sum:=1390;
+            WHILE sum > boardZPos DO
                 MoveL RelTool(SafeWritePos,-X,Y,0),vWrite,fine,tool0\WObj:=wobj0;
                 X:=X+50;
                 MoveL RelTool(SafeWritePos,-X,Y,0),vWrite,fine,tool0\WObj:=wobj0;
                 MoveL RelTool(SafeWritePos,-X,0,0),vWrite,fine,tool0\WObj:=wobj0;
-                sum:=1340-X;
+                sum:=1390-X;
             ENDWHILE
         ENDIF
         MoveJ Offs(SafeWritePos,-200,0,0), v200,fine,tool0\WObj:=wobj0; 
@@ -309,12 +313,14 @@ MODULE MainModule
     ENDPROC
     
     PROC PutAwayDuster()
+        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         moveToHomeSlow;
         MoveJ AboveDuster,v300,fine,tool0\WObj:=wobj0;
         MoveL Duster,v300,fine,tool0\WObj:=wobj0;
         open_gripper;
         MoveL AboveDuster,v300,fine,tool0\WObj:=wobj0;
         moveToHomeSlow;
+        PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC GrabPen()
@@ -436,7 +442,7 @@ MODULE MainModule
                 SocketReceive client,\Str :=data, \Time:=WAIT_MAX;
                 
 !                moveToHomeSlow;
-                GrabPen;
+!                GrabPen;
                 
                 Font := StrPart(data,1,1);
                 ! Font Size
@@ -467,6 +473,7 @@ MODULE MainModule
                     boardZPos:=1340;
                 ENDIF
                 FOR number FROM 3 TO StrLen(data) DO
+                    
                     Letter := StrPart(data,number,1);
                     robotWrite;
                     IF boardYPos <= -710 THEN
@@ -475,19 +482,19 @@ MODULE MainModule
                             break;
                         ELSE
                             boardZPos:= boardZPos - ZLine;
+                            line:= line+1;
                         ENDIF
                     ENDIF
                 ENDFOR
-                
                 SocketSend client,\Str :="WriteFinished";
                 SafeWritePos:= [[1219.955689697,0,1340],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
                 PutAwayPen;
                 receiveSignal;
             ELSEIF signal = "6" THEN
-                SocketSend client,\Str :="InSix";
                 GrabDuster;
                 Erase;
                 PutAwayDuster;
+                SocketSend client,\Str :="InSix";
                 receiveSignal;
             ELSEIF signal = "7" THEN
                 AudienceCamPath;
@@ -514,9 +521,11 @@ MODULE MainModule
     ENDPROC
     
     PROC AudienceCamPath()
+        PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
         MoveJ Home,v200,fine,tool0\WObj:=wobj0;
-        MoveL BoxCamPos,v200,z100,tool0\WObj:=wobj0;
-        MoveJ AudienceCam,v200,fine,tool0\WObj:=wobj0;
+        MoveL BoxCamPos,v500,z200,tool0\WObj:=wobj0;
+        MoveJ AudienceCam,v500,fine,tool0\WObj:=wobj0;
+        PathAccLim FALSE, FALSE;
     ENDPROC
     
     PROC JointSixRot()
@@ -1019,14 +1028,17 @@ MODULE MainModule
         PathAccLim FALSE,FALSE;
     ENDPROC
     
-    PROC calibrateWriteHorizontal()
+    PROC calibrate()
         moveToHomeSlow;
+        WaitTime 2;
+!        GrabPen;
         SafeWritePos:= [[1219.955689697,0,1340],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
         MoveJ SafeWritePos,v50,fine,tool0\WObj:=wobj0;
         WaitTime 3;
         MoveL SafeWritePosRight,v50,fine,tool0\WObj:=wobj0;
         WaitTime 3;
         MoveL SafeWritePos,v50,fine,tool0\WObj:=wobj0;
+        calibrateWriteVertical;
     ENDPROC
     
     PROC calibrateWriteVertical()
@@ -1040,6 +1052,7 @@ MODULE MainModule
         WaitTime 3;
         MoveL SafeWritePosBottom,v50,fine,tool0\WObj:=wobj0;
         moveToHomeSlow;
+        PutAwayPen;
     ENDPROC
     
     PROC moveToWritePos()

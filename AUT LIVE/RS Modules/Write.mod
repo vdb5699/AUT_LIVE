@@ -16,111 +16,138 @@ MODULE Write
 
     PROC robotWrite()
         PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
+        
         SafeWritePos:= [[1219.955689697,boardYPos,boardZPos],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
         IF Letter="A" THEN
             moveToWritePosStart;
             WriteLetterA;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="B" THEN
             moveToWritePosStart;
             WriteLetterB;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="C" THEN
             moveToWritePosStart;
             WriteLetterC;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="D" THEN
             moveToWritePosStart;
             WriteLetterD;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="E" THEN
             moveToWritePosStart;
             WriteLetterE;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="F" THEN
             moveToWritePosStart;
             WriteLetterF;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="G" THEN
             moveToWritePosStart;
             WriteLetterG;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="H" THEN
             moveToWritePosStart;
             WriteLetterH;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="I" THEN
             moveToWritePosStart;
             WriteLetterI;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="J" THEN
             moveToWritePosStart;
             WriteLetterJ;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="K" THEN
             moveToWritePosStart;
             WriteLetterK;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="L" THEN
             moveToWritePosStart;
             WriteLetterL;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="M" THEN
             moveToWritePosStart;
             WriteLetterM;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="N" THEN
             moveToWritePosStart;
             WriteLetterN;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="O" THEN
             moveToWritePosStart;
             WriteLetterO;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="P" THEN
             moveToWritePosStart;
             WriteLetterP;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="Q" THEN
             moveToWritePosStart;
             WriteLetterQ;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="R" THEN
             moveToWritePosStart;
             WriteLetterR;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="S" THEN
             moveToWritePosStart;
             WriteLetterS;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="T" THEN
             moveToWritePosStart;
             WriteLetterT;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="U" THEN
             moveToWritePosStart;
             WriteLetterU;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="V" THEN
             moveToWritePosStart;
             WriteLetterV;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="W" THEN
             moveToWritePosStart;
             WriteLetterW;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="X" THEN
             moveToWritePosStart;
             WriteLetterX;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="Y" THEN
             moveToWritePosStart;
             WriteLetterY;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter="Z" THEN
             moveToWritePosStart;
             WriteLetterZ;
             boardYPos := boardYPos-gap;
+            num_of_letters:= num_of_letters+1;
         ELSEIF Letter=" " THEN
             WaitTime 2;
             boardYPos := boardYPos-gap;
@@ -131,6 +158,13 @@ MODULE Write
             boardYPos := 0;
             randomString:= "In Comma";
             moveToWritePosStart;
+        ENDIF
+        
+        
+        IF num_of_letters = (StrLen(data)-2) THEN
+            PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
+            MoveJ Offs(SafeWritePos,-200,0,0), v100,fine,tool0\WObj:=wobj0; 
+            PathAccLim FALSE,FALSE;
         ENDIF
         PathAccLim FALSE,FALSE;
     ENDPROC
