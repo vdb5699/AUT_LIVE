@@ -81,13 +81,15 @@ MODULE MainModule
     CONST robtarget CokeBoxCoordSix:= [[303.7944,919.1169,1065],[0.00188,-0.34873,0.93722,0.00297],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
 	!-----------Sarat Demo Positions END------------!
 	!-----------RobotWriting Alphabets Coords------------!
-    CONST robtarget AbovePen:=[[512.9, -954.8, 1588],[0.00163,-0.38344,-0.92356,-0.00115],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-	CONST robtarget PenLocation:=[[512.8982,-954.7989,1154.502],[0.001629734,-0.3834447,-0.9235617,-0.001150082],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget AbovePenTest:=[[512.9, -954.8, 1588],[0.00163,-0.38344,-0.92356,-0.00115],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget AbovePen:=[[986.4,794.7,1226.4],[0,0.38265,-0.9239,0],[0,0,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget PenLocation:=[[986.4,794.7,1124.8],[0,0.38265,-0.9239,0],[0,0,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+	CONST robtarget PenLocationTest:=[[512.8982,-954.7989,1154.502],[0.001629734,-0.3834447,-0.9235617,-0.001150082],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget WriteStartLeft:=[[1336,600,1090],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget WriteStart:=[[1336,0,1090],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget WriteStartRight:=[[1336,-600,1090],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget A_Horizontal:= [[1018.612159322,-22.5,1327],[0.00197,-0.38293,0.92377,0.00290],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-    PERS robtarget SafeWritePos:=[[1219.96,0,1340],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget SafeWritePos:=[[1374.96,0,1340],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget SafeWritePosRight:=[[1219.955689697,-750,1340],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget SafeWritePosTop:=[[1219.955689697,0,1400],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget SafeWritePosBottom:=[[1219.955689697,0,950],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -191,8 +193,10 @@ MODULE MainModule
     VAR num boardYPos;
     VAR num boardZPos;
     VAR num VertORLand;
+    VAR num num_of_letters;
     VAR robtarget CurRobT2;
     VAR speeddata vTest := [500, 85, 200, 15 ]; !1st = LinV (mm/s), 2nd = RotV (deg/s), 3rd,4th = external axes
+    VAR speeddata vWrite := [100, 45, 200, 15 ]; !1st = LinV (mm/s), 2nd = RotV (deg/s), 3rd,4th = external axes
     VAR robtarget testWritePos;
     VAR robtarget testCamPos;
     
@@ -249,6 +253,7 @@ MODULE MainModule
 !        moveToHomeSlow;
 !        SocketClose server;
 !        SocketClose client;
+!GrabPen;
 !            calibrateWriteHorizontal;
 !            calibrateWriteVertical;
 !            moveToWritePos;
@@ -257,53 +262,79 @@ MODULE MainModule
 !        SafeWrite;
 !        GrabDuster;
 !        Erase;
-!        PutAwayDuster;
+!!        PutAwayDuster;
 !    GrabPen;
+!!!    moveToHomeSlow;
 !    PutAwayPen;
 !    AudienceCamPath;
+!    MoveL AbovePen, v100,fine,tool0\WObj:=wobj0; 
     ENDPROC
     
     PROC GrabDuster()
         moveToHomeSlow;
-        MoveJ AboveDuster,v100,fine,tool0\WObj:=wobj0;
-        MoveL Duster,v100,fine,tool0\WObj:=wobj0;
+        MoveJ AboveDuster,v300,fine,tool0\WObj:=wobj0;
+        MoveL Duster,v300,fine,tool0\WObj:=wobj0;
         close_gripper;
-        MoveL AboveDuster,v100,fine,tool0\WObj:=wobj0;
+        MoveL AboveDuster,v300,fine,tool0\WObj:=wobj0;
     ENDPROC
     
     PROC Erase()
+        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
+        SafeWritePos:=[[1374.96,0,1340],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
         moveToHomeSlow;
         moveToWritePosStart;
-        MoveL SafeWritePosRight,v100,fine,tool0\WObj:=wobj0;
-         MoveL SafeWritePos,v100,fine,tool0\WObj:=wobj0;
-!        close_gripper;
-!        MoveL AboveDuster,v100,fine,tool0\WObj:=wobj0;
+        Y:=750;
+        X:= 0;
+        IF Font="L" THEN
+            sum:=1340;
+            WHILE sum > 990 DO
+                MoveL RelTool(SafeWritePos,-X,Y,0),vWrite,fine,tool0\WObj:=wobj0;
+                X:=X+80;
+                MoveL RelTool(SafeWritePos,-X,Y,0),vWrite,fine,tool0\WObj:=wobj0;
+                MoveL RelTool(SafeWritePos,-X,0,0),vWrite,fine,tool0\WObj:=wobj0;
+                sum:=1340-X;
+            ENDWHILE
+        ELSE
+            sum:=1340;
+            WHILE sum > 990 DO
+                MoveL RelTool(SafeWritePos,-X,Y,0),vWrite,fine,tool0\WObj:=wobj0;
+                X:=X+50;
+                MoveL RelTool(SafeWritePos,-X,Y,0),vWrite,fine,tool0\WObj:=wobj0;
+                MoveL RelTool(SafeWritePos,-X,0,0),vWrite,fine,tool0\WObj:=wobj0;
+                sum:=1340-X;
+            ENDWHILE
+        ENDIF
+        MoveJ Offs(SafeWritePos,-200,0,0), v200,fine,tool0\WObj:=wobj0; 
+        PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC PutAwayDuster()
         moveToHomeSlow;
-        MoveJ AboveDuster,v100,fine,tool0\WObj:=wobj0;
-        MoveL Duster,v100,fine,tool0\WObj:=wobj0;
+        MoveJ AboveDuster,v300,fine,tool0\WObj:=wobj0;
+        MoveL Duster,v300,fine,tool0\WObj:=wobj0;
         open_gripper;
-        MoveL AboveDuster,v100,fine,tool0\WObj:=wobj0;
+        MoveL AboveDuster,v300,fine,tool0\WObj:=wobj0;
+        moveToHomeSlow;
     ENDPROC
     
     PROC GrabPen()
 !        moveToHomeSlow;
-        MoveJ AbovePen,v100,fine,tool0\WObj:=wobj0;
-        MoveL PenLocation,v100,fine,tool0\WObj:=wobj0;
+        MoveJ AbovePen,v200,fine,tool0\WObj:=wobj0;
+        MoveL PenLocation,v200,fine,tool0\WObj:=wobj0;
         close_gripper;
-        MoveL AbovePen,v100,fine,tool0\WObj:=wobj0;
+        MoveL AbovePen,v200,fine,tool0\WObj:=wobj0;
 !        MoveL PenLocation,v100,fine,tool0\WObj:=wobj0;
 !        open_gripper;
     ENDPROC
     
     PROC PutAwayPen()
-!        moveToHomeSlow;
-!        MoveJ AbovePen,v100,fine,tool0\WObj:=wobj0;
+        moveToHomeSlow;
+!        MoveL RelTool (AbovePen, 300, -200,-100), v100, z20, tool0\WObj:=wobj0;
+        MoveJ AbovePen,v200,fine,tool0\WObj:=wobj0;
 !        MoveL PenLocation,v100,fine,tool0\WObj:=wobj0;
-!        open_gripper;
-!        MoveL AbovePen,v100,fine,tool0\WObj:=wobj0;
+        WaitTime 1;
+        open_gripper;
+        MoveL AbovePen,v200,fine,tool0\WObj:=wobj0;
     ENDPROC
     
     ! The "receiveSignal" function is where the GUI and RS are 
@@ -400,14 +431,12 @@ MODULE MainModule
                 receiveSignal;
             ELSEIF signal = "5" THEN
                 SafeWritePos:= [[1219.955689697,0,1340],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-!                moveToWritePos;
                 
                 SocketSend client,\Str :="InFive";
                 SocketReceive client,\Str :=data, \Time:=WAIT_MAX;
                 
 !                moveToHomeSlow;
-!                GrabPen;
-!                moveToHomeSlow;
+                GrabPen;
                 
                 Font := StrPart(data,1,1);
                 ! Font Size
@@ -430,8 +459,13 @@ MODULE MainModule
                         gap:= 130;
                         ZLine:= 170;
                 ENDIF
-                boardYPos:=0;
-                boardZPos:=1340;
+                IF Font ="L" THEN
+                    boardYPos:= -40;
+                    boardZPos:= 1290;
+                ELSE
+                    boardYPos:=0;
+                    boardZPos:=1340;
+                ENDIF
                 FOR number FROM 3 TO StrLen(data) DO
                     Letter := StrPart(data,number,1);
                     robotWrite;
@@ -733,7 +767,7 @@ MODULE MainModule
     
     PROC moveToHomeSlow()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveJ Home,v100,fine,tool0\WObj:=wobj0;
+        MoveJ Home,vWrite,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
@@ -1005,6 +1039,7 @@ MODULE MainModule
         MoveL SafeWritePos,v50,fine,tool0\WObj:=wobj0;
         WaitTime 3;
         MoveL SafeWritePosBottom,v50,fine,tool0\WObj:=wobj0;
+        moveToHomeSlow;
     ENDPROC
     
     PROC moveToWritePos()
@@ -1017,20 +1052,20 @@ MODULE MainModule
     
     PROC moveToWritePosStart()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveJ Offs(SafeWritePos,-100,0,0), v100,fine,tool0\WObj:=wobj0; 
+        MoveJ Offs(SafeWritePos,-100,0,0), vWrite,fine,tool0\WObj:=wobj0; 
         PathAccLim FALSE,FALSE;
     ENDPROC
     
     PROC open_gripper()        
         SetDO D_652_10_OUT1, 1;
-        WaitTime 1;
+        WaitTime 2;
         SetDO D_652_10_OUT1, 0;
         WaitTime 1;
      ENDPROC
 
     PROC close_gripper()       
         SetDO D_652_10_OUT0, 1;
-        WaitTime 1;
+        WaitTime 2;
         SetDO D_652_10_OUT0, 0;
         WaitTime 1;
     ENDPROC
