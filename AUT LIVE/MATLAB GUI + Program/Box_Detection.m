@@ -657,23 +657,79 @@ classdef Box_Detection
         end
 
 
-        function obj = setParam(obj, pValue, lValue, bValue, eValue)
-            obj.pToEdge = pValue;
-            obj.lToEdge = lValue;
+        function obj = setParam(obj, loValue, shValue, bValue, eValue)
+            obj.shortDist2slot = shValue;
+            obj.longDist2slot = loValue;
             obj.brightness = bValue;
             obj.edgeConnecter = eValue;
             return
         end
         
-        function [p, l, b, e] = getDefaultVal(obj)
+        function [p, l, b, e, lo, sh] = getDefaultVal(obj)
             p = obj.defp;
             l = obj.defl;
             b = obj.defb;
             e = obj.defe;
+            lo = obj.deflo;
+            sh = obj.defsh;
             return
         end
+        
+        function obj = setDist2Edge(obj, newp, newl)
+            obj.pToEdge = newp;
+            obj.lToEdge = newl;
+            return
+        end
+       
+        function [p, l] = obtainNewDist(obj, image)
+            bw = rgb2gray(image) > obj.brightness;
+            se = strel('square', obj.edgeConnecter);
+            bw = imclose(bw, se);
+            bw = (bw == false);
 
+            se = strel('square', obj.edgeConnecter);
+            bw = imclose(bw, se);
+            bw = bwareaopen(imfill(bw, 'holes'),50);
 
+            [B,L] = bwboundaries(bw,'noholes');
+            stats = regionprops(L,'Area','Centroid');
+            figure(Visible="off");
+            imshow(image);
+            hold on
+            for k = 1:length(B)
+                boundary = B{k};
+                area = stats(k).Area;
+                if area < 100000
+                    continue
+                end
+                plot(boundary(:,2),boundary(:,1),'w','LineWidth',2);
+                plot(stats(k).Centroid(1), stats(k).Centroid(2), 'bo', 'MarkerSize', 10, 'LineWidth',5);
+
+            end
+            flag = 0;
+            while flag == 0
+                try
+                    fig = figure("Name", "draw a line to determine the diameter of caps");
+                    imshow(image)
+                    hold on
+                    text(1,1,"draw a vertical line from centroid of a box to the edge, then draw another line horizontally from centroid to edge", "Color",[0 1 0], "FontWeight","bold");
+                    d = drawline;
+                    pos = d.Position;
+                    diffpos = diff(pos);
+                    p = hypot(diffpos(1), diffpos(2));
+                    d = drawline;
+                    pos = d.Position;
+                    diffpos = diff(pos);
+                    l = hypot(diffpos(1), diffpos(2));
+                catch
+                    continue
+                end
+                flag = 1;
+            end
+            
+            close(fig)
+            return
+        end
     end
 
 
