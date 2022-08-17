@@ -159,8 +159,15 @@ end
 box
 
 %%
-conv = Coordinate_Converter();
-a = conv.convertBox(960, 534);
+cam = Camera();
+imN = cam.imageAcq(1, 'l');
+imD = cam.tempImageAcq(1,'l', '3840x1080', 0, 0, 8, 0, 1);
+capdet = Cap_Detection();
+caps = capdet.detectCaps(imD);
+img = capdet.visualiseCaps(imN, caps);
+figure(Visible="on")
+imshow(img)
+
 %%
 %still a bug, need to fix
 str = "The only fruit I hate isfv bkc bcejcbejds passion";
