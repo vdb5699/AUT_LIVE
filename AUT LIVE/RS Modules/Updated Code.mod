@@ -303,14 +303,6 @@ MODULE MainModule
                 SafeWritePos:=[[1377.96,0,1360-X],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
                 sum:=1360-X;
             ENDWHILE
-!            WHILE sum > boardZPos DO
-!                MoveL RelTool(SafeWritePos,-X-X,0,0),vWrite,fine,tool0\WObj:=wobj0;
-!                MoveL RelTool(SafeWritePos,-X-X,Y,0),vWrite,fine,tool0\WObj:=wobj0;
-!                X:=X+50;
-!                MoveL RelTool(SafeWritePos,-X,Y,0),vWrite,fine,tool0\WObj:=wobj0;
-!                MoveL RelTool(SafeWritePos,-X,0,0),vWrite,fine,tool0\WObj:=wobj0;
-!                sum:=1390-X;
-!            ENDWHILE
         ELSE
             sum:=1360;
             WHILE sum > (boardZPos+ZLine+10) DO
@@ -337,20 +329,15 @@ MODULE MainModule
     ENDPROC
     
     PROC GrabPen()
-!        moveToHomeSlow;
         MoveJ AbovePen,v500,fine,tool0\WObj:=wobj0;
         MoveL PenLocation,v500,fine,tool0\WObj:=wobj0;
         close_gripper;
         MoveL AbovePen,v500,fine,tool0\WObj:=wobj0;
-!        MoveL PenLocation,v100,fine,tool0\WObj:=wobj0;
-!        open_gripper;
     ENDPROC
     
     PROC PutAwayPen()
         moveToHomeSlow;
-!        MoveL RelTool (AbovePen, 300, -200,-100), v100, z20, tool0\WObj:=wobj0;
         MoveJ AbovePen,v200,fine,tool0\WObj:=wobj0;
-!        MoveL PenLocation,v100,fine,tool0\WObj:=wobj0;
         WaitTime 1;
         open_gripper;
         MoveL AbovePen,v200,fine,tool0\WObj:=wobj0;
@@ -435,11 +422,8 @@ MODULE MainModule
                     objects := StrToVal(y_coordinate,Y);
                     objects:= StrToVal(Box_xCoordinate,Box_X);
                     objects:= StrToVal(Box_ycoordinate,Box_Y);
-                    objects:= StrToVal(randomString,VertORLand);
-                    
-                    PickUpBottles;
-               !     TestPos:= [[552.8+X, -553.6+Y, 1306.2],[0.02936,-0.38320,-0.92311,-0.01261],[-1,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-!                    moveToTestPos;
+                    objects:= StrToVal(randomString,VertORLand);                
+                    PickUpBottles;      ! Robot will start picking up bottles and putting into boxes from here
                     SocketSend client,\Str :="SendNext";
                     SocketReceive client,\Str :=data, \Time:=WAIT_MAX;
                 ENDWHILE
@@ -721,11 +705,9 @@ MODULE MainModule
             JointSixRot;
             PathAccLim FALSE, FALSE;    
         ELSEIF n_coke = 4 THEN
-            TemporaryCam:= [[Box_X,Box_Y,1558],[-0.000000007,-0.382683401,0.923879546,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-            
+            TemporaryCam:= [[Box_X,Box_Y,1558],[-0.000000007,-0.382683401,0.923879546,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];        
             PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
             MoveL TemporaryCam,v2000,z100,tool0\WObj:=wobj0;
-            
             JointSixRot;
             PathAccLim FALSE, FALSE;   
         ENDIF
@@ -835,15 +817,78 @@ MODULE MainModule
         PathAccLim FALSE,FALSE;
     ENDPROC
     
-    PROC boxAbvpos()
-!        MoveL moveToBoxAbv,v300,fine,tool0\WObj:=wobj0;
-    ENDPROC
-    
     PROC moveToAboveBoxPos()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         MoveJ AboveBoxPos, v2000, z100, tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
+    
+        PROC moveToBoxCam()
+        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
+        MoveJ BoxCamPos,v100,fine,tool0\WObj:=wobj0;
+        PathAccLim FALSE,FALSE;
+    ENDPROC
+    
+    PROC moveToBoxCamFast()
+        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
+        MoveJ BoxCamPos,v2000,fine,tool0\WObj:=wobj0;
+        PathAccLim FALSE,FALSE;
+    ENDPROC
+    
+    PROC calibrate()
+        moveToHomeSlow;
+        WaitTime 2;
+        GrabPen;
+        SafeWritePos:= [[1219.955689697,0,1340],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+        MoveJ SafeWritePos,v50,fine,tool0\WObj:=wobj0;
+        WaitTime 3;
+        MoveL SafeWritePosRight,v50,fine,tool0\WObj:=wobj0;
+        WaitTime 3;
+        MoveL SafeWritePos,v50,fine,tool0\WObj:=wobj0;
+        calibrateWriteVertical;
+    ENDPROC
+    
+    PROC calibrateWriteVertical()
+        SafeWritePos:= [[1219.955689697,0,1340],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+        MoveJ SafeWritePos,v50,fine,tool0\WObj:=wobj0;
+        WaitTime 3;
+        MoveL SafeWritePosTop,v50,fine,tool0\WObj:=wobj0;
+        WaitTime 3;
+        MoveL SafeWritePosBottom,v50,fine,tool0\WObj:=wobj0;
+        moveToHomeSlow;
+        PutAwayPen;
+    ENDPROC
+    
+    PROC moveToWritePos()
+        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
+        MoveL Offs(SafeWritePos,-200,0,0), v100,fine,tool0\WObj:=wobj0; 
+        MoveL SafeWritePos,v100,fine,tool0\WObj:=wobj0;
+        testWritePos := CRobT (\Tool:=tool0 \WObj:=wobj0);
+        PathAccLim FALSE,FALSE;
+    ENDPROC
+    
+    PROC moveToWritePosStart()
+        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
+        MoveJ Offs(SafeWritePos,-100,0,0), vWrite,fine,tool0\WObj:=wobj0; 
+        PathAccLim FALSE,FALSE;
+    ENDPROC
+    
+    PROC open_gripper()       
+        SetDO D_652_10_OUT1, 1;
+        WaitTime 0.5;
+        SetDO D_652_10_OUT1, 0;
+     ENDPROC
+
+    PROC close_gripper()     
+        SetDO D_652_10_OUT0, 1;
+        WaitTime 0.5;
+        SetDO D_652_10_OUT0, 0;
+    ENDPROC
+    
+    ! Functions below are for fixed positions, please be advised  
+    ! these positions will not work if workspace is changed.
+    ! If workspace is still the same Check where these positions 
+    ! are located in the workspace before using them
     
     PROC moveToAboveBoxCoordOne()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
@@ -1017,71 +1062,6 @@ MODULE MainModule
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
         MoveL CokeBoxCoordSix, v300,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
-    ENDPROC
-    
-    PROC moveToBoxCam()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveJ BoxCamPos,v100,fine,tool0\WObj:=wobj0;
-        PathAccLim FALSE,FALSE;
-    ENDPROC
-    
-    PROC moveToBoxCamFast()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveJ BoxCamPos,v2000,fine,tool0\WObj:=wobj0;
-        PathAccLim FALSE,FALSE;
-    ENDPROC
-    
-    PROC calibrate()
-        moveToHomeSlow;
-        WaitTime 2;
-        GrabPen;
-        SafeWritePos:= [[1219.955689697,0,1340],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-        MoveJ SafeWritePos,v50,fine,tool0\WObj:=wobj0;
-        WaitTime 3;
-        MoveL SafeWritePosRight,v50,fine,tool0\WObj:=wobj0;
-        WaitTime 3;
-        MoveL SafeWritePos,v50,fine,tool0\WObj:=wobj0;
-        calibrateWriteVertical;
-    ENDPROC
-    
-    PROC calibrateWriteVertical()
-        SafeWritePos:= [[1219.955689697,0,1340],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-        
-        MoveJ SafeWritePos,v50,fine,tool0\WObj:=wobj0;
-        WaitTime 3;
-        MoveL SafeWritePosTop,v50,fine,tool0\WObj:=wobj0;
-        WaitTime 3;
-        MoveL SafeWritePosBottom,v50,fine,tool0\WObj:=wobj0;
-        moveToHomeSlow;
-        PutAwayPen;
-    ENDPROC
-    
-    PROC moveToWritePos()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL Offs(SafeWritePos,-200,0,0), v100,fine,tool0\WObj:=wobj0; 
-        MoveL SafeWritePos,v100,fine,tool0\WObj:=wobj0;
-        testWritePos := CRobT (\Tool:=tool0 \WObj:=wobj0);
-        PathAccLim FALSE,FALSE;
-    ENDPROC
-    
-    PROC moveToWritePosStart()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveJ Offs(SafeWritePos,-100,0,0), vWrite,fine,tool0\WObj:=wobj0; 
-        PathAccLim FALSE,FALSE;
-    ENDPROC
-    
-    PROC open_gripper()        ! Test with 0.5 waittime
-        SetDO D_652_10_OUT1, 1;
-        WaitTime 0.5;
-        SetDO D_652_10_OUT1, 0;
-!        WaitTime 1;
-     ENDPROC
-
-    PROC close_gripper()       ! Test with 0.5 waittime
-        SetDO D_652_10_OUT0, 1;
-        WaitTime 0.5;
-        SetDO D_652_10_OUT0, 0;
-!        WaitTime 1;
     ENDPROC
     
 ENDMODULE
