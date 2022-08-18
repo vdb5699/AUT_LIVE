@@ -10,7 +10,7 @@ MODULE MainModule
     PERS robtarget TestGripperToSyrupBottle:= [[301.544,-974.157, 1120],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget TestGripperToCokeBottleAbove:= [[412.693,-899.473,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget TestGripperToCokeBottle:= [[412.693,-899.473,1070],[0.00163976,-0.383409,-0.923576,-0.00114218],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    PERS robtarget TestingGUIPos:= [[443.874,-778.398,1588],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget TestingGUIPos:= [[311.892,-882.169,1588],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !    CONST robtarget CameraPos:=[[888.647981627,-3.101979233,1192.532782595],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !    CONST robtarget CameraPos:=[[595.6,-367-628.37,1192.532782595],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     
@@ -28,7 +28,7 @@ MODULE MainModule
     CONST robtarget BoxCamPos:=[[223.0963,844.6431,1550],[-0.000000007,-0.382683401,0.923879546,0],[0,0,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !    Test
     !CONST robtarget BoxCamPos:=[[223.0963,844.6431,1550],[0,0.923879546,-0.382683401,0],[0,0,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    PERS robtarget TemporaryCam:= [[439.638,804.298,1558],[-7E-09,-0.382683,0.92388,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget TemporaryCam:= [[389.183,854.018,1558],[-7E-09,-0.382683,0.92388,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     ! AboveBottleCoord robtarget x,y should change based on the bottle location
     PERS robtarget AboveBottleCoord:= [[301.544,-974.157, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget AboveTable:= [[550.3, -377.8, 1500],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -89,7 +89,7 @@ MODULE MainModule
     CONST robtarget WriteStart:=[[1336,0,1090],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget WriteStartRight:=[[1336,-600,1090],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget A_Horizontal:= [[1018.612159322,-22.5,1327],[0.00197,-0.38293,0.92377,0.00290],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-    PERS robtarget SafeWritePos:=[[1374.96,0,1390],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget SafeWritePos:=[[1377.96,0,1080],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget SafeWritePosRight:=[[1219.955689697,-750,1340],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget SafeWritePosTop:=[[1219.955689697,0,1400],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget SafeWritePosBottom:=[[1219.955689697,0,950],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -217,8 +217,8 @@ MODULE MainModule
 !        moveToQuartenionTest;
 !        moveToBoxCam;
 !        moveToAboveBoxPos;
-!        moveToHomeSlow;             ! Program always starts from Home Pos in case it was left in random pos
-        calibrate;
+        moveToHomeSlow;             ! Program always starts from Home Pos in case it was left in random pos
+!        calibrate;
         receiveSignal;         ! Where robot will receive signals to do certain tasks
 !        moveToCameraPos;       ! New Cam Pos
 !!!        moveToCokeCoordOne;
@@ -283,32 +283,40 @@ MODULE MainModule
     
     PROC Erase()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        SafeWritePos:=[[1374.96,0,1390],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+        SafeWritePos:=[[1377,0,1370],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
         moveToHomeSlow;
         moveToWritePosStart;
-        !boardZPos:=1290;
+!        boardZPos:=1290;
         Y:=750;
         X:= 0;
         IF Font="L" THEN
-            sum:=1390;
-            WHILE sum > boardZPos DO
+            sum:=1370;
+            WHILE sum >= boardZPos DO
+                MoveL RelTool(SafeWritePos,-X,-30,0),vWrite,fine,tool0\WObj:=wobj0;
                 MoveL RelTool(SafeWritePos,-X,Y,0),vWrite,fine,tool0\WObj:=wobj0;
                 X:=X+80;
-                MoveL RelTool(SafeWritePos,-X,Y,0),vWrite,fine,tool0\WObj:=wobj0;
-                MoveL RelTool(SafeWritePos,-X,0,0),vWrite,fine,tool0\WObj:=wobj0;
-                sum:=1390-X;
+                SafeWritePos:=[[1377.96,0,1370-X],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+                sum:=1370-X;
             ENDWHILE
+!            WHILE sum > boardZPos DO
+!                MoveL RelTool(SafeWritePos,-X-X,0,0),vWrite,fine,tool0\WObj:=wobj0;
+!                MoveL RelTool(SafeWritePos,-X-X,Y,0),vWrite,fine,tool0\WObj:=wobj0;
+!                X:=X+80;
+!                MoveL RelTool(SafeWritePos,-X,Y,0),vWrite,fine,tool0\WObj:=wobj0;
+!                MoveL RelTool(SafeWritePos,-X,0,0),vWrite,fine,tool0\WObj:=wobj0;
+!                sum:=1390-X;
+!            ENDWHILE
         ELSE
-            sum:=1390;
-            WHILE sum > boardZPos DO
+            sum:=1370;
+            WHILE sum >= boardZPos DO
+                MoveL RelTool(SafeWritePos,-X,-30,0),vWrite,fine,tool0\WObj:=wobj0;
                 MoveL RelTool(SafeWritePos,-X,Y,0),vWrite,fine,tool0\WObj:=wobj0;
-                X:=X+50;
-                MoveL RelTool(SafeWritePos,-X,Y,0),vWrite,fine,tool0\WObj:=wobj0;
-                MoveL RelTool(SafeWritePos,-X,0,0),vWrite,fine,tool0\WObj:=wobj0;
-                sum:=1390-X;
+                X:=X+30;
+                sum:=1370-X;
+                SafeWritePos:=[[1377.96,0,1350-X],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
             ENDWHILE
         ENDIF
-        MoveJ Offs(SafeWritePos,-200,0,0), v200,fine,tool0\WObj:=wobj0; 
+        MoveL Offs(SafeWritePos,-200,0,0), v200,fine,tool0\WObj:=wobj0; 
         PathAccLim FALSE,FALSE;
     ENDPROC
     
@@ -442,7 +450,7 @@ MODULE MainModule
                 SocketReceive client,\Str :=data, \Time:=WAIT_MAX;
                 
 !                moveToHomeSlow;
-!                GrabPen;
+                GrabPen;
                 
                 Font := StrPart(data,1,1);
                 ! Font Size
@@ -492,6 +500,7 @@ MODULE MainModule
                 receiveSignal;
             ELSEIF signal = "6" THEN
                 GrabDuster;
+                WaitTime 4;
                 Erase;
                 PutAwayDuster;
                 SocketSend client,\Str :="InSix";
@@ -1018,7 +1027,7 @@ MODULE MainModule
     
     PROC moveToBoxCam()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveJ BoxCamPos,vTest,fine,tool0\WObj:=wobj0;
+        MoveJ BoxCamPos,v100,fine,tool0\WObj:=wobj0;
         PathAccLim FALSE,FALSE;
     ENDPROC
     
@@ -1031,7 +1040,7 @@ MODULE MainModule
     PROC calibrate()
         moveToHomeSlow;
         WaitTime 2;
-!        GrabPen;
+        GrabPen;
         SafeWritePos:= [[1219.955689697,0,1340],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
         MoveJ SafeWritePos,v50,fine,tool0\WObj:=wobj0;
         WaitTime 3;
@@ -1069,18 +1078,18 @@ MODULE MainModule
         PathAccLim FALSE,FALSE;
     ENDPROC
     
-    PROC open_gripper()        
+    PROC open_gripper()        ! Test with 0.5 waittime
         SetDO D_652_10_OUT1, 1;
-        WaitTime 2;
+        WaitTime 0.5;
         SetDO D_652_10_OUT1, 0;
-        WaitTime 1;
+!        WaitTime 1;
      ENDPROC
 
-    PROC close_gripper()       
+    PROC close_gripper()       ! Test with 0.5 waittime
         SetDO D_652_10_OUT0, 1;
-        WaitTime 2;
+        WaitTime 0.5;
         SetDO D_652_10_OUT0, 0;
-        WaitTime 1;
+!        WaitTime 1;
     ENDPROC
     
 ENDMODULE
