@@ -14,6 +14,16 @@ imshow(img);
 % imshow(c.imageAcq(1,'r'));
 % pause(1);
 % imshow(c.tempImageAcq(1, 'l', '3840x1080', 0,0,8,0,500));
+%% camera experiment
+cam = webcam(1);
+camera.Resolution = "3840x1080";
+camera.Brightness = 1;
+camera.Contrast = 1;
+camera.Saturation = 1;
+camera.Sharpness = 1;
+camera.Gamma = 1;
+% pause(1)
+image = snapshot(camera);
 
 %% playing with the cap detection
 tic
