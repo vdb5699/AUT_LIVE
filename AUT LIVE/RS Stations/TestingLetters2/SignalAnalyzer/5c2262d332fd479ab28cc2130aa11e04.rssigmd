@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Metadata Version="1">
+  <Id>5c2262d332fd479ab28cc2130aa11e04</Id>
+  <Name>Recording-4</Name>
+  <EventCount>1</EventCount>
+  <StartedUtc>2022-08-21T21:13:50.5689202Z</StartedUtc>
+  <EndedUtc>2022-08-21T21:13:59.4624085Z</EndedUtc>
+  <TotalTime>0</TotalTime>
+  <Signals />
+  <Sources>
+    <Source type="Station" id="{4bffe826-b4d5-4b01-af56-d53866836e41}" displayName="TestingLetters2" />
+  </Sources>
+</Metadata>
