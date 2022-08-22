@@ -22,7 +22,7 @@ classdef Cap_Detection
 
         function caps = detectCaps(obj, image)
             radius = round(obj.dia/2);
-            [centres, radii] = imfindcircles(image, [radius-6 radius+6], Sensitivity=obj.sens, EdgeThreshold=obj.edge);
+            [centres, radii] = imfindcircles(image, [radius-8 radius+8], Sensitivity=obj.sens, EdgeThreshold=obj.edge);
             caps = [round(centres), radii];
             return
         end
