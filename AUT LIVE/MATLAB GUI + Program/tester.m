@@ -1,6 +1,7 @@
 %% playing with the camera
 c = Camera();
 img = c.tempImageAcq(1,'l', '3840x1080', 4, 4, 4, 4, 5);
+% a = capdet.obtainDiameter(img)
 figure(Visible="on")
 imshow(img);
 % hold on
@@ -16,29 +17,47 @@ imshow(img);
 % imshow(c.tempImageAcq(1, 'l', '3840x1080', 0,0,8,0,500));
 %% camera experiment
 cam = webcam(1);
-camera.Resolution = "3840x1080";
-camera.Brightness = 1;
-camera.Contrast = 1;
-camera.Saturation = 1;
-camera.Sharpness = 1;
-camera.Gamma = 1;
+
+cam.Resolution = "3840x1080";
+cam.Brightness = 4;
+cam.Contrast = 4;
+cam.Saturation = 4;
+cam.Sharpness = 4;
+cam.Gamma = 4;
 % pause(1)
-image = snapshot(camera);
+image = snapshot(cam);
+[height, width, channels] = size(image);
+image = image(:, 1:(width/2),:);
+figure(Visible="on")
+imshow(image)
+
+cam.Resolution = "3840x1080";
+cam.Brightness = 0;
+cam.Contrast = 0;
+cam.Saturation = 8;
+cam.Sharpness = 0;
+cam.Gamma = 1;
+% pause(1)
+image = snapshot(cam);
+[height, width, channels] = size(image);
+image = image(:, 1:(width/2),:);
+figure(Visible="on")
+imshow(image)
 
 %% playing with the cap detection
 tic
     cam = Camera();
-    imN = cam.imageAcq(1, 'l');
-    imD = cam.tempImageAcq(1,'l', '3840x1080', 0, 0, 8, 0, 1);
+    imD = cam.tempImageAcq(1,'l', '1344x376', 0, 0, 8, 0, 1);
     capdet = Cap_Detection();
-    capdet = capdet.setVariables(0.96, 0.02);
+    capdet = capdet.setVariables(0.98, 0.02);
     caps = capdet.detectCaps(imD);
     img = capdet.visualiseCaps(imD, caps);
     imshow(img)
     colDet = Colour_Detection();
-    capL = colDet.detectColour(imD, caps(:,1:2), caps(:,3), 86.5)
+    capL = colDet.detectColour(imD, caps(:,1:2), caps(:,3), 19)
     capL2 = colDet.eliminateDuplicate(capL, 100)
     %     colDet.visualiseAnalysis(capL, imN);
+    imN = cam.tempImageAcq(1,'l', '1344x376', 4, 4,4, 4, 5);
     imag = colDet.visualiseAnalysis(capL2, imN);
     figure(Visible="on")
     imshow(imag);

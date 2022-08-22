@@ -58,7 +58,7 @@ classdef Camera
                 camera.Saturation = obj.sat;
                 camera.Sharpness = obj.sharp;
                 camera.Gamma = obj.gam;
-
+                pause(0.5)
                 image = snapshot(camera);
                 [height, width, channels] = size(image);
     

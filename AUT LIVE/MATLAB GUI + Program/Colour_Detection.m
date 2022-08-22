@@ -153,6 +153,8 @@ classdef Colour_Detection
             elseif y < 0
                 y = 0;
             end
+            x = round(x);
+            y = round(y);
             R = image(y, x, 1);
             G = image(y, x, 2);
             B = image(y, x, 3);

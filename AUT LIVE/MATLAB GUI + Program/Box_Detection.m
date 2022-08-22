@@ -23,7 +23,7 @@ classdef Box_Detection
             obj.defp = obj.pToEdge;
             obj.lToEdge = 205;
             obj.defl = obj.lToEdge;
-            obj.brightness = 50;
+            obj.brightness = 40;
             obj.defb = obj.brightness;
             obj.edgeConnecter = 8;
             obj.defe = obj.edgeConnecter;
@@ -41,7 +41,7 @@ classdef Box_Detection
             se = strel('square', obj.edgeConnecter);
             bw = imclose(bw, se);
             bw = (bw == false);
-
+            obj.edgeConnecter = round(obj.edgeConnecter);
             se = strel('square', obj.edgeConnecter);
             bw = imclose(bw, se);
             bw = bwareaopen(imfill(bw, 'holes'),50);
@@ -362,6 +362,7 @@ classdef Box_Detection
                 boxes = bw;
                 return
             end
+            eC = round(eC);
             se = strel('square', eC);
             bw = imclose(bw, se);
             bw = (bw == false);
