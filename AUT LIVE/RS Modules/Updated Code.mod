@@ -10,7 +10,7 @@ MODULE MainModule
     PERS robtarget TestGripperToSyrupBottle:= [[301.544,-974.157, 1120],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget TestGripperToCokeBottleAbove:= [[412.693,-899.473,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget TestGripperToCokeBottle:= [[412.693,-899.473,1070],[0.00163976,-0.383409,-0.923576,-0.00114218],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    PERS robtarget TestingGUIPos:= [[311.892,-882.169,1588],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget TestingGUIPos:= [[548.433,-673.412,1588],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !    CONST robtarget CameraPos:=[[888.647981627,-3.101979233,1192.532782595],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !    CONST robtarget CameraPos:=[[595.6,-367-628.37,1192.532782595],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     
@@ -28,7 +28,7 @@ MODULE MainModule
     CONST robtarget BoxCamPos:=[[223.0963,844.6431,1550],[-0.000000007,-0.382683401,0.923879546,0],[0,0,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !    Test
     !CONST robtarget BoxCamPos:=[[223.0963,844.6431,1550],[0,0.923879546,-0.382683401,0],[0,0,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    PERS robtarget TemporaryCam:= [[389.183,854.018,1558],[-7E-09,-0.382683,0.92388,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget TemporaryCam:= [[504.737,887.743,1558],[-7E-09,-0.382683,0.92388,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     ! AboveBottleCoord robtarget x,y should change based on the bottle location
     PERS robtarget AboveBottleCoord:= [[301.544,-974.157, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget AboveTable:= [[550.3, -377.8, 1500],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -89,7 +89,7 @@ MODULE MainModule
     CONST robtarget WriteStart:=[[1336,0,1090],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget WriteStartRight:=[[1336,-600,1090],[0.706151696,0,0.708060578,0],[0,0,0,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget A_Horizontal:= [[1018.612159322,-22.5,1327],[0.00197,-0.38293,0.92377,0.00290],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; 
-    PERS robtarget SafeWritePos:=[[1377.96,0,1330],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget SafeWritePos:=[[1377.96,0,1250],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget SafeWritePosRight:=[[1219.955689697,-750,1340],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget SafeWritePosTop:=[[1219.955689697,0,1400],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget SafeWritePosBottom:=[[1219.955689697,0,950],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -218,7 +218,7 @@ MODULE MainModule
 !        moveToQuartenionTest;
 !        moveToBoxCam;
 !        moveToAboveBoxPos;
-        moveToHomeSlow;             ! Program always starts from Home Pos in case it was left in random pos
+!        moveToHomeSlow;             ! Program always starts from Home Pos in case it was left in random pos
 !        WaitTime 5;
 !        calibrate;
         receiveSignal;         ! Where robot will receive signals to do certain tasks
@@ -294,23 +294,24 @@ MODULE MainModule
         IF boardZPos <= 900 THEN
             boardZPos:= 1290;
         ENDIF
+        
         IF Font="L" THEN
             sum:=1360;
             WHILE sum >= boardZPos DO
-                MoveL RelTool(SafeWritePos,-X,-40,0),vWrite,fine,tool0\WObj:=wobj0;
-                MoveL RelTool(SafeWritePos,-X,Y,0),vWrite,fine,tool0\WObj:=wobj0;
+                MoveL RelTool(SafeWritePos,-X,-40,2),vWrite,fine,tool0\WObj:=wobj0;
+                MoveL RelTool(SafeWritePos,-X,Y,-1),vWrite,fine,tool0\WObj:=wobj0;
                 X:=X+30;
-                SafeWritePos:=[[1377.96,0,1360-X],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-                sum:=1360-X;
+                sum:=sum-X;
+                SafeWritePos:=[[1377.96,0,sum],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
             ENDWHILE
         ELSE
-            sum:=1360;
-            WHILE sum >= (boardZPos+ZLine) DO
-                MoveL RelTool(SafeWritePos,-X,-40,0),vWrite,fine,tool0\WObj:=wobj0;
-                MoveL RelTool(SafeWritePos,-X,Y,0),vWrite,fine,tool0\WObj:=wobj0;
+            sum:=1340;
+            WHILE sum >= (boardZPos) DO
+                MoveL RelTool(SafeWritePos,-X,-40,4),vWrite,fine,tool0\WObj:=wobj0;
+                MoveL RelTool(SafeWritePos,-X,Y,-2),vWrite,fine,tool0\WObj:=wobj0;
                 X:=X+30;
-                sum:=1360-X;
-                SafeWritePos:=[[1377.96,0,1360-X],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+                sum:=sum-X;
+                SafeWritePos:=[[1377.96,0,sum],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
             ENDWHILE
         ENDIF
         MoveL Offs(SafeWritePos,-200,0,0), v200,fine,tool0\WObj:=wobj0; 
@@ -337,10 +338,10 @@ MODULE MainModule
     
     PROC PutAwayPen()
         moveToHomeSlow;
-        MoveJ AbovePen,v200,fine,tool0\WObj:=wobj0;
+        MoveJ AbovePen,v500,fine,tool0\WObj:=wobj0;
         WaitTime 1;
         open_gripper;
-        MoveL AbovePen,v200,fine,tool0\WObj:=wobj0;
+        MoveL AbovePen,v500,fine,tool0\WObj:=wobj0;
     ENDPROC
     
     ! The "receiveSignal" function is where the GUI and RS are 
@@ -492,6 +493,8 @@ MODULE MainModule
                 SocketSend client,\Str :="WriteFinished";
                 SafeWritePos:= [[1219.955689697,0,1340],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
                 PutAwayPen;
+                
+                moveToHomeSlow;
                 receiveSignal;
             ELSEIF signal = "6" THEN
                 GrabDuster;
