@@ -298,7 +298,7 @@ MODULE MainModule
         IF Font="L" THEN
             sum:=1360;
             WHILE sum >= boardZPos DO
-                MoveL RelTool(SafeWritePos,-X,-40,2),vWrite,fine,tool0\WObj:=wobj0;
+                MoveL RelTool(SafeWritePos,-X,-40,4),vWrite,fine,tool0\WObj:=wobj0;
                 MoveL RelTool(SafeWritePos,-X,Y,-1),vWrite,fine,tool0\WObj:=wobj0;
                 X:=X+30;
                 sum:=sum-X;
@@ -314,7 +314,8 @@ MODULE MainModule
                 SafeWritePos:=[[1377.96,0,sum],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
             ENDWHILE
         ENDIF
-        MoveL Offs(SafeWritePos,-200,0,0), v200,fine,tool0\WObj:=wobj0; 
+        MoveL RelTool(SafeWritePos,-X,Y,-200),vWrite,fine,tool0\WObj:=wobj0;
+!        MoveL Offs(SafeWritePos,-200,0,0), v200,fine,tool0\WObj:=wobj0; 
         PathAccLim FALSE,FALSE;
     ENDPROC
     
