@@ -115,7 +115,7 @@ classdef Box_Detection
                         if pos(2) > yMaxCoord(2)-20 && pos(2) < yMaxCoord(2)+20
                             portrait = 1;
                         else 
-                            if (yMaxCoord(1) > yMinCoord(1)) && (xMinCoord(2) > xMaxCoord(2)) && (yMaxCoord(1) > pos(1)) && dist > dist2
+                            if (yMaxCoord(1) > yMinCoord(1)) && (xMinCoord(2) > xMaxCoord(2)) && (yMaxCoord(1) > pos(1))
                                 tilt = 0;
                             else
                                 tilt = 1;
@@ -126,11 +126,11 @@ classdef Box_Detection
                         portrait = 0;
                     else
                         if (yMaxCoord(1) < yMinCoord(1)) && (xMinCoord(2) < xMaxCoord(2)) && (yMaxCoord(1) < pos(1)) && dist > dist2
-                            disp("a")
+%                             disp("a")
                             tilt = 1;
                             portrait = 0;
                         elseif (yMaxCoord(1) > yMinCoord(1)) && (xMinCoord(2) > xMaxCoord(2)) && (yMaxCoord(1) > pos(1)) && dist > dist2
-                            disp("b")
+%                             disp("b")
                             tilt = 0;
                             portrait = 0;
                         elseif yMaxCoord(1) < pos(1)
@@ -139,7 +139,7 @@ classdef Box_Detection
                                 tilt = 0;
                                 portrait = 1;
                             else
-                                disp("c")
+%                                 disp("c")
                                 tilt = 1;
                                 portrait = 0;
                             end
@@ -148,7 +148,7 @@ classdef Box_Detection
                                tilt = 1;
                                portrait = 1;
                            else
-                               disp("d")
+%                                disp("d")
                                tilt = 0;
                                portrait = 0;
                            end
@@ -179,14 +179,14 @@ classdef Box_Detection
                         angle = acos(z);
                     end
 %                     angle
-                    tilt
-                    pos
-%                     dist2
-                    portrait
+%                     tilt
+%                     pos
+% %                     dist2
+%                     portrait
                     phi = acos(obj.shortDist2slot/obj.longDist2slot);
                     smallAngle = false;
                     if (abs(angle) < 0.05) && (portrait == 1)
-                        disp("a")
+%                         disp("a")
                         smallAngle = true;
                         nc = [cent(1)+obj.shortDist2slot, cent(2), 0, 1];
                         plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
@@ -202,7 +202,7 @@ classdef Box_Detection
                         plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 
                     elseif (abs(angle) < 0.05) && (portrait == 0)
-                        disp("b")
+%                         disp("b")
                         smallAngle = true;
                         nc = [cent(1), cent(2)+obj.shortDist2slot, 0, 0];
                         plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
@@ -217,7 +217,7 @@ classdef Box_Detection
                         nc6 = [cent(1)-obj.longDist2slot, cent(2)-obj.shortDist2slot, 0, 0];
                         plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
                     elseif (tilt == 0) && (portrait == 1)
-                        disp("c")
+%                         disp("c")
                         %%% PATTERN ONE
                         %right side
                         opp = obj.shortDist2slot*sin(angle);
@@ -257,7 +257,7 @@ classdef Box_Detection
                         nc6(4) = 1;
                         plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
                     elseif (tilt == 1) && (portrait == 1)
-                        disp("d")
+%                         disp("d")
 
                         %%%%%% PATTERN TWO
                         opp = obj.shortDist2slot*sin(angle);
@@ -297,7 +297,7 @@ classdef Box_Detection
                         nc6(4) = 1;
                         plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
                     elseif (tilt == 1) && (portrait == 0)
-                        disp("e")
+%                         disp("e")
                         %bottom side
                         opp = obj.shortDist2slot*sin(angle);
                         adj = obj.shortDist2slot*cos(angle);
@@ -336,7 +336,7 @@ classdef Box_Detection
                         nc6(4) = 0;
                         plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
                     else
-                        disp("f")
+%                         disp("f")
                         %bottom side
                         opp = obj.shortDist2slot*sin(angle);
                         adj = obj.shortDist2slot*cos(angle);
@@ -421,7 +421,7 @@ classdef Box_Detection
             for k = 1:length(B)
                 boundary = B{k};
                 area = stats(k).Area;
-                if area < 100000
+                if area < 50000
                     continue
                 end
                 plot(boundary(:,2),boundary(:,1),'w','LineWidth',2);
@@ -455,39 +455,75 @@ classdef Box_Detection
                     plot(yMaxCoord(1),yMaxCoord(2), 'bo', 'MarkerSize', 10, 'LineWidth',5);
                     plot(yMinCoord(1), yMinCoord(2),'bo', 'MarkerSize', 10, 'LineWidth',5);
                     
-                    tilt = 0;
-                    if xMinCoord(2) > xMaxCoord(2)
-                        tilt = 1;
-                    end
+%                     tilt = 0;
+%                     if xMinCoord(2) > xMaxCoord(2)
+%                         tilt = 1;
+%                     end
                     cent = round(stats(k).Centroid);
                     eq = boundary(:, 2) ~= cent(1);
+
+                    eq2 = boundary(:,1) ~= cent(2);
+                    nb = boundary;
+                    nb(eq2,:) = [];
+                    poss = [nb(2,2), nb(2,1)];
+                    dist = norm(cent-poss);
+
                     newBound = boundary;
                     newBound(eq,:) = [];
                     pos = [newBound(2,2), newBound(2,1)];
                     dist2 = norm(cent-pos);
 
                     portrait = 1;
+                    tilt = 0;
+
+  
                     if dist2 <= lE
                         portrait = 0;
-                    elseif (yMaxCoord(2)-yMinCoord(2) > (2*pE)-5) && (yMaxCoord(2)-yMinCoord(2) < (2*pE)+5)
-                        portrait = 1;
-                    elseif ((yMaxCoord(2)-yMinCoord(2) < (2*lE)+5) && (yMaxCoord(2)-yMinCoord(2) > (2*lE)-5))
+                    elseif (yMaxCoord(2)-yMinCoord(2) > (2*pE)-20) && (yMaxCoord(2)-yMinCoord(2) < (2*pE)+20)
+                        
+                        if pos(2) > yMaxCoord(2)-20 && pos(2) < yMaxCoord(2)+20
+                            portrait = 1;
+                        else 
+                            if (yMaxCoord(1) > yMinCoord(1)) && (xMinCoord(2) > xMaxCoord(2)) && (yMaxCoord(1) > pos(1))
+                                tilt = 0;
+                            else
+                                tilt = 1;
+                            end
+                            portrait = 0;
+                        end
+                    elseif ((yMaxCoord(2)-yMinCoord(2) < (2*lE)+20) && (yMaxCoord(2)-yMinCoord(2) > (2*lE)-20))
                         portrait = 0;
                     else
-                        if tilt == 1
-                            if yMaxCoord(1) > pos(1)
-                                portrait = 0;
-                            else
+                        if (yMaxCoord(1) < yMinCoord(1)) && (xMinCoord(2) < xMaxCoord(2)) && (yMaxCoord(1) < pos(1)) && dist > dist2
+%                             disp("a")
+                            tilt = 1;
+                            portrait = 0;
+                        elseif (yMaxCoord(1) > yMinCoord(1)) && (xMinCoord(2) > xMaxCoord(2)) && (yMaxCoord(1) > pos(1)) && dist > dist2
+%                             disp("b")
+                            tilt = 0;
+                            portrait = 0;
+                        elseif yMaxCoord(1) < pos(1)
+
+                            if xMinCoord(2) < xMaxCoord(2) 
+                                tilt = 0;
                                 portrait = 1;
+                            else
+%                                 disp("c")
+                                tilt = 1;
+                                portrait = 0;
                             end
                         else
-                            if yMaxCoord(1) < pos(1)
-                                portrait = 0;
-                            else
-                                portrait = 1;
-                            end
+                           if xMinCoord(2) > xMaxCoord(2)
+                               tilt = 1;
+                               portrait = 1;
+                           else
+%                                disp("d")
+                               tilt = 0;
+                               portrait = 0;
+                           end
                         end
                     end
+
 
                     angle = 0;
                     if portrait == 1
@@ -609,7 +645,7 @@ classdef Box_Detection
                         nc6(1) = nc6(1)+cent(1);
                         nc6(2) = nc6(2)+cent(2);
                         plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
-                    elseif (tilt == 0) && (portrait == 0)
+                    elseif (tilt == 1) && (portrait == 0)
                         %bottom side
                         opp = sh*sin(angle);
                         adj = sh*cos(angle);
