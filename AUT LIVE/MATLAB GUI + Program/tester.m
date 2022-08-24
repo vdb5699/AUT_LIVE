@@ -24,7 +24,7 @@ cam.Contrast = 4;
 cam.Saturation = 4;
 cam.Sharpness = 4;
 cam.Gamma = 4;
-% pause(1)
+pause(0.5)
 image = snapshot(cam);
 [height, width, channels] = size(image);
 image = image(:, 1:(width/2),:);
@@ -37,7 +37,7 @@ cam.Contrast = 0;
 cam.Saturation = 8;
 cam.Sharpness = 0;
 cam.Gamma = 1;
-% pause(1)
+pause(0.5)
 image = snapshot(cam);
 [height, width, channels] = size(image);
 image = image(:, 1:(width/2),:);
@@ -70,15 +70,16 @@ toc
 %         text(str2double(C(1)), str2double(C(2)), str, Color=[1 0 1]);
 % end
 %% Playing with Box detection
-% c = Camera();
-% img = c.tempImageAcq(1,'l', '3840x1080', 8, 0, 8, 0, 1);
-img = imread('testImage.png');
+c = Camera();
+img = c.tempImageAcq(1,'l', '3840x1080', 0, 8, 8, 8, 1);
+% img = c.tempImageAcq(1,'l', '3840x1080', 0, 0, 8, 0, 1);
+% img = imread('testImage.png');
 bD = Box_Detection();
 coordinates = bD.detectBox(img);
-c = bD.tempDetectBox(img, bD.pToEdge, bD.lToEdge, bD.brightness, bD.edgeConnecter, bD.shortDist2slot, bD.longDist2slot, 3);
-
-
-
+c = bD.tempDetectBox(img, bD.pToEdge, bD.lToEdge, 5, bD.edgeConnecter, bD.shortDist2slot, bD.longDist2slot, 3);
+% a= bD.visualiseSlots(img, coordinates);
+% figure(Visible="on");
+% imshow(a);
 %% Follow Step numbers in order from 1 - 4
 %% take photo - Step: 1, 4
 cam = Camera();

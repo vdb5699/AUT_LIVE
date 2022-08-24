@@ -95,6 +95,7 @@ classdef Camera
                 camera.Saturation = sat;
                 camera.Sharpness = shar;
                 camera.Gamma = gam;
+                pause(0.5)
                 image = snapshot(camera);
                 [height, width, channels] = size(image);
     
