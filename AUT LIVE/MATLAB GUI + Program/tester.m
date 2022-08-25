@@ -47,17 +47,19 @@ imshow(image)
 %% playing with the cap detection
 tic
     cam = Camera();
-    imD = cam.tempImageAcq(1,'l', '1344x376', 0, 0, 8, 0, 1);
+    imD = cam.tempImageAcq(1,'l', '3840x1080', 0,0, 8, 0, 1);
     capdet = Cap_Detection();
-    capdet = capdet.setVariables(0.98, 0.02);
+%     capdet = capdet.setVariables(0.96, 0.03);
     caps = capdet.detectCaps(imD);
     img = capdet.visualiseCaps(imD, caps);
+    figure(Visible="on")
     imshow(img)
+
     colDet = Colour_Detection();
-    capL = colDet.detectColour(imD, caps(:,1:2), caps(:,3), 19)
+    capL = colDet.detectColour(imD, caps(:,1:2), caps(:,3), capdet.dia);
     capL2 = colDet.eliminateDuplicate(capL, 100)
     %     colDet.visualiseAnalysis(capL, imN);
-    imN = cam.tempImageAcq(1,'l', '1344x376', 4, 4,4, 4, 5);
+    imN = cam.tempImageAcq(1,'l', '3840x1080', 4, 4, 4, 4, 5);
     imag = colDet.visualiseAnalysis(capL2, imN);
     figure(Visible="on")
     imshow(imag);

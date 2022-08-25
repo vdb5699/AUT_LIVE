@@ -51,7 +51,7 @@ classdef Box_Detection
             %% edge detection
             [B,L] = bwboundaries(bw,'noholes');
             stats = regionprops(L,'Area','Centroid');
-            figure(Visible="on");
+            figure(Visible="off");
             imshow(image);
             hold on
             %% edge analysis

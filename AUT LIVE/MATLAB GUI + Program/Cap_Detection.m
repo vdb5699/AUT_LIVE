@@ -23,6 +23,8 @@ classdef Cap_Detection
         function caps = detectCaps(obj, image)
             radius = round(obj.dia/2);
             [centres, radii] = imfindcircles(image, [radius-8 radius+8], Sensitivity=obj.sens, EdgeThreshold=obj.edge);
+            
+            viscircles(centres, radii);
             caps = [round(centres), radii];
             return
         end
