@@ -67,6 +67,7 @@ classdef Colour_Detection
                 for l = 1:width(capList)
                     if capList(l).y > cutoff
                         capList = [capList(1:l-1), capList(l+1:end)];
+                        break
                     end
                 end
                 newCapList = [Cap([0,0], 0, "Unknown"), Cap([0,0], 0,"Unknown")];
