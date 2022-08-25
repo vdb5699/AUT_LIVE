@@ -149,23 +149,30 @@ classdef Colour_Detection
         end
 
         function [R, G, B] = getColour(obj, image,x, y)
-            if x > 1920
-                x = 1920;
-            elseif x < 0
-                x = 0;
+            try
+                if x > 1920
+                    x = 1920;
+                elseif x < 0
+                    x = 0;
+                end
+    
+                if y > 1080
+                    y = 1080;
+                elseif y < 0
+                    y = 0;
+                end
+                x = round(x);
+                y = round(y);
+                R = image(y, x, 1);
+                G = image(y, x, 2);
+                B = image(y, x, 3);
+                return
+            catch
+                R = 0;
+                G = 0;
+                B = 0;
+                return
             end
-
-            if y > 1080
-                y = 1080;
-            elseif y < 0
-                y = 0;
-            end
-            x = round(x);
-            y = round(y);
-            R = image(y, x, 1);
-            G = image(y, x, 2);
-            B = image(y, x, 3);
-            return
         end
 
         function obj = restoreDefault(obj)
