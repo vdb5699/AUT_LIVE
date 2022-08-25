@@ -10,7 +10,7 @@ MODULE MainModule
     PERS robtarget TestGripperToSyrupBottle:= [[301.544,-974.157, 1120],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget TestGripperToCokeBottleAbove:= [[412.693,-899.473,1306.2],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget TestGripperToCokeBottle:= [[412.693,-899.473,1070],[0.00163976,-0.383409,-0.923576,-0.00114218],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    PERS robtarget BottleCoord:= [[427.385,-743.956,1300],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget BottleCoord:= [[255.225,-833.419,1588],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !    CONST robtarget CameraPos:=[[888.647981627,-3.101979233,1192.532782595],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !    CONST robtarget CameraPos:=[[595.6,-367-628.37,1192.532782595],[0.004363108,0.006108556,-0.999971823,-0.000041884],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     
@@ -28,7 +28,7 @@ MODULE MainModule
     CONST robtarget BoxCamPos:=[[223.0963,844.6431,1550],[-0.000000007,-0.382683401,0.923879546,0],[0,0,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
 !    Test
     !CONST robtarget BoxCamPos:=[[223.0963,844.6431,1550],[0,0.923879546,-0.382683401,0],[0,0,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    PERS robtarget BoxCoord:= [[462.101,876.184,1558],[-7E-09,-0.382683,0.92388,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget BoxCoord:= [[582.147,786.789,1558],[-7E-09,-0.382683,0.92388,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     ! AboveBoxCoord robtarget x,y should change based on the bottle location
     PERS robtarget AboveBoxCoord:= [[301.544,-974.157, 1588.4],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget AboveTable:= [[550.3, -377.8, 1500],[0.00164,-0.38341,-0.92358,-0.00113],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
@@ -361,7 +361,7 @@ MODULE MainModule
         SocketAccept server,client, \Time:=WAIT_MAX;
         !Receive Data
         SocketReceive client,\Str :=signal, \Time:=WAIT_MAX;
-        WaitTime 1;
+        WaitTime 1.5;
         SocketSend client,\Str :="RSConnected";
         SocketReceive client,\Str :=signal, \Time:=WAIT_MAX;
         
@@ -371,16 +371,22 @@ MODULE MainModule
         ! Error Handling
         ERROR
             IF ERRNO=ERR_SOCK_CLOSED THEN   ! Close sockets and retry connecting if sockets closed
-                SocketClose server;
-                SocketClose client;
-                SocketCreate server;
-                SocketBind server,"192.168.0.20", 1025;
-                SocketListen server;
-                SocketAccept server, client, \Time:=WAIT_MAX;
+!                SocketClose server;
+!                SocketClose client;
+!                SocketCreate server;
+!                SocketBind server,"192.168.0.20", 1025;
+!                SocketListen server;
+!                SocketAccept server, client, \Time:=WAIT_MAX;
+                receiveSignal;
+                RETRY;
+            ELSEIF ERRNO=40222 THEN
+                receiveSignal;
                 RETRY;
             ELSE
                 stop;
             ENDIF
+            
+            
     ENDPROC
     
     ! The "signalInstruction" function is where the robot  
@@ -429,6 +435,7 @@ MODULE MainModule
                     SocketSend client,\Str :="SendNext";
                     SocketReceive client,\Str :=data, \Time:=WAIT_MAX;
                 ENDWHILE
+!                moveToHomeSlow;
                 receiveSignal;   
             ELSEIF signal = "4" THEN
                 moveToBoxCamFast;
@@ -515,12 +522,13 @@ MODULE MainModule
         ! Error Handling
         ERROR
             IF ERRNO=ERR_SOCK_CLOSED THEN   ! Close sockets and retry connecting if sockets closed
-                SocketClose server;
-                SocketClose client;
-                SocketCreate server;
-                SocketBind server,"192.168.0.20", 1025;
-                SocketListen server;
-                SocketAccept server, client, \Time:=WAIT_MAX;
+!                SocketClose server;
+!                SocketClose client;
+!                SocketCreate server;
+!                SocketBind server,"192.168.0.20", 1025;
+!                SocketListen server;
+!                SocketAccept server, client, \Time:=WAIT_MAX;
+                receiveSignal;
                 RETRY;
             ELSE
                 stop;
@@ -544,38 +552,38 @@ MODULE MainModule
                 MoveL RelTool (BoxCoord, 0, 0,(1558-1060) \Rz:= 90), vTest, fine, tool0\WObj:=wobj0;
                 open_gripper;
                 MoveL RelTool (BoxCoord, 0, 0, (1558-1350) \Rz:= 0), vTest, z50, tool0\WObj:=wobj0;
-                MoveL BoxCoord, vTest, fine, tool0\WObj:=wobj0;
+!                MoveL BoxCoord, vTest, fine, tool0\WObj:=wobj0;
             ELSEIF angle=0 AND VertORLand=0 THEN
                 MoveL RelTool (BoxCoord, 0, 0, (1558-1350) \Rz:= 0), vTest, z50, tool0\WObj:=wobj0;
                 MoveL RelTool (BoxCoord, 0, 0,(1558-1060) \Rz:= 0), vTest, fine, tool0\WObj:=wobj0;
                 open_gripper;
                 MoveL RelTool (BoxCoord, 0, 0, (1558-1350) \Rz:= 0), vTest, z50, tool0\WObj:=wobj0;
-                MoveL BoxCoord, vTest, fine, tool0\WObj:=wobj0;
+!                MoveL BoxCoord, vTest, fine, tool0\WObj:=wobj0;
             ELSEIF angle<>0 AND ((angle) + 90) < 100 AND VertORLand =1 THEN
                 MoveL RelTool (BoxCoord, 0, 0, (1558-1350) \Rz:= -90-angle), vTest, z50, tool0\WObj:=wobj0;
                 MoveL RelTool (BoxCoord, 0, 0,(1558-1060) \Rz:= -90-angle), vTest, fine, tool0\WObj:=wobj0;
                 open_gripper;
                 MoveL RelTool (BoxCoord, 0, 0, (1558-1350) \Rz:= 0), vTest, z50, tool0\WObj:=wobj0;
-                MoveL BoxCoord, vTest, fine, tool0\WObj:=wobj0;
+!                MoveL BoxCoord, vTest, fine, tool0\WObj:=wobj0;
             ELSEIF angle<>0 AND ((angle) + 90) < 100 AND VertORLand =0 THEN
                 MoveL RelTool (BoxCoord, 0, 0, (1558-1350) \Rz:= -angle), vTest, z50, tool0\WObj:=wobj0;
                 MoveL RelTool (BoxCoord, 0, 0,(1558-1060) \Rz:= -angle), vTest, fine, tool0\WObj:=wobj0;
                 open_gripper;
                 MoveL RelTool (BoxCoord, 0, 0, (1558-1350) \Rz:= 0), vTest, z50, tool0\WObj:=wobj0;
-                MoveL BoxCoord, vTest, fine, tool0\WObj:=wobj0;
+!                MoveL BoxCoord, vTest, fine, tool0\WObj:=wobj0;
             ELSE  
                 IF VertORLand=0 THEN !If Box Horizontal
                     MoveL RelTool (BoxCoord, 0, 0, (1558-1350) \Rz:= -angle), vTest, z50, tool0\WObj:=wobj0;
                     MoveL RelTool (BoxCoord, 0, 0,(1558-1060) \Rz:= -angle), vTest, fine, tool0\WObj:=wobj0;
                     open_gripper;
                     MoveL RelTool (BoxCoord, 0, 0, (1558-1350) \Rz:= 0), vTest, z50, tool0\WObj:=wobj0;
-                    MoveL BoxCoord, vTest, fine, tool0\WObj:=wobj0;
+!                    MoveL BoxCoord, vTest, fine, tool0\WObj:=wobj0;
                 ELSEIF VertORLand=1 THEN !If Box Vertical
                     MoveL RelTool (BoxCoord, 0, 0, (1558-1350) \Rz:= 90-angle), vTest, z50, tool0\WObj:=wobj0;
                     MoveL RelTool (BoxCoord, 0, 0,(1558-1060) \Rz:= 90-angle), vTest, fine, tool0\WObj:=wobj0;
                     open_gripper;
                     MoveL RelTool (BoxCoord, 0, 0, (1558-1350) \Rz:= 0), vTest, z50, tool0\WObj:=wobj0;
-                    MoveL BoxCoord, vTest, fine, tool0\WObj:=wobj0;
+!                    MoveL BoxCoord, vTest, fine, tool0\WObj:=wobj0;
                 ENDIF
             ENDIF
         ELSE
@@ -584,38 +592,38 @@ MODULE MainModule
                 MoveL RelTool (BoxCoord, 0, 0,(1558-1115) \Rz:= 90), vTest, fine, tool0\WObj:=wobj0;
                 open_gripper;
                 MoveL RelTool (BoxCoord, 0, 0, (1558-1350) \Rz:= 0), vTest, z50, tool0\WObj:=wobj0;
-                MoveL BoxCoord, vTest, fine, tool0\WObj:=wobj0;
+!                MoveL BoxCoord, vTest, fine, tool0\WObj:=wobj0;
             ELSEIF angle=0 AND VertORLand=0 THEN
                 MoveL RelTool (BoxCoord, 0, 0, (1558-1350) \Rz:= 0), vTest, z50, tool0\WObj:=wobj0;
                 MoveL RelTool (BoxCoord, 0, 0,(1558-1115) \Rz:= 0), vTest, fine, tool0\WObj:=wobj0;
                 open_gripper;
                 MoveL RelTool (BoxCoord, 0, 0, (1558-1350) \Rz:= 0), vTest, z50, tool0\WObj:=wobj0;
-                MoveL BoxCoord, vTest, fine, tool0\WObj:=wobj0;
+!                MoveL BoxCoord, vTest, fine, tool0\WObj:=wobj0;
             ELSEIF angle<>0 AND ((angle) + 90) < 100 AND VertORLand =1 THEN
                 MoveL RelTool (BoxCoord, 0, 0, (1558-1350) \Rz:= -90-angle), vTest, z50, tool0\WObj:=wobj0;
                 MoveL RelTool (BoxCoord, 0, 0,(1558-1115) \Rz:= -90-angle), vTest, fine, tool0\WObj:=wobj0;
                 open_gripper;
                 MoveL RelTool (BoxCoord, 0, 0, (1558-1350) \Rz:= 0), vTest, z50, tool0\WObj:=wobj0;
-                MoveL BoxCoord, vTest, fine, tool0\WObj:=wobj0;
+!                MoveL BoxCoord, vTest, fine, tool0\WObj:=wobj0;
             ELSEIF angle<>0 AND ((angle) + 90) < 100 AND VertORLand =0 THEN
                 MoveL RelTool (BoxCoord, 0, 0, (1558-1350) \Rz:= -angle), vTest, z50, tool0\WObj:=wobj0;
                 MoveL RelTool (BoxCoord, 0, 0,(1558-1115) \Rz:= -angle), vTest, fine, tool0\WObj:=wobj0;
                 open_gripper;
                 MoveL RelTool (BoxCoord, 0, 0, (1558-1350) \Rz:= 0), vTest, z50, tool0\WObj:=wobj0;
-                MoveL BoxCoord, vTest, fine, tool0\WObj:=wobj0;
+!                MoveL BoxCoord, vTest, fine, tool0\WObj:=wobj0;
             ELSE  
                 IF VertORLand=0 THEN !If Box Horizontal
                     MoveL RelTool (BoxCoord, 0, 0, (1558-1350) \Rz:= -angle), vTest, z50, tool0\WObj:=wobj0;
                     MoveL RelTool (BoxCoord, 0, 0,(1558-1115) \Rz:= -angle), vTest, fine, tool0\WObj:=wobj0;
                     open_gripper;
                     MoveL RelTool (BoxCoord, 0, 0, (1558-1350) \Rz:= 0), vTest, z50, tool0\WObj:=wobj0;
-                    MoveL BoxCoord, vTest, fine, tool0\WObj:=wobj0;
+!                    MoveL BoxCoord, vTest, fine, tool0\WObj:=wobj0;
                 ELSEIF VertORLand=1 THEN !If Box Vertical
                     MoveL RelTool (BoxCoord, 0, 0, (1558-1350) \Rz:= 90-angle), vTest, z50, tool0\WObj:=wobj0;
                     MoveL RelTool (BoxCoord, 0, 0,(1558-1115) \Rz:= 90-angle), vTest, fine, tool0\WObj:=wobj0;
                     open_gripper;
                     MoveL RelTool (BoxCoord, 0, 0, (1558-1350) \Rz:= 0), vTest, z50, tool0\WObj:=wobj0;
-                    MoveL BoxCoord, vTest, fine, tool0\WObj:=wobj0;
+!                    MoveL BoxCoord, vTest, fine, tool0\WObj:=wobj0;
                 ENDIF
             ENDIF
         ENDIF
@@ -652,66 +660,66 @@ MODULE MainModule
         IF n_syrup = 1 THEN
             BoxCoord:= [[Box_X,Box_Y,1558],[-0.000000007,-0.382683401,0.923879546,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
             PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
-            MoveJ BoxCoord,v3000,fine,tool0\WObj:=wobj0;
+            MoveJ BoxCoord,v3000,z50,tool0\WObj:=wobj0;
             JointSixRot;
             PathAccLim FALSE, FALSE;            
         ELSEIF n_syrup = 2 THEN
             BoxCoord:= [[Box_X,Box_Y,1558],[-0.000000007,-0.382683401,0.923879546,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
             PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
-            MoveJ BoxCoord,v3000,fine,tool0\WObj:=wobj0;
+            MoveJ BoxCoord,v3000,z50,tool0\WObj:=wobj0;
             JointSixRot;
             PathAccLim FALSE, FALSE;         
         ELSEIF n_syrup = 3 THEN
             BoxCoord:= [[Box_X,Box_Y,1558],[-0.000000007,-0.382683401,0.923879546,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
             PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
-            MoveJ BoxCoord,v3000,fine,tool0\WObj:=wobj0;
+            MoveJ BoxCoord,v3000,z50,tool0\WObj:=wobj0;
             JointSixRot;
             PathAccLim FALSE, FALSE;   
         ELSEIF n_syrup = 4 THEN
             BoxCoord:= [[Box_X,Box_Y,1558],[-0.000000007,-0.382683401,0.923879546,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
             PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
-            MoveJ BoxCoord,v3000,fine,tool0\WObj:=wobj0;
+            MoveJ BoxCoord,v3000,z50,tool0\WObj:=wobj0;
             JointSixRot;
             PathAccLim FALSE, FALSE;   
         ELSEIF n_syrup = 5 THEN
             BoxCoord:= [[Box_X,Box_Y,1558],[-0.000000007,-0.382683401,0.923879546,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
             PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
-            MoveJ BoxCoord,v3000,fine,tool0\WObj:=wobj0;
+            MoveJ BoxCoord,v3000,z50,tool0\WObj:=wobj0;
             JointSixRot;
             PathAccLim FALSE, FALSE;   
         ELSEIF n_syrup = 6 THEN
             BoxCoord:= [[Box_X,Box_Y,1558],[-0.000000007,-0.382683401,0.923879546,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
             PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
-            MoveJ BoxCoord,v3000,fine,tool0\WObj:=wobj0;
+            MoveJ BoxCoord,v3000,z50,tool0\WObj:=wobj0;
             JointSixRot;
             PathAccLim FALSE, FALSE;   
         ENDIF
     ENDPROC
     
     PROC PutBottlesDownCoke()
-        moveToAboveBoxPos;
+!        moveToAboveBoxPos;
         IF n_coke = 1 THEN
             BoxCoord:= [[Box_X,Box_Y,1558],[-0.000000007,-0.382683401,0.923879546,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
             PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
-            MoveL BoxCoord,v3000,z100,tool0\WObj:=wobj0;
+            MoveJ BoxCoord,v3000,z50,tool0\WObj:=wobj0;
             JointSixRot;
             PathAccLim FALSE, FALSE;            
         ELSEIF n_coke = 2 THEN
             BoxCoord:= [[Box_X,Box_Y,1558],[-0.000000007,-0.382683401,0.923879546,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
             PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
-            MoveL BoxCoord,v3000,z100,tool0\WObj:=wobj0;
+            MoveJ BoxCoord,v3000,z50,tool0\WObj:=wobj0;
             JointSixRot;
             PathAccLim FALSE, FALSE;                 
         ELSEIF n_coke = 3 THEN
             BoxCoord:= [[Box_X,Box_Y,1558],[-0.000000007,-0.382683401,0.923879546,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
             PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
-            MoveL BoxCoord,v3000,z100,tool0\WObj:=wobj0;
+            MoveJ BoxCoord,v3000,z50,tool0\WObj:=wobj0;
             JointSixRot;
             PathAccLim FALSE, FALSE;    
         ELSEIF n_coke = 4 THEN
             BoxCoord:= [[Box_X,Box_Y,1558],[-0.000000007,-0.382683401,0.923879546,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];        
             PathAccLim TRUE\AccMax := 2, TRUE, \DecelMax := 2;
-            MoveL BoxCoord,v3000,z100,tool0\WObj:=wobj0;
+            MoveJ BoxCoord,v3000,z50,tool0\WObj:=wobj0;
             JointSixRot;
             PathAccLim FALSE, FALSE;   
         ENDIF
