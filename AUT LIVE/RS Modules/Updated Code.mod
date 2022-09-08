@@ -5,10 +5,8 @@ MODULE MainModule
     CONST robtarget ZeroPos:=[[1030, 0, 1460],[0.70706, 0, 0.70715,0],[0,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     !** Below is Bottle Camera Position - change it if you need to 
     CONST robtarget NewCamPos:= [[215, -680.3, 1300],[0.00163,-0.38344,-0.92356,-0.00115],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    
     !** Below is Box Camera Position - change it if you need to 
     CONST robtarget BoxCamPos:=[[223.0963,844.6431,1550],[0,-0.382683401,0.923879546,0],[0,0,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    
     CONST robtarget AboveBoxPos:= [[366.1, 366, 1588.4],[0.00192, -0.38294, 0.92377, 0.00293],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     PERS robtarget BottleCoord:= [[459.36,-646.084,1588],[0.00163939,-0.383406,-0.923578,-0.00113954],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; ! This target changes later in the code as MATLAB sends the X,Y
     PERS robtarget BoxCoord:= [[518.817,862.399,1558],[-7E-09,-0.382683,0.92388,0],[-1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]; ! This target changes later in the code as MATLAB sends the X,Y
@@ -22,13 +20,12 @@ MODULE MainModule
 	!-----------RobotWriting Alphabets Coords------------!
     CONST robtarget AbovePen:=[[986.4,794.7,1218],[0,0.38265,-0.9239,0],[0,0,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget PenLocation:=[[986.4,794.7,1124.8],[0,0.38265,-0.9239,0],[0,0,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    PERS robtarget SafeWritePos:=[[1377.96,0,1270],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget SafeWritePos:= [[1219.955689697,0,1340],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget SafeWritePosRight:=[[1219.955689697,-750,1340],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget SafeWritePosTop:=[[1219.955689697,0,1400],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget SafeWritePosBottom:=[[1219.955689697,0,950],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget AboveDuster:=[[743.879676977,-800.509897995,1300.071035327],[0.000000006,0.382683505,0.923879502,0.000000013],[-1,0,-2,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget Duster:=[[743.879739272,-800.509937926,866.646225387],[0,0.382683433,0.923879532,0],[-1,0,-2,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    
     !------------------Initialising Variables-----------------------!
 	VAR	string data;
     VAR socketdev server;
@@ -88,7 +85,8 @@ MODULE MainModule
     
     PROC main()
 		AccSet 20,30;           ! Max Acceleration set to 20mm/s^2 and ramping is 20
-        receiveSignal;         ! Where robot will receive signals to do certain tasks
+        moveToHomeSlow;
+!        receiveSignal;         ! Where robot will receive signals to do certain tasks
     ENDPROC
     
     PROC GrabDuster()
@@ -616,13 +614,12 @@ MODULE MainModule
         PutAwayPen;
     ENDPROC
     
-    PROC moveToWritePos()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        MoveL Offs(SafeWritePos,-200,0,0), v100,fine,tool0\WObj:=wobj0; 
-        MoveL SafeWritePos,v100,fine,tool0\WObj:=wobj0;
-        testWritePos := CRobT (\Tool:=tool0 \WObj:=wobj0);
-        PathAccLim FALSE,FALSE;
-    ENDPROC
+!    PROC moveToWritePos()
+!        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
+!        MoveL Offs(SafeWritePos,-200,0,0), v100,fine,tool0\WObj:=wobj0; 
+!        MoveL SafeWritePos,v100,fine,tool0\WObj:=wobj0;
+!        PathAccLim FALSE,FALSE;
+!    ENDPROC
     
     PROC moveToWritePosStart()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
