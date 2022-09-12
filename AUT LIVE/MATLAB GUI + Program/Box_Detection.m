@@ -1,13 +1,20 @@
+%%  
+% This is a class for box detection. Written by Ryuichi
+%%
 classdef Box_Detection
     properties(Access = public)
-        pToEdge;
-        lToEdge;
-        brightness;
-        edgeConnecter;
-        shortDist2slot;
-        longDist2slot;
+        pToEdge; %vertical distance between centroid of the box to the edge of the box (assuming that the box is placed upright)
+        lToEdge; %horizontal distance version of above property
+        brightness; %brightness threshold for grey to binary image, any pixel values below this value will be displayed black on image, if they are above, they will be displayed white. 
+        edgeConnecter; %strength of noise detector. 
+        shortDist2slot; %distance from centroid of the box to close slots (look at distdetail.png for detail)
+        longDist2slot; %distance from centroid of the box to far slots (look at distdetail.png for detail)
     end
     properties(Access = private)
+        %%these properties are the same thing as the properties introduced
+        %%above, but they are the default values, thus cannot changed by
+        %%the users. (if you want to make it so that the users can changes
+        %%them, create setter functions)
         converter
         defp
         defl
@@ -18,57 +25,100 @@ classdef Box_Detection
     end
 
     methods
+        %%
+        %This is a contructor for this calss, these default values should be
+        %changed when the robot location or camera position changes
+        %%
         function obj = Box_Detection()
-%             obj.pToEdge = 295;
+            %setting values for pToEdge
             obj.pToEdge = 280;
             obj.defp = obj.pToEdge;
-%             obj.lToEdge = 205;
+            
+            %setting values for lToEdge
             obj.lToEdge = 191;
             obj.defl = obj.lToEdge;
-%             obj.brightness = 40;
+
+            %setting the brightness threshold
             obj.brightness = 5;
             obj.defb = obj.brightness;
+
+            %setting the strength of noise reduction
             obj.edgeConnecter = 8;
             obj.defe = obj.edgeConnecter;
+
+            %setting the distance of the bottles slots from the centroid
             obj.shortDist2slot = 85;
             obj.defsh = obj.shortDist2slot;
             obj.longDist2slot = 185;
             obj.deflo = obj.longDist2slot;
+
+            %defining the converter class, go to Coordinate_Converter.m for
+            %detail of this class
             obj.converter = Coordinate_Converter();
         end
 
+
+        %%
+        %function for detecting box, this function uses the properties
+        %defined within the class. input variable image should be an image
+        %with box in it. outout is an array which contains [slot1 angle tiltType;slot2 angle tiltType;slot3 angle tiltType;slot4 angle tiltType;slot5 angle tiltType;slot6 angle tiltType]
+        %%
         function boxes = detectBox(obj, image)
             boxes = [];
             %% noise deletion
+            %turn the image black and white
             bw = rgb2gray(image) > obj.brightness;
+            %detele noise using edgeConnector.
             se = strel('square', obj.edgeConnecter);
             bw = imclose(bw, se);
+            %flip white and black within the image and repeat.
             bw = (bw == false);
             obj.edgeConnecter = round(obj.edgeConnecter);
             se = strel('square', obj.edgeConnecter);
             bw = imclose(bw, se);
+            %further reduce noise by filling holes within image (lower the
+            %value if the reduction is too strong). Default at 50.
             bw = bwareaopen(imfill(bw, 'holes'),50);
             %% edge detection
             [B,L] = bwboundaries(bw,'noholes');
             stats = regionprops(L,'Area','Centroid');
+            % start plotting the detection results, if you want a figure
+            % pop up, set Visible="on".
             figure(Visible="off");
             imshow(image);
             hold on
             %% edge analysis
+            %starting to analyse edges if the objects.
             for k = 1:length(B)
+                %boundary is the boundary of the current object.
                 boundary = B{k};
                 area = stats(k).Area;
+                %if the area of the current object is small, then skip to
+                %next object (for reducing the run time). delete this if
+                %statement if needed.
                 if area < 50000
                     continue
                 end
+                %plotting the current object's edge, if you want to see
+                %this, turn on the visibility of figure in line 87
                 plot(boundary(:,2),boundary(:,1),'w','LineWidth',2);
                 plot(stats(k).Centroid(1), stats(k).Centroid(2), 'bo', 'MarkerSize', 10, 'LineWidth',5);
 
+                %calculating perimeter of the current object.
                 delta_sq = diff(boundary).^2;
                 perimeter = sum(sqrt(sum(delta_sq,2)));
+
+                %calculating the circularity of the object using area and
+                %perimeter.
                 circularity = 4*pi*area/perimeter^2;
 
+                %estimate circularity of a box used in this project
+                %is 0.4 <= circularity <= 0.8, please change these values
+                %if the box being used is changed. if the circularity of
+                %the current shape is between these values, they are
+                %considered a box. 
                 if (circularity >= 0.4 && circularity <= 0.8)
+
                     %% get corners of detected box
                     yMax = max(boundary(:,1));
                     yMin = min(boundary(:,1));
@@ -92,22 +142,33 @@ classdef Box_Detection
                     plot(yMaxCoord(1),yMaxCoord(2), 'bo', 'MarkerSize', 10, 'LineWidth',5);
                     plot(yMinCoord(1), yMinCoord(2),'bo', 'MarkerSize', 10, 'LineWidth',5);
                     
+                    %get the centroid of the current object.
                     cent = round(stats(k).Centroid);
+
+                    %get the vertical and horizontal distances from the
+                    %edge to centroid. (in pixels)
                     eq = boundary(:, 2) ~= cent(1);
                     eq2 = boundary(:,1) ~= cent(2);
                     nb = boundary;
                     nb(eq2,:) = [];
                     poss = [nb(2,2), nb(2,1)];
+                    %dist is the horizontal distance between the centroid
+                    %and the edge of the current object.
                     dist = norm(cent-poss);
 
                     newBound = boundary;
                     newBound(eq,:) = [];
                     pos = [newBound(2,2), newBound(2,1)];
+                    %dist2 is the vertical distance between the centroid
+                    %and the edge of the current object.
                     dist2 = norm(cent-pos);
+
+
                     portrait = 1;
                     tilt = 0;
 
-  
+                    %if statement for determining the orientation of the
+                    %box.
                     if dist2 <= obj.lToEdge
                         portrait = 0;
                     elseif (yMaxCoord(2)-yMinCoord(2) > (2*obj.pToEdge)-20) && (yMaxCoord(2)-yMinCoord(2) < (2*obj.pToEdge)+20)
@@ -126,11 +187,9 @@ classdef Box_Detection
                         portrait = 0;
                     else
                         if (yMaxCoord(1) < yMinCoord(1)) && (xMinCoord(2) < xMaxCoord(2)) && (yMaxCoord(1) < pos(1)) && dist > dist2
-%                             disp("a")
                             tilt = 1;
                             portrait = 0;
                         elseif (yMaxCoord(1) > yMinCoord(1)) && (xMinCoord(2) > xMaxCoord(2)) && (yMaxCoord(1) > pos(1)) && dist > dist2
-%                             disp("b")
                             tilt = 0;
                             portrait = 0;
                         elseif yMaxCoord(1) < pos(1)
@@ -139,7 +198,6 @@ classdef Box_Detection
                                 tilt = 0;
                                 portrait = 1;
                             else
-%                                 disp("c")
                                 tilt = 1;
                                 portrait = 0;
                             end
@@ -148,13 +206,13 @@ classdef Box_Detection
                                tilt = 1;
                                portrait = 1;
                            else
-%                                disp("d")
                                tilt = 0;
                                portrait = 0;
                            end
                         end
                     end
-
+                    
+                    %determining the angle of the box.
                     angle = 0;
                     if portrait == 1
                         if (dist2 < obj.pToEdge) && ((yMaxCoord(2)-yMinCoord(2) >= (2*obj.pToEdge)-5) && (yMaxCoord(2)-yMinCoord(2) <= (2*obj.pToEdge)+5))
@@ -178,15 +236,22 @@ classdef Box_Detection
                         end
                         angle = acos(z);
                     end
+
+                    %display variables for when debugging, feel free to
+                    %uncomment the next 5 lines if you are debugging.
 %                     angle
 %                     tilt
 %                     pos
-% %                     dist2
+%                     dist2
 %                     portrait
                     phi = acos(obj.shortDist2slot/obj.longDist2slot);
                     smallAngle = false;
+
+                    %calculate bottle slots (for calculateion, please look
+                    %at the report.
                     if (abs(angle) < 0.05) && (portrait == 1)
-%                         disp("a")
+                        %this section is for when the box is detected to
+                        %have small and angle and is upright.
                         smallAngle = true;
                         nc = [cent(1)+obj.shortDist2slot, cent(2), 0, 1];
                         plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
@@ -202,7 +267,8 @@ classdef Box_Detection
                         plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
 
                     elseif (abs(angle) < 0.05) && (portrait == 0)
-%                         disp("b")
+                        %this section is for when the box is detected to
+                        %have small and angle and is horizontal.
                         smallAngle = true;
                         nc = [cent(1), cent(2)+obj.shortDist2slot, 0, 0];
                         plot(nc(1), nc(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
@@ -217,8 +283,8 @@ classdef Box_Detection
                         nc6 = [cent(1)-obj.longDist2slot, cent(2)-obj.shortDist2slot, 0, 0];
                         plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5)
                     elseif (tilt == 0) && (portrait == 1)
-%                         disp("c")
-                        %%% PATTERN ONE
+                        %this section is for when the box is detected to
+                        %have tilt type 0 and angle and is upright.
                         %right side
                         opp = obj.shortDist2slot*sin(angle);
                         adj = obj.shortDist2slot*cos(angle);
@@ -257,8 +323,8 @@ classdef Box_Detection
                         nc6(4) = 1;
                         plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
                     elseif (tilt == 1) && (portrait == 1)
-%                         disp("d")
-
+                        %this section is for when the box is detected to
+                        %have tilt type 1 and angle and is upright.
                         %%%%%% PATTERN TWO
                         opp = obj.shortDist2slot*sin(angle);
                         adj = obj.shortDist2slot*cos(angle);
@@ -297,7 +363,8 @@ classdef Box_Detection
                         nc6(4) = 1;
                         plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
                     elseif (tilt == 1) && (portrait == 0)
-%                         disp("e")
+                        %this section is for when the box is detected to
+                        %have tilt type 1 and angle and is horizontal.
                         %bottom side
                         opp = obj.shortDist2slot*sin(angle);
                         adj = obj.shortDist2slot*cos(angle);
@@ -336,7 +403,8 @@ classdef Box_Detection
                         nc6(4) = 0;
                         plot(nc6(1), nc6(2), 'bo', 'MarkerSize', 10, 'LineWidth',5, Color=[1 0 0]);
                     else
-%                         disp("f")
+                        %this section is for when the box is detected to
+                        %have tilt type 0 and angle and is horizontal.
                         %bottom side
                         opp = obj.shortDist2slot*sin(angle);
                         adj = obj.shortDist2slot*cos(angle);
@@ -381,6 +449,8 @@ classdef Box_Detection
 %                     nc4
 %                     nc5
 %                     nc6
+
+                    %format the output variable
                     if smallAngle == true
                         boxes = [boxes; nc; nc2; nc3; nc4; nc5; nc6];
                     else
@@ -390,7 +460,13 @@ classdef Box_Detection
             end
             return
         end
-
+        %%
+        %function for detecting box, this function uses the properties
+        %defined by the user. input variable image should be an image
+        %with box in it. outout is an array which contains [slot1 angle tiltType;slot2 angle tiltType;slot3 angle tiltType;slot4 angle tiltType;slot5 angle tiltType;slot6 angle tiltType]
+        %as the concept of the code are the same, the comments are
+        %minimised.
+        %%
         function boxes = tempDetectBox(obj, image, pE, lE, brig, eC, sh, lo,mode)
             boxes = [];
             %% noise deletion
@@ -723,13 +799,21 @@ classdef Box_Detection
 
         end
         
+        %% 
+        % This function for visualising the detected slots. It needs the coordinates of the slots and the image the box when being detected.
+        %%
         function newImage = visualiseSlots(obj, imBox, slots)
+            %create figure and display image
             fig = figure(Visible="off");
             imshow(imBox);
             hold on
+
+            %plot each of the slots
             for h = 1: height(slots)
                 plot(slots(h,1), slots(h,2), 'bo', 'MarkerSize', 10, 'LineWidth',5);
             end
+
+            %make figure into image
             f = getframe(fig);
             hold off
             newImage = frame2im(f);
@@ -738,7 +822,10 @@ classdef Box_Detection
             return
         end
 
-
+        %%
+        %this function is for setting the properties. usually used in the
+        %interfaces
+        %%
         function obj = setParam(obj, loValue, shValue, bValue, eValue)
             obj.shortDist2slot = shValue;
             obj.longDist2slot = loValue;
@@ -747,6 +834,9 @@ classdef Box_Detection
             return
         end
         
+        %%
+        %This function is for getting the default value of each parameter
+        %%
         function [p, l, b, e, lo, sh] = getDefaultVal(obj)
             p = obj.defp;
             l = obj.defl;
@@ -757,12 +847,20 @@ classdef Box_Detection
             return
         end
         
+        %%
+        %this function is for setting the properties. usually used in the
+        %interfaces
+        %%
         function obj = setDist2Edge(obj, newp, newl)
             obj.pToEdge = newp;
             obj.lToEdge = newl;
             return
         end
        
+        %%
+        %this function is for obtaining pToEdge and lToEdge. please use
+        %this when the lab environment changes. 
+        %%
         function [p, l] = obtainNewDist(obj, image)
             bw = rgb2gray(image) > obj.brightness;
             se = strel('square', obj.edgeConnecter);
@@ -791,7 +889,7 @@ classdef Box_Detection
             flag = 0;
             while flag == 0
                 try
-                    fig = figure("Name", "draw a line to determine the diameter of caps");
+                    fig = figure("Name", "draw a line to determine the length of required distances");
                     imshow(image)
                     hold on
                     text(1,1,"draw a vertical line from centroid of a box to the edge, then draw another line horizontally from centroid to edge", "Color",[0 1 0], "FontWeight","bold");
