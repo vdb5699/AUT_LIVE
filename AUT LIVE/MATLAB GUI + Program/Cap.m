@@ -1,5 +1,11 @@
+%%
+% class for detected caps, mainly used in colour_detection() class
+% written by Ryuichi
+%%
+
 classdef Cap
     properties(Access = public)
+        %% parameters of the caps
         centreCoord
         colour
         radius

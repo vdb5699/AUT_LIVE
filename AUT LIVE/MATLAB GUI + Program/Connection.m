@@ -1,3 +1,9 @@
+%% 
+% This class attempts tcp/ip connection between MATALB and robot studio. It
+% does not work, so please ignore this calss.
+% Written by Ryuichi
+%%
+
 classdef Connection
     properties
         IP

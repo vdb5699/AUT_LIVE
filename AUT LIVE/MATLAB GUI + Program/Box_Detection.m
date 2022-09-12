@@ -31,7 +31,7 @@ classdef Box_Detection
         %%
         function obj = Box_Detection()
             %setting values for pToEdge
-            obj.pToEdge = 280;
+            obj.pToEdge = 280; 
             obj.defp = obj.pToEdge;
             
             %setting values for lToEdge
@@ -571,11 +571,9 @@ classdef Box_Detection
                         portrait = 0;
                     else
                         if (yMaxCoord(1) < yMinCoord(1)) && (xMinCoord(2) < xMaxCoord(2)) && (yMaxCoord(1) < pos(1)) && dist > dist2
-%                             disp("a")
                             tilt = 1;
                             portrait = 0;
                         elseif (yMaxCoord(1) > yMinCoord(1)) && (xMinCoord(2) > xMaxCoord(2)) && (yMaxCoord(1) > pos(1)) && dist > dist2
-%                             disp("b")
                             tilt = 0;
                             portrait = 0;
                         elseif yMaxCoord(1) < pos(1)
@@ -584,7 +582,6 @@ classdef Box_Detection
                                 tilt = 0;
                                 portrait = 1;
                             else
-%                                 disp("c")
                                 tilt = 1;
                                 portrait = 0;
                             end
@@ -593,7 +590,6 @@ classdef Box_Detection
                                tilt = 1;
                                portrait = 1;
                            else
-%                                disp("d")
                                tilt = 0;
                                portrait = 0;
                            end
