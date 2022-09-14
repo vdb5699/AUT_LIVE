@@ -26,7 +26,8 @@ MODULE MainModule
     CONST robtarget SafeWritePosBottom:=[[1219.955689697,0,950],[0.007732629,0.708242473,0.014666236,0.705774545],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget AboveDuster:=[[743.879676977,-800.509897995,1300.071035327],[0.000000006,0.382683505,0.923879502,0.000000013],[-1,0,-2,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
     CONST robtarget Duster:=[[743.879739272,-800.509937926,866.646225387],[0,0.382683433,0.923879532,0],[-1,0,-2,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-    !------------------Initialising Variables-----------------------!
+    !---------RobotWriting Alphabets Coords END---------!
+	!------------------Initialising Variables-----------------------!
 	VAR	string data;
     VAR socketdev server;
     VAR socketdev client;
@@ -63,6 +64,7 @@ MODULE MainModule
     VAR num boardZPos;
     VAR num VertORLand;
     VAR num num_of_letters;
+	! Manual Speed data (do not use if unsure of usage)
     VAR speeddata vBottleRot := [1000, 180, 200, 15]; !1st = LinV (mm/s), 2nd = RotV (deg/s), 3rd,4th = external axes
     VAR speeddata vWrite := [200, 45, 200, 15 ]; !1st = LinV (mm/s), 2nd = RotV (deg/s), 3rd,4th = external axes
     VAR robtarget testWritePos;
@@ -84,85 +86,15 @@ MODULE MainModule
     ENDPROC
     
     PROC main()
-		AccSet 20,30;           ! Max Acceleration set to 20mm/s^2 and ramping is 20
+		AccSet 20,30;           ! Max Acceleration set to 20mm/s^2 and ramping is 30
         moveToHomeSlow;
 !        receiveSignal;         ! Where robot will receive signals to do certain tasks
     ENDPROC
-    
-    PROC GrabDuster()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        moveToHomeSlow;
-        MoveJ AboveDuster,v500,fine,tool0\WObj:=wobj0;
-        MoveL Duster,v500,fine,tool0\WObj:=wobj0;
-        close_gripper;
-        MoveL AboveDuster,v500,fine,tool0\WObj:=wobj0;
-        PathAccLim FALSE,FALSE;
-    ENDPROC
-    
-    PROC Erase()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        SafeWritePos:=[[1377,0,1360],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-        moveToHomeSlow;
-        moveToWritePosStart;
-        Y:=750;
-        X:= 0;
-        IF boardZPos <= 900 THEN
-            boardZPos:= 1290;
-        ENDIF
-        IF Font="L" THEN
-            sum:=1360;
-            WHILE sum >= boardZPos DO
-                MoveL RelTool(SafeWritePos,-X,-40,4),vWrite,fine,tool0\WObj:=wobj0;
-                MoveL RelTool(SafeWritePos,-X,Y,-4),vWrite,fine,tool0\WObj:=wobj0;
-                X:=X+30;
-                sum:=1360-X;
-                SafeWritePos:=[[1377.96,0,sum],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-            ENDWHILE
-        ELSE
-            sum:=1350;
-            WHILE sum >= (boardZPos) DO
-                MoveL RelTool(SafeWritePos,-X,-40,4),vWrite,fine,tool0\WObj:=wobj0;
-                MoveL RelTool(SafeWritePos,-X,Y,-4),vWrite,fine,tool0\WObj:=wobj0;
-                X:=X+30;
-                sum:=sum-X;
-                SafeWritePos:=[[1377.96,0,sum],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
-            ENDWHILE
-        ENDIF
-        MoveL RelTool(SafeWritePos,-X,Y,-200),vWrite,fine,tool0\WObj:=wobj0;
-        PathAccLim FALSE,FALSE;
-    ENDPROC
-    
-    PROC PutAwayDuster()
-        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
-        moveToHomeSlow;
-        MoveJ AboveDuster,v300,fine,tool0\WObj:=wobj0;
-        MoveL Duster,v300,fine,tool0\WObj:=wobj0;
-        open_gripper;
-        MoveL AboveDuster,v300,fine,tool0\WObj:=wobj0;
-        moveToHomeSlow;
-        PathAccLim FALSE,FALSE;
-    ENDPROC
-    
-    PROC GrabPen()
-        MoveJ AbovePen,v500,fine,tool0\WObj:=wobj0;
-        MoveL PenLocation,v500,fine,tool0\WObj:=wobj0;
-        close_gripper;
-        MoveL AbovePen,v500,fine,tool0\WObj:=wobj0;
-    ENDPROC
-    
-    PROC PutAwayPen()
-        moveToHomeSlow;
-        MoveJ AbovePen,v500,fine,tool0\WObj:=wobj0;
-        WaitTime 1;
-        open_gripper;
-        MoveL AbovePen,v500,fine,tool0\WObj:=wobj0;
-    ENDPROC
-    
+       
     ! The "receiveSignal" function is where the GUI and RS are 
     ! connected via TCP. 
     ! WaitTime is Max for all socket communication tasks.
     ! This function calls the "signalInstruction" method.
-    
     PROC receiveSignal()
         !Close Socket
         SocketClose server;
@@ -196,7 +128,7 @@ MODULE MainModule
     
     ! The "signalInstruction" function is where the robot  
     ! does tasks based on the signal sent by GUI.
-    !
+    !*****************************************************
     ! Signal 1 = CamPos
     ! Signal 2 = Move bottles and Pick and Place them
     ! Signal 3 = End of sending Coords
@@ -206,9 +138,10 @@ MODULE MainModule
     ! Signal 7 = Move to Audience to take photo
     ! Signal 8 = Calibrate the pen for writing - someone needs 
     !            to manually allign whiteboard with pen movement
-    !
+    !*****************************************************
     ! This function calls "receiveSignal" method after
     ! each signal task is completed
+	!*****************************************************
     PROC signalInstruction()        
         WHILE signal <> "0" DO
             IF signal = "1" THEN ! CamPos
@@ -535,6 +468,83 @@ MODULE MainModule
             PathAccLim FALSE, FALSE;   
         ENDIF
     ENDPROC
+	
+	    PROC GrabDuster()
+        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
+        moveToHomeSlow;
+        MoveJ AboveDuster,v500,fine,tool0\WObj:=wobj0;
+        MoveL Duster,v500,fine,tool0\WObj:=wobj0;
+        close_gripper;
+        MoveL AboveDuster,v500,fine,tool0\WObj:=wobj0;
+        PathAccLim FALSE,FALSE;
+    ENDPROC
+    
+    PROC Erase()
+        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
+		
+		! SafeWritePos value changes as it is PERS therefore it is set everytime Erase is called
+        SafeWritePos:=[[1377,0,1360],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+        moveToHomeSlow;
+        moveToWritePosStart;
+        Y:=750;
+        X:= 0;
+        IF boardZPos <= 900 THEN
+            boardZPos:= 1290;
+        ENDIF
+        IF Font="L" THEN
+            sum:=1360;
+            WHILE sum >= boardZPos DO
+                MoveL RelTool(SafeWritePos,-X,-40,4),vWrite,fine,tool0\WObj:=wobj0;
+                MoveL RelTool(SafeWritePos,-X,Y,-4),vWrite,fine,tool0\WObj:=wobj0;
+                X:=X+30;
+                sum:=1360-X;
+                SafeWritePos:=[[1377.96,0,sum],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+            ENDWHILE
+        ELSE
+            sum:=1350;
+            WHILE sum >= (boardZPos) DO
+                MoveL RelTool(SafeWritePos,-X,-40,4),vWrite,fine,tool0\WObj:=wobj0;
+                MoveL RelTool(SafeWritePos,-X,Y,-4),vWrite,fine,tool0\WObj:=wobj0;
+                X:=X+30;
+                sum:=sum-X;
+                SafeWritePos:=[[1377.96,0,sum],[0.00773263,0.708242,0.0146662,0.705775],[-1,1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+            ENDWHILE
+        ENDIF
+        MoveL RelTool(SafeWritePos,-X,Y,-200),vWrite,fine,tool0\WObj:=wobj0;
+        PathAccLim FALSE,FALSE;
+    ENDPROC
+    
+    PROC PutAwayDuster()
+        PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
+        moveToHomeSlow;
+        MoveJ AboveDuster,v300,fine,tool0\WObj:=wobj0;
+        MoveL Duster,v300,fine,tool0\WObj:=wobj0;
+        open_gripper;
+        MoveL AboveDuster,v300,fine,tool0\WObj:=wobj0;
+        moveToHomeSlow;
+        PathAccLim FALSE,FALSE;
+    ENDPROC
+    
+	! Robot will grab pen in method below
+	! All fixed Positions (will need to be discarded 
+	! or changed if workspace changes)
+    PROC GrabPen()
+        MoveJ AbovePen,v500,fine,tool0\WObj:=wobj0;
+        MoveL PenLocation,v500,fine,tool0\WObj:=wobj0;
+        close_gripper;
+        MoveL AbovePen,v500,fine,tool0\WObj:=wobj0;
+    ENDPROC
+	
+    ! Robot will put pen away in method below
+	! All fixed Positions (will need to be discarded 
+	! or changed if workspace changes)
+    PROC PutAwayPen()
+        moveToHomeSlow;
+        MoveJ AbovePen,v500,fine,tool0\WObj:=wobj0;
+        WaitTime 1;
+        open_gripper;
+        MoveL AbovePen,v500,fine,tool0\WObj:=wobj0;
+    ENDPROC
     
     PROC moveToHomeSlow()
         PathAccLim TRUE\AccMax := 3, TRUE, \DecelMax := 3;
@@ -590,6 +600,9 @@ MODULE MainModule
         PathAccLim FALSE,FALSE;
     ENDPROC
     
+	! Calibration method for calibrating the board to the pen
+	! All fixed Positions (will need to be discarded 
+	! or changed if workspace changes
     PROC calibrate()
         moveToHomeSlow;
         WaitTime 2;
